@@ -1,0 +1,155 @@
+$gravity_animal_edit $mol_page
+	animal $gravity_animal / *
+	title \Добавление животного
+	body /
+		<= Form $mol_form
+			form_fields /
+				<= Photos_field $mol_form_field
+					name \Фотографии
+					Content <= Photos $mol_attach
+				<= Name_field $mol_form_field
+					name \Кличка
+					Content <= Name $mol_string
+				<= Card_field $mol_form_field
+					name \Номер карточки
+					Content <= Сard $mol_string
+				<= Chip_field $mol_form_field
+					name \Номер чипа
+					Content <= Сhip $mol_string
+				<= Cage_field $mol_form_field
+					name \Номер вольера
+					Content <= Cage $mol_string
+				<= Kind_field $mol_form_field
+					name \Биологический вид
+					Content <= Kind $mol_switch
+						options *
+							cat \🐱 Кошка
+							dog \🐶 Собака
+				<= Gender_field $mol_form_field
+					name \Пол
+					Content <= Gender $mol_switch
+						options *
+							male \🔵 Самец
+							female \🟠 Самка
+				<= Weight_field $mol_form_field
+					name \Вес в килограммах
+					Content <= Weight $mol_number
+				<= Size_field $mol_form_field
+					name \Размер
+					Content <= Size $mol_switch
+						options *
+							small \Маленький
+							middle \Средний
+							large \Большой
+				<= Tail_field $mol_form_field
+					name \Динна хвоста
+					Content <= Tail $mol_switch
+						options *
+							none \Нет
+							short \Короткий
+							long \Длинный
+				<= Ear_field $mol_form_field
+					name \Тип ушей
+					Content <= Ear $mol_search
+						hint \
+						suggests /
+							\Нет
+							\Вислоух
+							\Торчком
+							\Вразнобой
+				<= Color_field $mol_form_field
+					name \Окрас
+					Content <= Color $mol_string
+				<= Trait_field $mol_form_field
+					name \Отличительные особенности
+					Content <= Trait $mol_textarea
+				<= Arrived_date_field $mol_form_field
+					name \Дата приёма в приют
+					Content <= Arrived_date $mol_date
+				<= Departed_date_field $mol_form_field
+					name \Дата выдачи хозяину
+					Content <= Departed_date $mol_date
+				<= Born_date_field $mol_form_field
+					name \День рождения
+					Content <= Born_date $mol_date
+				<= Dead_date_field $mol_form_field
+					name \День смерти
+					Content <= Dead_date $mol_date
+				<= Depart_ready_field $mol_form_field
+					Content <= Depart_ready $mol_check_box
+						title \Ищет хозяина
+				<= Description_field $mol_form_field
+					name \Описание для сайта
+					Content <= Description $mol_textarea
+						hint \История жизни, характер, повадки и тп.
+			sub /
+				<= Sections $mol_list
+					rows <= groups /
+						<= General $gravity_animal_edit_section
+							sub /
+								<= Main $gravity_animal_edit_group
+									sub /
+										<= Name_field
+										<= Cage_field
+								<= Codes $gravity_animal_edit_group
+									sub /
+										<= Card_field
+										<= Chip_field
+						<= Dates $gravity_animal_edit_section
+							sub /
+								<= Transitions $gravity_animal_edit_group
+									sub /
+										<= Arrived_date_field
+										<= Departed_date_field
+								<= Lifetime $gravity_animal_edit_group
+									sub /
+										<= Born_date_field
+										<= Dead_date_field
+						<= Classification $gravity_animal_edit_section
+							sub /
+								<= Types $gravity_animal_edit_group
+									sub /
+										<= Kind_field
+										<= Gender_field
+								<= Gabarites $gravity_animal_edit_group
+									sub /
+										<= Size_field
+										<= Weight_field
+						<= Attaches $gravity_animal_edit_group
+							sub /
+								<= Photos_field
+						<= Appearance $gravity_animal_edit_section
+							sub /
+								<= Ends $gravity_animal_edit_group
+									sub /
+										<= Tail_field
+										<= Ear_field
+								<= Visual $gravity_animal_edit_group
+									sub /
+										<= Color_field
+										<= Trait_field
+						<= Exports $gravity_animal_edit_group
+							sub /
+								<= Description_field
+								<= Depart_ready_field
+						<= Documents $gravity_animal_edit_group
+							sub /
+								<= Catch_field $mol_form_field
+									name \Акты отлова
+									Content <= Catch $gravity_animal_edit_links
+								<= Procedure_field $mol_form_field
+									name \Процедуры
+									Content <= Procedure $gravity_animal_edit_links
+								<= Contract_field $mol_form_field
+									name \Договора
+									Content <= Contract $gravity_animal_edit_links
+
+$gravity_animal_edit_section $mol_row
+$gravity_animal_edit_group $mol_row
+
+$gravity_animal_edit_links $mol_bar
+	sub /
+		- <= List $mol_textarea
+		<= Add $mol_button_minor
+			sub /
+				<= Add_icon $mol_icon_plus

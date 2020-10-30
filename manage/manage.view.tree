@@ -1,0 +1,34 @@
+$gravity_manage $mol_book2
+	shelter $gravity_shelter / *
+		name \Усы и хвосты
+		name_legal \НКО "Усы и хвосты" при ДИТ Москвы
+		animal /
+			*
+				name \🐱 Зассанка
+			*
+				name \🐶 Улыбака
+			*
+				name \🐶 Лаботряс
+	plugins /
+		<= Theme $mol_theme_auto
+	pages /
+		<= Animals_page $mol_page
+			tools /
+				<= Add $mol_link
+					arg * animal \
+					sub /
+						<= Add_icon $mol_icon_plus
+				<= Lights $mol_lights_toggle
+			title <= shelter_name \Приют
+			body /
+				<= Animal_list $mol_list
+					rows <= animal_list /
+		<= Animal_edit $gravity_animal_edit
+			tools /
+				<= Close $mol_link
+					arg * animal null
+					sub /
+						<= Close_icon $mol_icon_cross
+	-
+	Animal_card!id $gravity_animal_card
+		animal <= animal!id $gravity_animal / *

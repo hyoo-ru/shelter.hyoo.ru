@@ -1,0 +1,4 @@
+$gravity_animal_card $mol_row
+	animal $gravity_animal / *
+	sub /
+		<= title
