@@ -41,6 +41,20 @@ namespace $ {
 			return dict
 		}
 
+		value( key : string , next? : ReturnType< $gravity_animal['data'] > ) {
+			
+			if( next ) {
+				try {
+					this.$.$gravity_transport.save( `animals/${key}`, 'put', next )
+				} catch( error ) {
+					if( 'then' in error ) $mol_fail_hidden( error )
+					console.error( error )
+				}
+			}
+			
+			return super.value( key, next )
+		}
+
 		@ $mol_mem
 		list() {
 			return Object.keys( this.data() ).map(
