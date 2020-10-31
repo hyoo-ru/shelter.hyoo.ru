@@ -1,6 +1,6 @@
 $gravity_shelter_manage $mol_book2
 	shelter $gravity_shelter / *
-		id 1
+		id \1
 		name \Усы и хвосты
 		name_legal \НКО "Усы и хвосты" при ДИТ Москвы
 	animals $gravity_shelter_animals / *
