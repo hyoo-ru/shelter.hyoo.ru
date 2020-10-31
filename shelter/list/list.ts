@@ -2,7 +2,7 @@ namespace $ {
 
 	const Shelters = $mol_data_array(
 		$mol_data_record({
-			id: $mol_data_string,
+			id: $mol_data_integer,
 			name: $mol_data_string,
 		})
 	)
@@ -13,18 +13,18 @@ namespace $ {
 		Record< string, ReturnType< $gravity_shelter['data'] > >
 	> {
 
-		// @ $mol_mem
-		// data() {
+		@ $mol_mem
+		data() {
 
-		// 	const list = Shelters( this.$.$gravity_transport.load( 'shelters' ) )
+			const list = Shelters( this.$.$gravity_transport.load( 'shelters' ) )
 			
-		// 	const dict = {} as Record< string, Shelter >
-		// 	for( const item of list ) {
-		// 		dict[ item.id ] = item
-		// 	}
+			const dict = {} as Record< string, Shelter >
+			for( const item of list ) {
+				dict[ item.id ] = item
+			}
 			
-		// 	return dict
-		// }
+			return dict
+		}
 
 		@ $mol_mem
 		list() {
