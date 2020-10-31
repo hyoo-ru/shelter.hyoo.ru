@@ -12,7 +12,12 @@ namespace $.$$ {
 
 		@ $mol_mem
 		animal_list() {
-			return Object.keys( this.animals().data() ).map( key => this.Animal_card( key ) )
+			
+			const list = this.animals().list().slice()
+			
+			list.sort( ( a, b )=> b.arrived_date()!.valueOf() - a.arrived_date()!.valueOf() )
+			
+			return list.map( animal => this.Animal_card( animal.id() ) )
 		}
 		
 		animal_current( next? : string ) {
