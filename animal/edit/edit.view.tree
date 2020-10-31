@@ -51,6 +51,13 @@ $gravity_animal_edit $mol_page
 						options *
 							Dead \Смерть
 							Owned \Нашёл хозяина
+				- <= Dead_reason_field $mol_form_field
+					name \Причина смерти
+					Content <= Dead_reason $mol_switch
+						value?val <=> dead_reason?val \
+						options *
+							E \Естественная
+							Ev \Эвтаназия
 				<= Weight_field $mol_form_field
 					name \Вес в килограммах
 					Content <= Weight $mol_number

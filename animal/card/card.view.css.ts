@@ -28,6 +28,14 @@ namespace $ {
 			},
 		},
 
+		Chip: {
+			flex: {
+				basis: rem(10),
+				grow: 0,
+				shrink: 0,
+			},
+		},
+
 		'@': {
 			mol_link_current: {
 				'true': {

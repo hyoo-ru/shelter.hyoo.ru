@@ -6,6 +6,8 @@ $gravity_shelter_manage $mol_book2
 	pages /
 		<= Animals_page $mol_page
 			tools /
+				<= Search $mol_search
+					query?val <=> search?val \
 				<= Add $mol_link
 					arg * animal \
 					sub /
@@ -31,3 +33,4 @@ $gravity_shelter_manage $mol_book2
 	-
 	Animal_card!id $gravity_animal_card
 		animal <= animal!id $gravity_animal / *
+		highlight <= search

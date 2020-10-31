@@ -5,8 +5,15 @@ $gravity_animal_card $mol_link
 		^
 		gravity_animal_card_gender <= gender \
 	sub /
-		<= Card $mol_view sub / <= card \
+		<= Card $mol_dimmer
+			haystack <= card \
+			needle <= highlight \
+		<= Chip $mol_dimmer
+			haystack <= chip \
+			needle <= highlight \
 		<= Kind $mol_view sub / <= kind \
-		<= Name $mol_view sub / <= name \
+		<= Name $mol_dimmer
+			haystack <= name \
+			needle <= highlight \
 		<= Age $mol_view sub / <= age \
 		<= Size $mol_view sub / <= size \

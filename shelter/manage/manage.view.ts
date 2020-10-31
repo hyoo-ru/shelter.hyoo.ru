@@ -11,9 +11,20 @@ namespace $.$$ {
 		}
 
 		@ $mol_mem
+		animal_list_filtered() {
+			
+			return this.animals().list().filter( $mol_match_text( this.search(), animal => [
+				animal.name(),
+				animal.card(),
+				animal.chip(),
+			] ) )
+
+		}
+		
+		@ $mol_mem
 		animal_list() {
 			
-			const list = this.animals().list().slice()
+			let list = this.animal_list_filtered().slice()
 			
 			list.sort( ( a, b )=> b.arrived_date()!.valueOf() - a.arrived_date()!.valueOf() )
 			

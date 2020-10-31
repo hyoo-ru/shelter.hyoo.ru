@@ -8,6 +8,11 @@ namespace $ {
 			flex: {
 				basis: rem(40),
 			},
+			Title: {
+				flex: {
+					basis: 'auto',
+				},
+			},
 		},
 
 		Animal_edit: {

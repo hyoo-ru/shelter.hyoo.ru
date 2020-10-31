@@ -14,6 +14,10 @@ namespace $.$$ {
 			return this.animal().card()
 		}
 
+		chip() {
+			return this.animal().chip()
+		}
+
 		gender() {
 			return this.animal().gender()
 		}
