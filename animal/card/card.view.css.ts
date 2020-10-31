@@ -6,6 +6,18 @@ namespace $ {
 
 		padding: rem(.5),
 
+		flex: {
+			wrap: 'wrap',
+		},
+
+		Shelter: {
+			flex: {
+				basis: rem(6),
+				grow: 1,
+				shrink: 1,
+			},
+		},
+
 		Card: {
 			flex: {
 				basis: rem(5),
@@ -33,7 +45,7 @@ namespace $ {
 
 		Chip: {
 			flex: {
-				basis: rem(10),
+				basis: rem(9),
 				grow: 0,
 				shrink: 0,
 			},
@@ -64,7 +76,7 @@ namespace $ {
 		Name: {
 			textShadow: '0 0',
 			flex: {
-				basis: rem(15),
+				basis: rem(6),
 				grow: 1,
 				shrink: 1,
 			},

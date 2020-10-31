@@ -5,6 +5,22 @@ namespace $.$$ {
 		id() {
 			return this.animal().id()
 		}
+
+		sub() {
+			return [
+				... this.shelters() ? [ this.Shelter() ] : [],
+				this.Card(),
+				this.Chip(),
+				this.Kind(),
+				this.Name(),
+				this.Age(),
+				this.Size(),
+			]
+		}
+
+		shelter_name() {
+			return this.shelters().Shelter( this.animal().shelter_id() ).name()
+		}
 		
 		name() {
 			return this.animal().name()

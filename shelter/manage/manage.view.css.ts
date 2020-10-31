@@ -24,7 +24,7 @@ namespace $ {
 
 		Animals_page: {
 			flex: {
-				basis: rem(35),
+				basis: rem(45),
 			},
 			Title: {
 				flex: {
@@ -39,7 +39,6 @@ namespace $ {
 				basis: rem(35),
 				grow: 1000,
 			},
-			maxWidth: rem(120),
 		},
 
 		Animal_list: {

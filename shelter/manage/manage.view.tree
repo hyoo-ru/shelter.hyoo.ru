@@ -79,6 +79,7 @@ $gravity_shelter_manage $mol_book2
 	Animal_card!id $gravity_animal_card
 		animal <= animal!id $gravity_animal / *
 		highlight <= search
+		shelters <= card_shelters $gravity_shelter_list / *
 	-
 	Download $mol_link
 		hint \Скачать сводку в виде документа

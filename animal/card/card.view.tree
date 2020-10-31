@@ -1,10 +1,12 @@
 $gravity_animal_card $mol_link
 	animal $gravity_animal / *
+	shelters $gravity_shelter_list / *
 	arg * animal <= id \
 	attr *
 		^
 		gravity_animal_card_gender <= gender \
 	sub /
+		<= Shelter $mol_view sub / <= shelter_name \
 		<= Card $mol_dimmer
 			haystack <= card \
 			needle <= highlight \

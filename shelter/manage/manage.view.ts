@@ -63,6 +63,10 @@ namespace $.$$ {
 		// 	return !! this.shelter_single()
 		// }
 
+		card_shelters() {
+			return this.shelter_current() ? null as any : this.shelters()
+		}
+
 		animals_page_tools() {
 			return [
 				this.Search(),
