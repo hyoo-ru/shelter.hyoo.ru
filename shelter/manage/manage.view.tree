@@ -1,28 +1,72 @@
 $gravity_shelter_manage $mol_book2
-	shelter $gravity_shelter / *
-		id \1
-		name \Усы и хвосты
-		name_legal \НКО "Усы и хвосты" при ДИТ Москвы
+	shelters $gravity_shelter_list / *
+		1 *
+			id 1
+			name \Приют 1
+		2 *
+			id 2
+			name \Приют 2
+		3 *
+			id 3
+			name \Приют 3
+		4 *
+			id 4
+			name \Приют 4
+		5 *
+			id 5
+			name \Приют 5
+		6 *
+			id 6
+			name \Приют 6
+		7 *
+			id 7
+			name \Приют 7
+		8 *
+			id 8
+			name \Приют 8
+		9 *
+			id 9
+			name \Приют 9
+		10 *
+			id 10
+			name \Приют 10
 	animals $gravity_shelter_animals / *
 	pages /
-		<= Animals_page $mol_page
+		<= Filter_page $mol_page
 			tools /
-				<= Search $mol_search
-					query?val <=> search?val \
-				<= Add $mol_button_major
-					click?event <=> add?event null
-					sub /
-						<= Add_icon $mol_icon_plus
 				<= Lights $mol_lights_toggle
 				<= Logout $mol_button_minor
 					click?event <=> logout?event null
 					sub /
 						<= Logout_icon $mol_icon_logout
-			title <= shelter_name \Приют
+			title <= filter_title \Фильтры
+			body /
+				<= Filter_list $mol_list
+					rows <= filter_list /
+						<= Filter_shelter_list $gravity_shelter_manage_filter_group
+							title \Приюты
+							items <= filter_shelter_list /
+		<= Animals_page $mol_page
+			tools <= animals_page_tools /
+				<= Search $mol_search
+					query?val <=> search?val \
+				<= Add $mol_button_major
+					click?event <=> add?event null
+					hint \Добавить животное
+					sub /
+						<= Add_icon $mol_icon_plus
+			title <= animals_title \Управление приютом
 			body /
 				<= Animal_list $mol_list
 					rows <= animal_list /
+	Shelter_link_all $mol_link
+		arg * shelter null
+		sub / \Все
+	Shelter_link!id $mol_link
+		arg * shelter <= shelter_id!id \
+		sub / <= shelter_name!id \
 	Animal_edit!id $gravity_animal_edit
+		enabled <= can_edit true
 		Download => Animal_download!id
 		tools /
 			<= Animal_download!id
@@ -35,3 +79,17 @@ $gravity_shelter_manage $mol_book2
 	Animal_card!id $gravity_animal_card
 		animal <= animal!id $gravity_animal / *
 		highlight <= search
+	-
+	Download $mol_link
+		hint \Скачать сводку в виде документа
+		file_name <= download_name \
+		uri <= download_link \
+		sub /
+			<= Download_icon $mol_icon_download
+
+$gravity_shelter_manage_filter_group $mol_list
+	rows /
+		<= Title $mol_view
+			sub / <= title
+		<= Items $mol_list
+			rows <= items /

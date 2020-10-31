@@ -19,6 +19,7 @@ namespace $ {
 			kind: $mol_data_variant( $mol_data_const( 'Cat' ), $mol_data_const( 'Dog' ) ),
 			size: $mol_data_string,
 			tail: $mol_data_string,
+			shelterId: $mol_data_number,
 		})
 	)
 	
@@ -70,21 +71,16 @@ namespace $ {
 	}
 
 	export class $gravity_shelter extends $mol_store<{
-		id?: string
+		id?: number
 		name?: string
-		name_legal?: string
 	}> {
 
-		id( next? : string ) {
-			return this.value( 'id' , next ) ?? 0
+		id() {
+			return String( this.value( 'id' ) ?? '' )
 		}
 
 		name( next? : string ) {
 			return this.value( 'name' , next ) ?? ''
-		}
-
-		name_legal( next? : string ) {
-			return this.value( 'name_legal' , next ) ?? ''
 		}
 
 	}

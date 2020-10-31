@@ -1,6 +1,7 @@
 $gravity_animal_edit $mol_page
 	animal $gravity_animal / *
 	title \Данные животного
+	enabled true
 	tools /
 		<= Download $mol_link
 			hint \Скачать карточку в виде документа
@@ -18,22 +19,27 @@ $gravity_animal_edit $mol_page
 					name \Кличка
 					Content <= Name $mol_string
 						value?val <=> name?val \
+						enabled <= enabled
 				<= Card_field $mol_form_field
 					name \Номер карточки
 					Content <= Сard $mol_string
 						value?val <=> card?val \
+						enabled <= enabled
 				<= Chip_field $mol_form_field
 					name \Номер чипа
 					Content <= Сhip $mol_string
 						value?val <=> chip?val \
+						enabled <= enabled
 				<= Cage_field $mol_form_field
 					name \Номер вольера
 					Content <= Cage $mol_string
 						value?val <=> cage?val \
+						enabled <= enabled
 				<= Kind_field $mol_form_field
 					name \Биологический вид
 					Content <= Kind $mol_switch
 						value?val <=> kind?val \Cat
+						enabled <= enabled
 						options *
 							Cat \🐱 Кошка
 							Dog \🐶 Собака
@@ -41,6 +47,7 @@ $gravity_animal_edit $mol_page
 					name \Пол
 					Content <= Gender $mol_switch
 						value?val <=> gender?val \Male
+						enabled <= enabled
 						options *
 							Male \🔵 Самец
 							Female \🟠 Самка
@@ -48,6 +55,7 @@ $gravity_animal_edit $mol_page
 					name \Причина ухода
 					Content <= Departed_reason $mol_switch
 						value?val <=> departed_reason?val \
+						enabled <= enabled
 						options *
 							Dead \Смерть
 							Owned \Нашёл хозяина
@@ -55,17 +63,20 @@ $gravity_animal_edit $mol_page
 					name \Причина смерти
 					Content <= Dead_reason $mol_switch
 						value?val <=> dead_reason?val \
+						enabled <= enabled
 						options *
 							E \Естественная
 							Ev \Эвтаназия
 				<= Weight_field $mol_form_field
 					name \Вес в килограммах
 					Content <= Weight $mol_number
+						enabled <= enabled
 						value?val <=> weight?val 0
 				<= Size_field $mol_form_field
 					name \Размер
 					Content <= Size $mol_switch
 						value?val <=> size?val \
+						enabled <= enabled
 						options *
 							small \Маленький
 							middle \Средний
@@ -75,41 +86,50 @@ $gravity_animal_edit $mol_page
 					Content <= Tail $mol_search
 						hint \
 						query?val <=> size?val \
+						enabled <= enabled
 						suggests <= tail_suggest /string
 				<= Ear_field $mol_form_field
 					name \Тип ушей
 					Content <= Ear $mol_search
 						hint \
 						query?val <=> ear?val \
+						enabled <= enabled
 						suggests <= ear_suggest /string
 				<= Color_field $mol_form_field
 					name \Окрас
 					Content <= Color $mol_search
 						hint \
 						query?val <=> color?val \
+						enabled <= enabled
 						suggests <= color_suggest /string
 				<= Trait_field $mol_form_field
 					name \Отличительные особенности
 					Content <= Trait $mol_textarea
+						enabled <= enabled
 				<= Arrived_date_field $mol_form_field
 					name \Дата приёма в приют
 					Content <= Arrived_date $mol_date
 						value_moment?val <=> arrived_date?val $mol_time_moment
+						enabled <= enabled
 				<= Born_date_field $mol_form_field
 					name \День рождения
 					Content <= Born_date $mol_date
 						value_moment?val <=> born_date?val $mol_time_moment
+						enabled <= enabled
 				<= Departed_date_field $mol_form_field
 					name \Дата ухода
 					Content <= Departed_date $mol_date
 						value_moment?val <=> departed_date?val $mol_time_moment
+						enabled <= enabled
 				<= Depart_ready_field $mol_form_field
 					Content <= Depart_ready $mol_check_box
 						title \Ищет хозяина
+						enabled <= enabled
 				<= Description_field $mol_form_field
 					name \Описание для сайта
 					Content <= Description $mol_textarea
 						hint \История жизни, характер, повадки и тп.
+						enabled <= enabled
 			sub /
 				<= Sections $mol_list
 					rows <= groups /

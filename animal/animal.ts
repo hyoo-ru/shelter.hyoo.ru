@@ -22,6 +22,7 @@ namespace $ {
 		description?: string
 		photos?: readonly string[]
 		fur?: string
+		shelterId?: number
 	}> {
 
 		id() {
@@ -70,6 +71,10 @@ namespace $ {
 
 		gender( next? : $gravity_animal_gender ) {
 			return this.value( 'gender' , next ) ?? ''
+		}
+
+		shelter_id() {
+			return String( this.value( 'shelterId' ) ?? '' )
 		}
 
 		arrived_date( next? : $mol_time_moment | null ) {

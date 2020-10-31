@@ -1,6 +1,6 @@
 $gravity $mol_book2
 	plugins /
 		<= Theme $mol_theme_auto
+	Auth $gravity_auth_form
 	Manage $gravity_shelter_manage
 		logout?event <=> logout?event null
-	Auth $gravity_auth_form

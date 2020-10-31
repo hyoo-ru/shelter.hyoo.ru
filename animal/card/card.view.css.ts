@@ -1,8 +1,10 @@
 namespace $ {
 
-	const { rem, px } = $mol_style_unit
+	const { rem } = $mol_style_unit
 
 	$mol_style_define( $gravity_animal_card , {
+
+		padding: rem(.5),
 
 		Card: {
 			flex: {
@@ -14,10 +16,11 @@ namespace $ {
 
 		Age: {
 			flex: {
-				basis: rem(5),
+				basis: rem(2),
 				grow: 0,
 				shrink: 0,
 			},
+			alignContent: 'flex-end',
 		},
 
 		Size: {
