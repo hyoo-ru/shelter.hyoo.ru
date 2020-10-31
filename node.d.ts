@@ -1316,6 +1316,23 @@ declare namespace $ {
             size?: string | undefined;
             color?: string | undefined;
         }>;
+        value(key: string, next?: ReturnType<$gravity_animal['data']>): {
+            id?: number | undefined;
+            name?: string | undefined;
+            card?: string | undefined;
+            chip?: string | undefined;
+            cage?: string | undefined;
+            arrivedAt?: string | undefined;
+            departedAt?: string | null | undefined;
+            birthDate?: string | undefined;
+            kind?: "Cat" | "Dog" | undefined;
+            gender?: "Male" | "Female" | undefined;
+            weight?: number | undefined;
+            ears?: string | undefined;
+            tail?: string | undefined;
+            size?: string | undefined;
+            color?: string | undefined;
+        };
         list(): $gravity_animal[];
         Animal(index: string): $gravity_animal;
     }
