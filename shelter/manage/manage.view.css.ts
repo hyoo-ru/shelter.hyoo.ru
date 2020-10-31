@@ -17,7 +17,7 @@ namespace $ {
 
 		Animal_edit: {
 			flex: {
-				basis: rem(60),
+				basis: rem(50),
 				grow: 1000,
 			},
 			maxWidth: rem(120),

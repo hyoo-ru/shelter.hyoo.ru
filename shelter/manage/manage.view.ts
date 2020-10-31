@@ -42,6 +42,32 @@ namespace $.$$ {
 			]
 		}
 
+		add() {
+			const Response = $mol_data_record({ id : $mol_data_string })
+			const response = this.$.$gravity_transport.save( `shelters/${ this.shelter().id() }/animals`, 'post', {
+				name: '',
+				readyForDepart: false,
+				card: '',
+				chip: '',
+				kind: '',
+				gender: '',
+				cage: '',
+				arrivedAt: '',
+				departedAt: null,
+				birthDate: '',
+				weight: 0,
+				ears: '',
+				tail: '',
+				size: '',
+				color: '',
+				description: '',
+				photos: [],
+				fur: '',
+			} )
+			const id = Response( response ).id
+			this.$.$mol_state_arg.value( 'animal', id )
+		}
+
 	}
 
 }

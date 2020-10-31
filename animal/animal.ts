@@ -19,6 +19,9 @@ namespace $ {
 		tail?: string
 		size?: string
 		color?: string
+		description?: string
+		photos?: readonly string[]
+		fur?: string
 	}> {
 
 		id() {

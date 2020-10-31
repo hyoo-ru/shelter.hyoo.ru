@@ -70,9 +70,14 @@ namespace $ {
 	}
 
 	export class $gravity_shelter extends $mol_store<{
-		name: string
-		name_legal: string
+		id?: string
+		name?: string
+		name_legal?: string
 	}> {
+
+		id( next? : string ) {
+			return this.value( 'id' , next ) ?? 0
+		}
 
 		name( next? : string ) {
 			return this.value( 'name' , next ) ?? ''
