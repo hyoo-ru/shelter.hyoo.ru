@@ -5798,10 +5798,18 @@ var $;
 var $;
 (function ($) {
     const Shelters = $.$mol_data_array($.$mol_data_record({
-        id: $.$mol_data_string,
+        id: $.$mol_data_integer,
         name: $.$mol_data_string,
     }));
     class $gravity_shelter_list extends $.$mol_store {
+        data() {
+            const list = Shelters(this.$.$gravity_transport.load('shelters'));
+            const dict = {};
+            for (const item of list) {
+                dict[item.id] = item;
+            }
+            return dict;
+        }
         list() {
             return Object.keys(this.data()).map(key => this.Shelter(key));
         }
@@ -5810,6 +5818,9 @@ var $;
             return this.sub(index, new $.$gravity_shelter((_a = this.data()[index]) !== null && _a !== void 0 ? _a : {}));
         }
     }
+    __decorate([
+        $.$mol_mem
+    ], $gravity_shelter_list.prototype, "data", null);
     __decorate([
         $.$mol_mem
     ], $gravity_shelter_list.prototype, "list", null);

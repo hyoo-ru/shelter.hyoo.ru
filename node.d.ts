@@ -1913,6 +1913,10 @@ declare namespace $ {
 
 declare namespace $ {
     class $gravity_shelter_list extends $mol_store<Record<string, ReturnType<$gravity_shelter['data']>>> {
+        data(): Record<string, Readonly<{
+            id: number;
+            name: string;
+        }>>;
         list(): $gravity_shelter[];
         Shelter(index: string): $gravity_shelter;
     }
