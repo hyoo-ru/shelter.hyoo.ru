@@ -725,6 +725,13 @@ $gravity_animal_edit $mol_page
 						options *
 							Dead \Смерть
 							Owned \Нашёл хозяина
+				- <= Dead_reason_field $mol_form_field
+					name \Причина смерти
+					Content <= Dead_reason $mol_switch
+						value?val <=> dead_reason?val \
+						options *
+							E \Естественная
+							Ev \Эвтаназия
 				<= Weight_field $mol_form_field
 					name \Вес в килограммах
 					Content <= Weight $mol_number
@@ -856,9 +863,16 @@ $gravity_animal_card $mol_link
 		^
 		gravity_animal_card_gender <= gender \
 	sub /
-		<= Card $mol_view sub / <= card \
+		<= Card $mol_dimmer
+			haystack <= card \
+			needle <= highlight \
+		<= Chip $mol_dimmer
+			haystack <= chip \
+			needle <= highlight \
 		<= Kind $mol_view sub / <= kind \
-		<= Name $mol_view sub / <= name \
+		<= Name $mol_dimmer
+			haystack <= name \
+			needle <= highlight \
 		<= Age $mol_view sub / <= age \
 		<= Size $mol_view sub / <= size \
 
@@ -881,6 +895,8 @@ $gravity_shelter_manage $mol_book2
 	pages /
 		<= Animals_page $mol_page
 			tools /
+				<= Search $mol_search
+					query?val <=> search?val \
 				<= Add $mol_link
 					arg * animal \
 					sub /
@@ -906,6 +922,7 @@ $gravity_shelter_manage $mol_book2
 	-
 	Animal_card!id $gravity_animal_card
 		animal <= animal!id $gravity_animal / *
+		highlight <= search
 
 $mol_button_major $mol_button_typed
 	attr *

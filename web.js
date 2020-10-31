@@ -10032,6 +10032,26 @@ var $;
             obj.Content = () => this.Departed_reason();
             return obj;
         }
+        dead_reason(val) {
+            if (val !== undefined)
+                return val;
+            return "";
+        }
+        Dead_reason() {
+            const obj = new this.$.$mol_switch();
+            obj.value = (val) => this.dead_reason(val);
+            obj.options = () => ({
+                E: "Естественная",
+                Ev: "Эвтаназия"
+            });
+            return obj;
+        }
+        Dead_reason_field() {
+            const obj = new this.$.$mol_form_field();
+            obj.name = () => "Причина смерти";
+            obj.Content = () => this.Dead_reason();
+            return obj;
+        }
         weight(val) {
             if (val !== undefined)
                 return val;
@@ -10484,6 +10504,15 @@ var $;
     ], $gravity_animal_edit.prototype, "Departed_reason_field", null);
     __decorate([
         $.$mol_mem
+    ], $gravity_animal_edit.prototype, "dead_reason", null);
+    __decorate([
+        $.$mol_mem
+    ], $gravity_animal_edit.prototype, "Dead_reason", null);
+    __decorate([
+        $.$mol_mem
+    ], $gravity_animal_edit.prototype, "Dead_reason_field", null);
+    __decorate([
+        $.$mol_mem
     ], $gravity_animal_edit.prototype, "weight", null);
     __decorate([
         $.$mol_mem
@@ -10896,6 +10925,7 @@ var $;
         sub() {
             return [
                 this.Card(),
+                this.Chip(),
                 this.Kind(),
                 this.Name(),
                 this.Age(),
@@ -10911,11 +10941,22 @@ var $;
         card() {
             return "";
         }
+        highlight() {
+            return "";
+        }
         Card() {
-            const obj = new this.$.$mol_view();
-            obj.sub = () => [
-                this.card()
-            ];
+            const obj = new this.$.$mol_dimmer();
+            obj.haystack = () => this.card();
+            obj.needle = () => this.highlight();
+            return obj;
+        }
+        chip() {
+            return "";
+        }
+        Chip() {
+            const obj = new this.$.$mol_dimmer();
+            obj.haystack = () => this.chip();
+            obj.needle = () => this.highlight();
             return obj;
         }
         kind() {
@@ -10932,10 +10973,9 @@ var $;
             return "";
         }
         Name() {
-            const obj = new this.$.$mol_view();
-            obj.sub = () => [
-                this.name()
-            ];
+            const obj = new this.$.$mol_dimmer();
+            obj.haystack = () => this.name();
+            obj.needle = () => this.highlight();
             return obj;
         }
         age() {
@@ -10965,6 +11005,9 @@ var $;
     __decorate([
         $.$mol_mem
     ], $gravity_animal_card.prototype, "Card", null);
+    __decorate([
+        $.$mol_mem
+    ], $gravity_animal_card.prototype, "Chip", null);
     __decorate([
         $.$mol_mem
     ], $gravity_animal_card.prototype, "Kind", null);
@@ -11003,6 +11046,13 @@ var $;
         Size: {
             flex: {
                 basis: rem(5),
+                grow: 0,
+                shrink: 0,
+            },
+        },
+        Chip: {
+            flex: {
+                basis: rem(10),
                 grow: 0,
                 shrink: 0,
             },
@@ -11059,6 +11109,9 @@ var $;
             }
             card() {
                 return this.animal().card();
+            }
+            chip() {
+                return this.animal().chip();
             }
             gender() {
                 return this.animal().gender();
@@ -11231,6 +11284,17 @@ var $;
         Animal_card(id) {
             const obj = new this.$.$gravity_animal_card();
             obj.animal = () => this.animal(id);
+            obj.highlight = () => this.search();
+            return obj;
+        }
+        search(val) {
+            if (val !== undefined)
+                return val;
+            return "";
+        }
+        Search() {
+            const obj = new this.$.$mol_search();
+            obj.query = (val) => this.search(val);
             return obj;
         }
         Add_icon() {
@@ -11282,6 +11346,7 @@ var $;
         Animals_page() {
             const obj = new this.$.$mol_page();
             obj.tools = () => [
+                this.Search(),
                 this.Add(),
                 this.Lights(),
                 this.Logout()
@@ -11323,6 +11388,12 @@ var $;
     __decorate([
         $.$mol_mem_key
     ], $gravity_shelter_manage.prototype, "Animal_card", null);
+    __decorate([
+        $.$mol_mem
+    ], $gravity_shelter_manage.prototype, "search", null);
+    __decorate([
+        $.$mol_mem
+    ], $gravity_shelter_manage.prototype, "Search", null);
     __decorate([
         $.$mol_mem
     ], $gravity_shelter_manage.prototype, "Add_icon", null);
@@ -11369,6 +11440,11 @@ var $;
             flex: {
                 basis: rem(40),
             },
+            Title: {
+                flex: {
+                    basis: 'auto',
+                },
+            },
         },
         Animal_edit: {
             flex: {
@@ -11396,8 +11472,15 @@ var $;
             animal(key) {
                 return this.animals().Animal(key);
             }
+            animal_list_filtered() {
+                return this.animals().list().filter($.$mol_match_text(this.search(), animal => [
+                    animal.name(),
+                    animal.card(),
+                    animal.chip(),
+                ]));
+            }
             animal_list() {
-                const list = this.animals().list().slice();
+                let list = this.animal_list_filtered().slice();
                 list.sort((a, b) => b.arrived_date().valueOf() - a.arrived_date().valueOf());
                 return list.map(animal => this.Animal_card(animal.id()));
             }
@@ -11411,6 +11494,9 @@ var $;
                 ];
             }
         }
+        __decorate([
+            $.$mol_mem
+        ], $gravity_shelter_manage.prototype, "animal_list_filtered", null);
         __decorate([
             $.$mol_mem
         ], $gravity_shelter_manage.prototype, "animal_list", null);

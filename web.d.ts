@@ -3129,6 +3129,9 @@ declare namespace $ {
         departed_reason(val?: any): any;
         Departed_reason(): $$.$mol_switch;
         Departed_reason_field(): $mol_form_field;
+        dead_reason(val?: any): any;
+        Dead_reason(): $$.$mol_switch;
+        Dead_reason_field(): $mol_form_field;
         weight(val?: any): any;
         Weight(): $$.$mol_number;
         Weight_field(): $mol_form_field;
@@ -3278,11 +3281,14 @@ declare namespace $ {
         id(): string;
         gender(): string;
         card(): string;
-        Card(): $mol_view;
+        highlight(): string;
+        Card(): $$.$mol_dimmer;
+        chip(): string;
+        Chip(): $$.$mol_dimmer;
         kind(): string;
         Kind(): $mol_view;
         name(): string;
-        Name(): $mol_view;
+        Name(): $$.$mol_dimmer;
         age(): string;
         Age(): $mol_view;
         size(): string;
@@ -3298,6 +3304,7 @@ declare namespace $.$$ {
         id(): string;
         name(): string;
         card(): string;
+        chip(): string;
         gender(): $gravity_animal_gender;
         size(): string;
         age(): string;
@@ -3356,6 +3363,8 @@ declare namespace $ {
         Animal_edit(id: any): $$.$gravity_animal_edit;
         Animal_download(id: any): $$.$mol_link;
         Animal_card(id: any): $$.$gravity_animal_card;
+        search(val?: any): any;
+        Search(): $$.$mol_search;
         Add_icon(): $mol_icon_plus;
         Add(): $$.$mol_link;
         Lights(): $$.$mol_lights_toggle;
@@ -3379,6 +3388,7 @@ declare namespace $.$$ {
     class $gravity_shelter_manage extends $.$gravity_shelter_manage {
         shelter_name(): string;
         animal(key: string): $gravity_animal;
+        animal_list_filtered(): $gravity_animal[];
         animal_list(): $gravity_animal_card[];
         animal_current(next?: string): string | null;
         pages(): ($mol_page | $gravity_animal_edit)[];
