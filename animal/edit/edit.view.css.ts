@@ -1,6 +1,6 @@
 namespace $ {
 
-	const { rem, px } = $mol_style_unit
+	const { rem } = $mol_style_unit
 
 	$mol_style_define( $gravity_animal_edit , {
 
@@ -15,6 +15,14 @@ namespace $ {
 		},
 
 		Ear: {
+			alignSelf: 'stretch',
+		},
+
+		Tail: {
+			alignSelf: 'stretch',
+		},
+
+		Color: {
 			alignSelf: 'stretch',
 		},
 

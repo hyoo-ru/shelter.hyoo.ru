@@ -1,6 +1,6 @@
 $gravity_animal_edit $mol_page
 	animal $gravity_animal / *
-	title \Добавление животного
+	title \Данные животного
 	body /
 		<= Form $mol_form
 			form_fields /
@@ -47,32 +47,33 @@ $gravity_animal_edit $mol_page
 				<= Weight_field $mol_form_field
 					name \Вес в килограммах
 					Content <= Weight $mol_number
+						value?val <=> weight?val 0
 				<= Size_field $mol_form_field
 					name \Размер
 					Content <= Size $mol_switch
+						value?val <=> size?val \
 						options *
 							small \Маленький
 							middle \Средний
 							large \Большой
 				<= Tail_field $mol_form_field
 					name \Динна хвоста
-					Content <= Tail $mol_switch
-						options *
-							none \Нет
-							short \Короткий
-							long \Длинный
+					Content <= Tail $mol_search
+						hint \
+						query?val <=> size?val \
+						suggests <= tail_suggest /string
 				<= Ear_field $mol_form_field
 					name \Тип ушей
 					Content <= Ear $mol_search
 						hint \
-						suggests /
-							\Нет
-							\Вислоух
-							\Торчком
-							\Вразнобой
+						query?val <=> ear?val \
+						suggests <= ear_suggest /string
 				<= Color_field $mol_form_field
 					name \Окрас
-					Content <= Color $mol_string
+					Content <= Color $mol_search
+						hint \
+						query?val <=> color?val \
+						suggests <= color_suggest /string
 				<= Trait_field $mol_form_field
 					name \Отличительные особенности
 					Content <= Trait $mol_textarea

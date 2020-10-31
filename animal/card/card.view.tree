@@ -1,6 +1,12 @@
 $gravity_animal_card $mol_link
 	animal $gravity_animal / *
 	arg * animal <= id \
+	attr *
+		^
+		gravity_animal_card_gender <= gender \
 	sub /
 		<= Card $mol_view sub / <= card \
+		<= Kind $mol_view sub / <= kind \
 		<= Name $mol_view sub / <= name \
+		<= Age $mol_view sub / <= age \
+		<= Size $mol_view sub / <= size \

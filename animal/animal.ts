@@ -1,4 +1,7 @@
 namespace $ {
+
+	export type $gravity_animal_kind = 'Cat' | 'Dog' 
+	export type $gravity_animal_gender = 'Male' | 'Female' 
 	
 	export class $gravity_animal extends $mol_store<{
 		id?: number
@@ -9,6 +12,13 @@ namespace $ {
 		arrivedAt?: string
 		departedAt?: string | null
 		birthDate?: string
+		kind?: $gravity_animal_kind
+		gender?: $gravity_animal_gender
+		weight?: number
+		ears?: string
+		tail?: string
+		size?: string
+		color?: string
 	}> {
 
 		id() {
@@ -31,22 +41,50 @@ namespace $ {
 			return this.value( 'cage' , next ) ?? ''
 		}
 
-		arrived_date( next? : $mol_time_moment ) {
+		size( next? : string ) {
+			return this.value( 'size' , next ) ?? ''
+		}
+
+		ear( next? : string ) {
+			return this.value( 'ears' , next ) ?? ''
+		}
+
+		tail( next? : string ) {
+			return this.value( 'tail' , next ) ?? ''
+		}
+
+		color( next? : string ) {
+			return this.value( 'color' , next ) ?? ''
+		}
+
+		weight( next? : number ) {
+			return this.value( 'weight' , next ) ?? 0
+		}
+
+		kind( next? : $gravity_animal_kind ) {
+			return this.value( 'kind' , next ) ?? ''
+		}
+
+		gender( next? : $gravity_animal_gender ) {
+			return this.value( 'gender' , next ) ?? ''
+		}
+
+		arrived_date( next? : $mol_time_moment | null ) {
 			let str = next?.toString()
 			str = this.value( 'arrivedAt' , str )
-			return new $mol_time_moment( str ).mask( '1111-11-11' )
+			return str && new $mol_time_moment( str ).mask( '1111-11-11' ) || null
 		}
 
-		departed_date( next? : $mol_time_moment ) {
+		departed_date( next? : $mol_time_moment | null ) {
 			let str = next?.toString()
 			str = this.value( 'departedAt' , str )
-			return new $mol_time_moment( str ).mask( '1111-11-11' )
+			return str && new $mol_time_moment( str ).mask( '1111-11-11' ) || null
 		}
 
-		born_date( next? : $mol_time_moment ) {
+		born_date( next? : $mol_time_moment | null ) {
 			let str = next?.toString()
 			str = this.value( 'birthDate' , str )
-			return new $mol_time_moment( str ).mask( '1111-11-11' )
+			return str && new $mol_time_moment( str ).mask( '1111-11-11' ) || null
 		}
 
 	}
