@@ -11360,7 +11360,9 @@ var $;
         Animal_edit: {
             flex: {
                 basis: rem(60),
+                grow: 1000,
             },
+            maxWidth: rem(120),
         },
         Animal_list: {
             padding: rem(.75),
