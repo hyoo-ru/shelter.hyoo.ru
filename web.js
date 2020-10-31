@@ -4085,7 +4085,7 @@ var $;
         data(next) {
             if (next !== undefined)
                 return next;
-            const list = Animals(this.$.$gravity_transport.load('shelters/1/animals'));
+            const list = Animals(this.$.$gravity_transport.load('animals'));
             const dict = {};
             for (const item of list) {
                 dict[item.id] = item;
@@ -10580,7 +10580,7 @@ var $;
         flex: {
             grow: 1,
             shrink: 1,
-            basis: rem(15),
+            basis: rem(30),
         },
         $mol_form_field: {
             flex: {
@@ -10696,7 +10696,7 @@ var $;
     $.$mol_style_define($.$gravity_animal_card, {
         Card: {
             flex: {
-                basis: rem(4),
+                basis: rem(5),
                 grow: 0,
                 shrink: 0,
             },
@@ -11009,7 +11009,7 @@ var $;
         },
         Animal_edit: {
             flex: {
-                basis: rem(80),
+                basis: rem(60),
             },
         },
         Animal_list: {
