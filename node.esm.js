@@ -4029,20 +4029,48 @@ var $;
             var _a;
             return (_a = this.value('cage', next)) !== null && _a !== void 0 ? _a : '';
         }
+        size(next) {
+            var _a;
+            return (_a = this.value('size', next)) !== null && _a !== void 0 ? _a : '';
+        }
+        ear(next) {
+            var _a;
+            return (_a = this.value('ears', next)) !== null && _a !== void 0 ? _a : '';
+        }
+        tail(next) {
+            var _a;
+            return (_a = this.value('tail', next)) !== null && _a !== void 0 ? _a : '';
+        }
+        color(next) {
+            var _a;
+            return (_a = this.value('color', next)) !== null && _a !== void 0 ? _a : '';
+        }
+        weight(next) {
+            var _a;
+            return (_a = this.value('weight', next)) !== null && _a !== void 0 ? _a : 0;
+        }
+        kind(next) {
+            var _a;
+            return (_a = this.value('kind', next)) !== null && _a !== void 0 ? _a : '';
+        }
+        gender(next) {
+            var _a;
+            return (_a = this.value('gender', next)) !== null && _a !== void 0 ? _a : '';
+        }
         arrived_date(next) {
             let str = next === null || next === void 0 ? void 0 : next.toString();
             str = this.value('arrivedAt', str);
-            return new $.$mol_time_moment(str).mask('1111-11-11');
+            return str && new $.$mol_time_moment(str).mask('1111-11-11') || null;
         }
         departed_date(next) {
             let str = next === null || next === void 0 ? void 0 : next.toString();
             str = this.value('departedAt', str);
-            return new $.$mol_time_moment(str).mask('1111-11-11');
+            return str && new $.$mol_time_moment(str).mask('1111-11-11') || null;
         }
         born_date(next) {
             let str = next === null || next === void 0 ? void 0 : next.toString();
             str = this.value('birthDate', str);
-            return new $.$mol_time_moment(str).mask('1111-11-11');
+            return str && new $.$mol_time_moment(str).mask('1111-11-11') || null;
         }
     }
     $.$gravity_animal = $gravity_animal;
@@ -10139,7 +10167,7 @@ var $;
             return obj;
         }
         title() {
-            return "Добавление животного";
+            return "Данные животного";
         }
         body() {
             return [
@@ -10280,8 +10308,14 @@ var $;
             obj.Content = () => this.Departed_reason();
             return obj;
         }
+        weight(val) {
+            if (val !== undefined)
+                return val;
+            return 0;
+        }
         Weight() {
             const obj = new this.$.$mol_number();
+            obj.value = (val) => this.weight(val);
             return obj;
         }
         Weight_field() {
@@ -10290,8 +10324,14 @@ var $;
             obj.Content = () => this.Weight();
             return obj;
         }
+        size(val) {
+            if (val !== undefined)
+                return val;
+            return "";
+        }
         Size() {
             const obj = new this.$.$mol_switch();
+            obj.value = (val) => this.size(val);
             obj.options = () => ({
                 small: "Маленький",
                 middle: "Средний",
@@ -10305,13 +10345,14 @@ var $;
             obj.Content = () => this.Size();
             return obj;
         }
+        tail_suggest() {
+            return [];
+        }
         Tail() {
-            const obj = new this.$.$mol_switch();
-            obj.options = () => ({
-                none: "Нет",
-                short: "Короткий",
-                long: "Длинный"
-            });
+            const obj = new this.$.$mol_search();
+            obj.hint = () => "";
+            obj.query = (val) => this.size(val);
+            obj.suggests = () => this.tail_suggest();
             return obj;
         }
         Tail_field() {
@@ -10320,15 +10361,19 @@ var $;
             obj.Content = () => this.Tail();
             return obj;
         }
+        ear(val) {
+            if (val !== undefined)
+                return val;
+            return "";
+        }
+        ear_suggest() {
+            return [];
+        }
         Ear() {
             const obj = new this.$.$mol_search();
             obj.hint = () => "";
-            obj.suggests = () => [
-                "Нет",
-                "Вислоух",
-                "Торчком",
-                "Вразнобой"
-            ];
+            obj.query = (val) => this.ear(val);
+            obj.suggests = () => this.ear_suggest();
             return obj;
         }
         Ear_field() {
@@ -10337,8 +10382,19 @@ var $;
             obj.Content = () => this.Ear();
             return obj;
         }
+        color(val) {
+            if (val !== undefined)
+                return val;
+            return "";
+        }
+        color_suggest() {
+            return [];
+        }
         Color() {
-            const obj = new this.$.$mol_string();
+            const obj = new this.$.$mol_search();
+            obj.hint = () => "";
+            obj.query = (val) => this.color(val);
+            obj.suggests = () => this.color_suggest();
             return obj;
         }
         Color_field() {
@@ -10698,10 +10754,16 @@ var $;
     ], $gravity_animal_edit.prototype, "Departed_reason_field", null);
     __decorate([
         $.$mol_mem
+    ], $gravity_animal_edit.prototype, "weight", null);
+    __decorate([
+        $.$mol_mem
     ], $gravity_animal_edit.prototype, "Weight", null);
     __decorate([
         $.$mol_mem
     ], $gravity_animal_edit.prototype, "Weight_field", null);
+    __decorate([
+        $.$mol_mem
+    ], $gravity_animal_edit.prototype, "size", null);
     __decorate([
         $.$mol_mem
     ], $gravity_animal_edit.prototype, "Size", null);
@@ -10716,10 +10778,16 @@ var $;
     ], $gravity_animal_edit.prototype, "Tail_field", null);
     __decorate([
         $.$mol_mem
+    ], $gravity_animal_edit.prototype, "ear", null);
+    __decorate([
+        $.$mol_mem
     ], $gravity_animal_edit.prototype, "Ear", null);
     __decorate([
         $.$mol_mem
     ], $gravity_animal_edit.prototype, "Ear_field", null);
+    __decorate([
+        $.$mol_mem
+    ], $gravity_animal_edit.prototype, "color", null);
     __decorate([
         $.$mol_mem
     ], $gravity_animal_edit.prototype, "Color", null);
@@ -10885,7 +10953,80 @@ var $;
 "use strict";
 var $;
 (function ($) {
-    const { rem, px } = $.$mol_style_unit;
+    function $mol_data_dict(sub) {
+        return $.$mol_data_setup((val) => {
+            if (Object.getPrototypeOf(val) !== Object.prototype) {
+                return $.$mol_fail(new $.$mol_data_error(`${val} is not an Object`));
+            }
+            const res = {};
+            for (const field in val) {
+                try {
+                    res[field] = sub(val[field]);
+                }
+                catch (error) {
+                    if ('then' in error)
+                        return $.$mol_fail_hidden(error);
+                    error.message = `[${JSON.stringify(field)}] ${error.message}`;
+                    return $.$mol_fail(error);
+                }
+            }
+            return res;
+        }, sub);
+    }
+    $.$mol_data_dict = $mol_data_dict;
+})($ || ($ = {}));
+//dict.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    const Response = $.$mol_data_record({
+        tail_types: $.$mol_data_array($.$mol_data_string),
+        ears_types: $.$mol_data_array($.$mol_data_string),
+        death_reasons: $.$mol_data_array($.$mol_data_string),
+        departure_reasons: $.$mol_data_array($.$mol_data_string),
+        fur_types: $.$mol_data_dict($.$mol_data_array($.$mol_data_string)),
+        colors: $.$mol_data_dict($.$mol_data_array($.$mol_data_string)),
+        breeds: $.$mol_data_dict($.$mol_data_array($.$mol_data_string)),
+    });
+    class $gravity_dict extends $.$mol_object2 {
+        static data() {
+            $.$mol_mem_persist();
+            return Response(this.$.$gravity_transport.load(`dictionaries`));
+        }
+        static tail_suggest() {
+            return this.data().tail_types;
+        }
+        static ear_suggest() {
+            return this.data().ears_types;
+        }
+        static dead_reason_suggest() {
+            return this.data().death_reasons;
+        }
+        static departed_reason_suggest() {
+            return this.data().departure_reasons;
+        }
+        static fur_suggest(kind) {
+            return this.data().fur_types[kind];
+        }
+        static color_suggest(kind) {
+            return this.data().colors[kind];
+        }
+        static breed_suggest(kind) {
+            return this.data().breeds[kind];
+        }
+    }
+    __decorate([
+        $.$mol_mem
+    ], $gravity_dict, "data", null);
+    $.$gravity_dict = $gravity_dict;
+})($ || ($ = {}));
+//dict.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    const { rem } = $.$mol_style_unit;
     $.$mol_style_define($.$gravity_animal_edit, {
         Sections: {
             padding: rem(.75),
@@ -10896,6 +11037,12 @@ var $;
             },
         },
         Ear: {
+            alignSelf: 'stretch',
+        },
+        Tail: {
+            alignSelf: 'stretch',
+        },
+        Color: {
             alignSelf: 'stretch',
         },
     });
@@ -10947,14 +11094,46 @@ var $;
             cage(next) {
                 return this.animal().cage(next);
             }
+            weight(next) {
+                return this.animal().weight(next);
+            }
+            size(next) {
+                return this.animal().size(next);
+            }
+            ear(next) {
+                this.ear_suggest();
+                return this.animal().ear(next);
+            }
+            tail(next) {
+                this.tail_suggest();
+                return this.animal().tail(next);
+            }
+            color(next) {
+                return this.animal().color(next);
+            }
+            kind(next) {
+                return this.animal().kind(next);
+            }
+            gender(next) {
+                return this.animal().gender(next);
+            }
             arrived_date(next) {
                 return this.animal().arrived_date(next);
             }
             departed_date(next) {
-                return this.animal().arrived_date(next);
+                return this.animal().departed_date(next);
             }
             born_date(next) {
-                return this.animal().arrived_date(next);
+                return this.animal().born_date(next);
+            }
+            ear_suggest() {
+                return this.$.$gravity_dict.ear_suggest();
+            }
+            tail_suggest() {
+                return this.$.$gravity_dict.tail_suggest();
+            }
+            color_suggest() {
+                return this.$.$gravity_dict.color_suggest(this.kind());
             }
         }
         $$.$gravity_animal_edit = $gravity_animal_edit;
@@ -10975,13 +11154,22 @@ var $;
                 animal: this.id()
             };
         }
+        attr() {
+            return Object.assign(Object.assign({}, super.attr()), { gravity_animal_card_gender: this.gender() });
+        }
         sub() {
             return [
                 this.Card(),
-                this.Name()
+                this.Kind(),
+                this.Name(),
+                this.Age(),
+                this.Size()
             ];
         }
         id() {
+            return "";
+        }
+        gender() {
             return "";
         }
         card() {
@@ -10991,6 +11179,16 @@ var $;
             const obj = new this.$.$mol_view();
             obj.sub = () => [
                 this.card()
+            ];
+            return obj;
+        }
+        kind() {
+            return "";
+        }
+        Kind() {
+            const obj = new this.$.$mol_view();
+            obj.sub = () => [
+                this.kind()
             ];
             return obj;
         }
@@ -11004,6 +11202,26 @@ var $;
             ];
             return obj;
         }
+        age() {
+            return "";
+        }
+        Age() {
+            const obj = new this.$.$mol_view();
+            obj.sub = () => [
+                this.age()
+            ];
+            return obj;
+        }
+        size() {
+            return "";
+        }
+        Size() {
+            const obj = new this.$.$mol_view();
+            obj.sub = () => [
+                this.size()
+            ];
+            return obj;
+        }
     }
     __decorate([
         $.$mol_mem
@@ -11013,7 +11231,16 @@ var $;
     ], $gravity_animal_card.prototype, "Card", null);
     __decorate([
         $.$mol_mem
+    ], $gravity_animal_card.prototype, "Kind", null);
+    __decorate([
+        $.$mol_mem
     ], $gravity_animal_card.prototype, "Name", null);
+    __decorate([
+        $.$mol_mem
+    ], $gravity_animal_card.prototype, "Age", null);
+    __decorate([
+        $.$mol_mem
+    ], $gravity_animal_card.prototype, "Size", null);
     $.$gravity_animal_card = $gravity_animal_card;
 })($ || ($ = {}));
 //card.view.tree.js.map
@@ -11028,6 +11255,49 @@ var $;
                 basis: rem(5),
                 grow: 0,
                 shrink: 0,
+            },
+        },
+        Age: {
+            flex: {
+                basis: rem(5),
+                grow: 0,
+                shrink: 0,
+            },
+        },
+        Size: {
+            flex: {
+                basis: rem(5),
+                grow: 0,
+                shrink: 0,
+            },
+        },
+        '@': {
+            mol_link_current: {
+                'true': {
+                    Name: {
+                        color: 'currentColor',
+                    },
+                },
+            },
+            gravity_animal_card_gender: {
+                'Male': {
+                    Name: {
+                        color: '#0078d7',
+                    },
+                },
+                'Female': {
+                    Name: {
+                        color: '#f7630c',
+                    },
+                },
+            },
+        },
+        Name: {
+            textShadow: '0 0',
+            flex: {
+                basis: rem(15),
+                grow: 1,
+                shrink: 1,
             },
         },
         '>': {
@@ -11054,7 +11324,31 @@ var $;
             card() {
                 return this.animal().card();
             }
+            gender() {
+                return this.animal().gender();
+            }
+            size() {
+                return this.animal().size();
+            }
+            age() {
+                const start = this.animal().born_date();
+                if (!start)
+                    return '';
+                const interval = new $.$mol_time_interval({ start, end: new $.$mol_time_moment });
+                return interval.duration.count('P1Y').toFixed(1);
+            }
+            kind() {
+                var _a;
+                const mapping = {
+                    'Cat': '🐱',
+                    'Dog': '🐶',
+                };
+                return (_a = mapping[this.animal().kind()]) !== null && _a !== void 0 ? _a : '🐾';
+            }
         }
+        __decorate([
+            $.$mol_mem
+        ], $gravity_animal_card.prototype, "age", null);
         $$.$gravity_animal_card = $gravity_animal_card;
     })($$ = $.$$ || ($.$$ = {}));
 })($ || ($ = {}));

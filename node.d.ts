@@ -1199,6 +1199,8 @@ declare namespace $ {
 }
 
 declare namespace $ {
+    type $gravity_animal_kind = 'Cat' | 'Dog';
+    type $gravity_animal_gender = 'Male' | 'Female';
     class $gravity_animal extends $mol_store<{
         id?: number;
         name?: string;
@@ -1208,15 +1210,29 @@ declare namespace $ {
         arrivedAt?: string;
         departedAt?: string | null;
         birthDate?: string;
+        kind?: $gravity_animal_kind;
+        gender?: $gravity_animal_gender;
+        weight?: number;
+        ears?: string;
+        tail?: string;
+        size?: string;
+        color?: string;
     }> {
         id(): string;
         name(next?: string): string;
         card(next?: string): string;
         chip(next?: string): string;
         cage(next?: string): string;
-        arrived_date(next?: $mol_time_moment): $mol_time_moment;
-        departed_date(next?: $mol_time_moment): $mol_time_moment;
-        born_date(next?: $mol_time_moment): $mol_time_moment;
+        size(next?: string): string;
+        ear(next?: string): string;
+        tail(next?: string): string;
+        color(next?: string): string;
+        weight(next?: number): number;
+        kind(next?: $gravity_animal_kind): $gravity_animal_kind;
+        gender(next?: $gravity_animal_gender): $gravity_animal_gender;
+        arrived_date(next?: $mol_time_moment | null): $mol_time_moment | null;
+        departed_date(next?: $mol_time_moment | null): $mol_time_moment | null;
+        born_date(next?: $mol_time_moment | null): $mol_time_moment | null;
     }
 }
 
@@ -1291,6 +1307,13 @@ declare namespace $ {
             arrivedAt?: string | undefined;
             departedAt?: string | null | undefined;
             birthDate?: string | undefined;
+            kind?: "Cat" | "Dog" | undefined;
+            gender?: "Male" | "Female" | undefined;
+            weight?: number | undefined;
+            ears?: string | undefined;
+            tail?: string | undefined;
+            size?: string | undefined;
+            color?: string | undefined;
         }>;
         list(): $gravity_animal[];
         Animal(index: string): $gravity_animal;
@@ -3095,15 +3118,22 @@ declare namespace $ {
         departed_reason(val?: any): any;
         Departed_reason(): $$.$mol_switch;
         Departed_reason_field(): $mol_form_field;
+        weight(val?: any): any;
         Weight(): $$.$mol_number;
         Weight_field(): $mol_form_field;
+        size(val?: any): any;
         Size(): $$.$mol_switch;
         Size_field(): $mol_form_field;
-        Tail(): $$.$mol_switch;
+        tail_suggest(): readonly string[];
+        Tail(): $$.$mol_search;
         Tail_field(): $mol_form_field;
+        ear(val?: any): any;
+        ear_suggest(): readonly string[];
         Ear(): $$.$mol_search;
         Ear_field(): $mol_form_field;
-        Color(): $$.$mol_string;
+        color(val?: any): any;
+        color_suggest(): readonly string[];
+        Color(): $$.$mol_search;
         Color_field(): $mol_form_field;
         Trait(): $$.$mol_textarea;
         Trait_field(): $mol_form_field;
@@ -3158,6 +3188,40 @@ declare namespace $ {
 }
 
 declare namespace $ {
+    function $mol_data_dict<Sub extends $mol_data_value>(sub: Sub): ((val: readonly Parameters<Sub>[0][] | unknown) => Readonly<Record<string, ReturnType<Sub>>>) & {
+        config: Sub;
+        Value: Readonly<Record<string, ReturnType<Sub>>>;
+    };
+}
+
+declare namespace $ {
+    class $gravity_dict extends $mol_object2 {
+        static data(): Readonly<{
+            tail_types: readonly string[];
+            ears_types: readonly string[];
+            death_reasons: readonly string[];
+            departure_reasons: readonly string[];
+            fur_types: {
+                [x: string]: readonly string[];
+            };
+            colors: {
+                [x: string]: readonly string[];
+            };
+            breeds: {
+                [x: string]: readonly string[];
+            };
+        }>;
+        static tail_suggest(): readonly string[];
+        static ear_suggest(): readonly string[];
+        static dead_reason_suggest(): readonly string[];
+        static departed_reason_suggest(): readonly string[];
+        static fur_suggest(kind: $gravity_animal_kind): readonly string[];
+        static color_suggest(kind: $gravity_animal_kind): readonly string[];
+        static breed_suggest(kind: $gravity_animal_kind): readonly string[];
+    }
+}
+
+declare namespace $ {
 }
 
 declare namespace $.$$ {
@@ -3166,9 +3230,19 @@ declare namespace $.$$ {
         card(next?: string): string;
         chip(next?: string): string;
         cage(next?: string): string;
-        arrived_date(next?: $mol_time_moment): $mol_time_moment;
-        departed_date(next?: $mol_time_moment): $mol_time_moment;
-        born_date(next?: $mol_time_moment): $mol_time_moment;
+        weight(next?: number): number;
+        size(next?: string): string;
+        ear(next?: string): string;
+        tail(next?: string): string;
+        color(next?: string): string;
+        kind(next?: $gravity_animal_kind): $gravity_animal_kind;
+        gender(next?: $gravity_animal_gender): $gravity_animal_gender;
+        arrived_date(next?: $mol_time_moment): $mol_time_moment | null;
+        departed_date(next?: $mol_time_moment): $mol_time_moment | null;
+        born_date(next?: $mol_time_moment): $mol_time_moment | null;
+        ear_suggest(): readonly string[];
+        tail_suggest(): readonly string[];
+        color_suggest(): readonly string[];
     }
 }
 
@@ -3178,12 +3252,28 @@ declare namespace $ {
         arg(): {
             animal: string;
         };
+        attr(): {
+            gravity_animal_card_gender: string;
+            href: string;
+            title: string;
+            target: string;
+            download: string;
+            mol_link_current: boolean;
+            mol_theme: any;
+        };
         sub(): readonly any[];
         id(): string;
+        gender(): string;
         card(): string;
         Card(): $mol_view;
+        kind(): string;
+        Kind(): $mol_view;
         name(): string;
         Name(): $mol_view;
+        age(): string;
+        Age(): $mol_view;
+        size(): string;
+        Size(): $mol_view;
     }
 }
 
@@ -3195,6 +3285,10 @@ declare namespace $.$$ {
         id(): string;
         name(): string;
         card(): string;
+        gender(): $gravity_animal_gender;
+        size(): string;
+        age(): string;
+        kind(): string;
     }
 }
 

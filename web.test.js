@@ -2796,6 +2796,35 @@ var $;
 ;
 "use strict";
 var $;
+(function ($) {
+    $.$mol_test({
+        'Is empty dict'() {
+            $.$mol_data_dict($.$mol_data_number)({});
+        },
+        'Is dict'() {
+            $.$mol_data_dict($.$mol_data_number)({ foo: 123 });
+        },
+        'Is not dict'() {
+            $.$mol_assert_fail(() => {
+                $.$mol_data_dict($.$mol_data_number)([123]);
+            }, '123 is not an Object');
+        },
+        'Has wrong item'() {
+            $.$mol_assert_fail(() => {
+                $.$mol_data_dict($.$mol_data_number)({ foo: 1, bar: '1' });
+            }, '["bar"] 1 is not a number');
+        },
+        'Has wrong deep item'() {
+            $.$mol_assert_fail(() => {
+                $.$mol_data_dict($.$mol_data_dict($.$mol_data_number))({ foo: { bar: false } });
+            }, '["foo"] ["bar"] false is not a number');
+        },
+    });
+})($ || ($ = {}));
+//dict.test.js.map
+;
+"use strict";
+var $;
 (function ($_1) {
     var $$;
     (function ($$) {

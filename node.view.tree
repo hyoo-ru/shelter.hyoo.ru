@@ -672,7 +672,7 @@ $mol_form $mol_view
 
 $gravity_animal_edit $mol_page
 	animal $gravity_animal / *
-	title \Добавление животного
+	title \Данные животного
 	body /
 		<= Form $mol_form
 			form_fields /
@@ -719,32 +719,33 @@ $gravity_animal_edit $mol_page
 				<= Weight_field $mol_form_field
 					name \Вес в килограммах
 					Content <= Weight $mol_number
+						value?val <=> weight?val 0
 				<= Size_field $mol_form_field
 					name \Размер
 					Content <= Size $mol_switch
+						value?val <=> size?val \
 						options *
 							small \Маленький
 							middle \Средний
 							large \Большой
 				<= Tail_field $mol_form_field
 					name \Динна хвоста
-					Content <= Tail $mol_switch
-						options *
-							none \Нет
-							short \Короткий
-							long \Длинный
+					Content <= Tail $mol_search
+						hint \
+						query?val <=> size?val \
+						suggests <= tail_suggest /string
 				<= Ear_field $mol_form_field
 					name \Тип ушей
 					Content <= Ear $mol_search
 						hint \
-						suggests /
-							\Нет
-							\Вислоух
-							\Торчком
-							\Вразнобой
+						query?val <=> ear?val \
+						suggests <= ear_suggest /string
 				<= Color_field $mol_form_field
 					name \Окрас
-					Content <= Color $mol_string
+					Content <= Color $mol_search
+						hint \
+						query?val <=> color?val \
+						suggests <= color_suggest /string
 				<= Trait_field $mol_form_field
 					name \Отличительные особенности
 					Content <= Trait $mol_textarea
@@ -842,9 +843,15 @@ $gravity_animal_edit_links $mol_bar
 $gravity_animal_card $mol_link
 	animal $gravity_animal / *
 	arg * animal <= id \
+	attr *
+		^
+		gravity_animal_card_gender <= gender \
 	sub /
 		<= Card $mol_view sub / <= card \
+		<= Kind $mol_view sub / <= kind \
 		<= Name $mol_view sub / <= name \
+		<= Age $mol_view sub / <= age \
+		<= Size $mol_view sub / <= size \
 
 $mol_check_icon $mol_check
 
