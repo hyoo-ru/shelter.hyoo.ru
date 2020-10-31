@@ -1,4 +1,6 @@
-$gravity_animal_card $mol_row
+$gravity_animal_card $mol_link
 	animal $gravity_animal / *
+	arg * animal <= id \
 	sub /
-		<= title
+		<= Card $mol_view sub / <= card \
+		<= Name $mol_view sub / <= name \

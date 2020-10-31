@@ -1,0 +1,21 @@
+$gravity_auth_form $mol_page
+	title \Вход в систему управления приютов
+	plugins /
+		<= Enter $mol_hotkey
+			key * enter?event <=> submit?event null
+	body /
+		<= Form $mol_form
+			form_fields /
+				<= Login_field $mol_form_field
+					name <= Login_name \Логин
+					control <= Login $mol_string
+						value?val <=> login?val \user
+				<= Pass_field $mol_form_field
+					name <= Pass_name \Пароль
+					control <= Pass $mol_string
+						type \password
+						value?val <=> pass?val \password
+			buttons /
+				<= Submit $mol_button_major
+					title <= Auth_label \Войти
+					click?val <=> auth?val null

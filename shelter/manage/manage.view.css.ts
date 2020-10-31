@@ -2,11 +2,11 @@ namespace $ {
 
 	const { per , rem } = $mol_style_unit
 
-	$mol_style_define( $gravity_manage , {
+	$mol_style_define( $gravity_shelter_manage , {
 
 		Animals_page: {
 			flex: {
-				basis: rem(20),
+				basis: rem(40),
 			},
 		},
 

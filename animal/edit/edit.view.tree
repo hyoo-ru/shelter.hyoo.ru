@@ -10,27 +10,40 @@ $gravity_animal_edit $mol_page
 				<= Name_field $mol_form_field
 					name \Кличка
 					Content <= Name $mol_string
+						value?val <=> name?val \
 				<= Card_field $mol_form_field
 					name \Номер карточки
 					Content <= Сard $mol_string
+						value?val <=> card?val \
 				<= Chip_field $mol_form_field
 					name \Номер чипа
 					Content <= Сhip $mol_string
+						value?val <=> chip?val \
 				<= Cage_field $mol_form_field
 					name \Номер вольера
 					Content <= Cage $mol_string
+						value?val <=> cage?val \
 				<= Kind_field $mol_form_field
 					name \Биологический вид
 					Content <= Kind $mol_switch
+						value?val <=> kind?val \Cat
 						options *
-							cat \🐱 Кошка
-							dog \🐶 Собака
+							Cat \🐱 Кошка
+							Dog \🐶 Собака
 				<= Gender_field $mol_form_field
 					name \Пол
 					Content <= Gender $mol_switch
+						value?val <=> gender?val \Male
 						options *
-							male \🔵 Самец
-							female \🟠 Самка
+							Male \🔵 Самец
+							Female \🟠 Самка
+				<= Departed_reason_field $mol_form_field
+					name \Причина ухода
+					Content <= Departed_reason $mol_switch
+						value?val <=> departed_reason?val \
+						options *
+							Dead \Смерть
+							Owned \Нашёл хозяина
 				<= Weight_field $mol_form_field
 					name \Вес в килограммах
 					Content <= Weight $mol_number
@@ -66,15 +79,15 @@ $gravity_animal_edit $mol_page
 				<= Arrived_date_field $mol_form_field
 					name \Дата приёма в приют
 					Content <= Arrived_date $mol_date
-				<= Departed_date_field $mol_form_field
-					name \Дата выдачи хозяину
-					Content <= Departed_date $mol_date
+						value_moment?val <=> arrived_date?val $mol_time_moment
 				<= Born_date_field $mol_form_field
 					name \День рождения
 					Content <= Born_date $mol_date
-				<= Dead_date_field $mol_form_field
-					name \День смерти
-					Content <= Dead_date $mol_date
+						value_moment?val <=> born_date?val $mol_time_moment
+				<= Departed_date_field $mol_form_field
+					name \Дата ухода
+					Content <= Departed_date $mol_date
+						value_moment?val <=> departed_date?val $mol_time_moment
 				<= Depart_ready_field $mol_form_field
 					Content <= Depart_ready $mol_check_box
 						title \Ищет хозяина
@@ -100,11 +113,11 @@ $gravity_animal_edit $mol_page
 								<= Transitions $gravity_animal_edit_group
 									sub /
 										<= Arrived_date_field
-										<= Departed_date_field
+										<= Born_date_field
 								<= Lifetime $gravity_animal_edit_group
 									sub /
-										<= Born_date_field
-										<= Dead_date_field
+										<= Departed_date_field
+										<= Departed_reason_field
 						<= Classification $gravity_animal_edit_section
 							sub /
 								<= Types $gravity_animal_edit_group
