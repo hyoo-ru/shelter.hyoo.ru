@@ -33,7 +33,7 @@ namespace $ {
 		flex: {
 			grow: 1,
 			shrink: 1,
-			basis: rem(15),
+			basis: rem(30),
 		},
 
 		$mol_form_field: {

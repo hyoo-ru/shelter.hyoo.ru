@@ -31,7 +31,7 @@ namespace $ {
 
 			if( next !== undefined ) return next
 
-			const list = Animals( this.$.$gravity_transport.load( 'shelters/1/animals' ) )
+			const list = Animals( this.$.$gravity_transport.load( 'animals' ) )
 			
 			const dict = {} as Record< string, ReturnType< $gravity_animal['data'] > >
 			for( const item of list ) {

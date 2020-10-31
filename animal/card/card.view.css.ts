@@ -6,7 +6,7 @@ namespace $ {
 
 		Card: {
 			flex: {
-				basis: rem(4),
+				basis: rem(5),
 				grow: 0,
 				shrink: 0,
 			},

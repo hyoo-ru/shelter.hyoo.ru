@@ -12,7 +12,7 @@ namespace $ {
 
 		Animal_edit: {
 			flex: {
-				basis: rem(80),
+				basis: rem(60),
 			},
 		},
 
