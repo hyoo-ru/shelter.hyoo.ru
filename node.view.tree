@@ -907,11 +907,13 @@ $gravity_animal_edit_links $mol_bar
 
 $gravity_animal_card $mol_link
 	animal $gravity_animal / *
+	shelters $gravity_shelter_list / *
 	arg * animal <= id \
 	attr *
 		^
 		gravity_animal_card_gender <= gender \
 	sub /
+		<= Shelter $mol_view sub / <= shelter_name \
 		<= Card $mol_dimmer
 			haystack <= card \
 			needle <= highlight \
@@ -1017,6 +1019,7 @@ $gravity_shelter_manage $mol_book2
 	Animal_card!id $gravity_animal_card
 		animal <= animal!id $gravity_animal / *
 		highlight <= search
+		shelters <= card_shelters $gravity_shelter_list / *
 	-
 	Download $mol_link
 		hint \Скачать сводку в виде документа

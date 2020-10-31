@@ -3364,6 +3364,7 @@ declare namespace $.$$ {
 declare namespace $ {
     class $gravity_animal_card extends $mol_link {
         animal(): $gravity_animal;
+        shelters(): $gravity_shelter_list;
         arg(): {
             animal: string;
         };
@@ -3379,6 +3380,8 @@ declare namespace $ {
         sub(): readonly any[];
         id(): string;
         gender(): string;
+        shelter_name(): string;
+        Shelter(): $mol_view;
         card(): string;
         highlight(): string;
         Card(): $$.$mol_dimmer;
@@ -3401,6 +3404,8 @@ declare namespace $ {
 declare namespace $.$$ {
     class $gravity_animal_card extends $.$gravity_animal_card {
         id(): string;
+        sub(): $mol_view[];
+        shelter_name(): string;
         name(): string;
         card(): string;
         chip(): string;
@@ -3491,6 +3496,7 @@ declare namespace $ {
         Close_icon(id: any): $mol_icon_cross;
         Close(id: any): $$.$mol_link;
         animal(id: any): $gravity_animal;
+        card_shelters(): $gravity_shelter_list;
         download_name(): string;
         download_link(): string;
         Download_icon(): $mol_icon_download;
@@ -3515,6 +3521,7 @@ declare namespace $.$$ {
         pages(): ($mol_page | $gravity_animal_edit)[];
         shelter_current(): string | null;
         shelter_single(): $gravity_shelter | null;
+        card_shelters(): any;
         animals_page_tools(): ($mol_link | $mol_search | $mol_button_major)[];
         add(): void;
         filter_shelter_list(): $mol_link[];

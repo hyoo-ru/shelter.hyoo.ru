@@ -11518,6 +11518,10 @@ var $;
             const obj = new this.$.$gravity_animal({});
             return obj;
         }
+        shelters() {
+            const obj = new this.$.$gravity_shelter_list({});
+            return obj;
+        }
         arg() {
             return {
                 animal: this.id()
@@ -11528,6 +11532,7 @@ var $;
         }
         sub() {
             return [
+                this.Shelter(),
                 this.Card(),
                 this.Chip(),
                 this.Kind(),
@@ -11541,6 +11546,16 @@ var $;
         }
         gender() {
             return "";
+        }
+        shelter_name() {
+            return "";
+        }
+        Shelter() {
+            const obj = new this.$.$mol_view();
+            obj.sub = () => [
+                this.shelter_name()
+            ];
+            return obj;
         }
         card() {
             return "";
@@ -11608,6 +11623,12 @@ var $;
     ], $gravity_animal_card.prototype, "animal", null);
     __decorate([
         $.$mol_mem
+    ], $gravity_animal_card.prototype, "shelters", null);
+    __decorate([
+        $.$mol_mem
+    ], $gravity_animal_card.prototype, "Shelter", null);
+    __decorate([
+        $.$mol_mem
     ], $gravity_animal_card.prototype, "Card", null);
     __decorate([
         $.$mol_mem
@@ -11634,6 +11655,16 @@ var $;
     const { rem } = $.$mol_style_unit;
     $.$mol_style_define($.$gravity_animal_card, {
         padding: rem(.5),
+        flex: {
+            wrap: 'wrap',
+        },
+        Shelter: {
+            flex: {
+                basis: rem(6),
+                grow: 1,
+                shrink: 1,
+            },
+        },
         Card: {
             flex: {
                 basis: rem(5),
@@ -11658,7 +11689,7 @@ var $;
         },
         Chip: {
             flex: {
-                basis: rem(10),
+                basis: rem(9),
                 grow: 0,
                 shrink: 0,
             },
@@ -11687,7 +11718,7 @@ var $;
         Name: {
             textShadow: '0 0',
             flex: {
-                basis: rem(15),
+                basis: rem(6),
                 grow: 1,
                 shrink: 1,
             },
@@ -11709,6 +11740,20 @@ var $;
         class $gravity_animal_card extends $.$gravity_animal_card {
             id() {
                 return this.animal().id();
+            }
+            sub() {
+                return [
+                    ...this.shelters() ? [this.Shelter()] : [],
+                    this.Card(),
+                    this.Chip(),
+                    this.Kind(),
+                    this.Name(),
+                    this.Age(),
+                    this.Size(),
+                ];
+            }
+            shelter_name() {
+                return this.shelters().Shelter(this.animal().shelter_id()).name();
             }
             name() {
                 return this.animal().name();
@@ -11951,6 +11996,7 @@ var $;
             const obj = new this.$.$gravity_animal_card();
             obj.animal = () => this.animal(id);
             obj.highlight = () => this.search();
+            obj.shelters = () => this.card_shelters();
             return obj;
         }
         Download() {
@@ -12099,6 +12145,10 @@ var $;
             const obj = new this.$.$gravity_animal({});
             return obj;
         }
+        card_shelters() {
+            const obj = new this.$.$gravity_shelter_list({});
+            return obj;
+        }
         download_name() {
             return "";
         }
@@ -12184,6 +12234,9 @@ var $;
     ], $gravity_shelter_manage.prototype, "animal", null);
     __decorate([
         $.$mol_mem
+    ], $gravity_shelter_manage.prototype, "card_shelters", null);
+    __decorate([
+        $.$mol_mem
     ], $gravity_shelter_manage.prototype, "Download_icon", null);
     $.$gravity_shelter_manage = $gravity_shelter_manage;
     class $gravity_shelter_manage_filter_group extends $.$mol_list {
@@ -12241,7 +12294,7 @@ var $;
         },
         Animals_page: {
             flex: {
-                basis: rem(35),
+                basis: rem(45),
             },
             Title: {
                 flex: {
@@ -12255,7 +12308,6 @@ var $;
                 basis: rem(35),
                 grow: 1000,
             },
-            maxWidth: rem(120),
         },
         Animal_list: {
             padding: rem(.75),
@@ -12310,6 +12362,9 @@ var $;
                 if (all.length === 1)
                     return all[0];
                 return null;
+            }
+            card_shelters() {
+                return this.shelter_current() ? null : this.shelters();
             }
             animals_page_tools() {
                 return [
