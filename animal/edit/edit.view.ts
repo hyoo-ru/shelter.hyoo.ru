@@ -72,6 +72,14 @@ namespace $.$$ {
 			return this.$.$gravity_dict.color_suggest( this.kind() )
 		}
 
+		download_name() {
+			return `${ this.card() } ${ this.name() }.docx`
+		}
+
+		download_link() {
+			return this.$.$gravity_transport.link( `../reports/animals/${ this.animal().id() }/animal-card.docx` )
+		}
+
 	}
 
 }

@@ -35,6 +35,10 @@ namespace $ {
 			} )
 		}
 
+		static link( path : string ) : any {
+			return this.api_base() + path
+		}
+
 		@ $mol_fiber.method
 		static save(
 			path : string ,

@@ -1,6 +1,13 @@
 $gravity_animal_edit $mol_page
 	animal $gravity_animal / *
 	title \Данные животного
+	tools /
+		<= Download $mol_link
+			hint \Скачать карточку в виде документа
+			file_name <= download_name \
+			uri <= download_link \
+			sub /
+				<= Download_icon $mol_icon_download
 	body /
 		<= Form $mol_form
 			form_fields /
