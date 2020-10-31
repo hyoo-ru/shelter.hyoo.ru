@@ -1217,6 +1217,9 @@ declare namespace $ {
         tail?: string;
         size?: string;
         color?: string;
+        description?: string;
+        photos?: readonly string[];
+        fur?: string;
     }> {
         id(): string;
         name(next?: string): string;
@@ -1315,6 +1318,9 @@ declare namespace $ {
             tail?: string | undefined;
             size?: string | undefined;
             color?: string | undefined;
+            description?: string | undefined;
+            photos?: readonly string[] | undefined;
+            fur?: string | undefined;
         }>;
         value(key: string, next?: ReturnType<$gravity_animal['data']>): {
             id?: number | undefined;
@@ -1332,14 +1338,19 @@ declare namespace $ {
             tail?: string | undefined;
             size?: string | undefined;
             color?: string | undefined;
+            description?: string | undefined;
+            photos?: readonly string[] | undefined;
+            fur?: string | undefined;
         };
         list(): $gravity_animal[];
         Animal(index: string): $gravity_animal;
     }
     class $gravity_shelter extends $mol_store<{
-        name: string;
-        name_legal: string;
+        id?: string;
+        name?: string;
+        name_legal?: string;
     }> {
+        id(next?: string): string;
         name(next?: string): string;
         name_legal(next?: string): string;
     }
@@ -3331,6 +3342,21 @@ declare namespace $.$$ {
 }
 
 declare namespace $ {
+    class $mol_button_major extends $mol_button_typed {
+        attr(): {
+            mol_theme: string;
+            disabled: boolean;
+            role: string;
+            tabindex: number;
+            title: string;
+        };
+    }
+}
+
+declare namespace $ {
+}
+
+declare namespace $ {
     function $mol_lights(this: $mol_ambient_context, next?: boolean): boolean;
 }
 
@@ -3383,8 +3409,9 @@ declare namespace $ {
         Animal_card(id: any): $$.$gravity_animal_card;
         search(val?: any): any;
         Search(): $$.$mol_search;
+        add(event?: any): any;
         Add_icon(): $mol_icon_plus;
-        Add(): $$.$mol_link;
+        Add(): $mol_button_major;
         Lights(): $$.$mol_lights_toggle;
         logout(event?: any): any;
         Logout_icon(): $mol_icon_logout;
@@ -3410,6 +3437,7 @@ declare namespace $.$$ {
         animal_list(): $gravity_animal_card[];
         animal_current(next?: string): string | null;
         pages(): ($mol_page | $gravity_animal_edit)[];
+        add(): void;
     }
 }
 
@@ -3422,21 +3450,6 @@ declare namespace $ {
         static signed(): boolean;
         static drop(): void;
     }
-}
-
-declare namespace $ {
-    class $mol_button_major extends $mol_button_typed {
-        attr(): {
-            mol_theme: string;
-            disabled: boolean;
-            role: string;
-            tabindex: number;
-            title: string;
-        };
-    }
-}
-
-declare namespace $ {
 }
 
 declare namespace $ {

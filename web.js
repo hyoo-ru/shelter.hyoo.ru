@@ -4155,6 +4155,10 @@ var $;
     ], $gravity_shelter_animals.prototype, "Animal", null);
     $.$gravity_shelter_animals = $gravity_shelter_animals;
     class $gravity_shelter extends $.$mol_store {
+        id(next) {
+            var _a;
+            return (_a = this.value('id', next)) !== null && _a !== void 0 ? _a : 0;
+        }
         name(next) {
             var _a;
             return (_a = this.value('name', next)) !== null && _a !== void 0 ? _a : '';
@@ -11146,6 +11150,25 @@ var $;
 "use strict";
 var $;
 (function ($) {
+    class $mol_button_major extends $.$mol_button_typed {
+        attr() {
+            return Object.assign(Object.assign({}, super.attr()), { mol_theme: "$mol_theme_accent" });
+        }
+    }
+    $.$mol_button_major = $mol_button_major;
+})($ || ($ = {}));
+//major.view.tree.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    $.$mol_style_attach("mol/button/major/major.view.css", "[mol_button_major][disabled] {\n\topacity: .5;\n}\n");
+})($ || ($ = {}));
+//major.view.css.js.map
+;
+"use strict";
+var $;
+(function ($) {
     function $mol_lights(next) {
         var _a;
         return (_a = this.$.$mol_state_local.value('$mol_lights', next)) !== null && _a !== void 0 ? _a : $.$mol_dom_context.matchMedia('(prefers-color-scheme: light)').matches;
@@ -11255,6 +11278,7 @@ var $;
     class $gravity_shelter_manage extends $.$mol_book2 {
         shelter() {
             const obj = new this.$.$gravity_shelter({
+                id: "1",
                 name: "Усы и хвосты",
                 name_legal: "НКО \"Усы и хвосты\" при ДИТ Москвы"
             });
@@ -11297,15 +11321,18 @@ var $;
             obj.query = (val) => this.search(val);
             return obj;
         }
+        add(event) {
+            if (event !== undefined)
+                return event;
+            return null;
+        }
         Add_icon() {
             const obj = new this.$.$mol_icon_plus();
             return obj;
         }
         Add() {
-            const obj = new this.$.$mol_link();
-            obj.arg = () => ({
-                animal: ""
-            });
+            const obj = new this.$.$mol_button_major();
+            obj.click = (event) => this.add(event);
             obj.sub = () => [
                 this.Add_icon()
             ];
@@ -11396,6 +11423,9 @@ var $;
     ], $gravity_shelter_manage.prototype, "Search", null);
     __decorate([
         $.$mol_mem
+    ], $gravity_shelter_manage.prototype, "add", null);
+    __decorate([
+        $.$mol_mem
     ], $gravity_shelter_manage.prototype, "Add_icon", null);
     __decorate([
         $.$mol_mem
@@ -11448,7 +11478,7 @@ var $;
         },
         Animal_edit: {
             flex: {
-                basis: rem(60),
+                basis: rem(50),
                 grow: 1000,
             },
             maxWidth: rem(120),
@@ -11493,6 +11523,31 @@ var $;
                     ...this.animal_current() ? [this.Animal_edit(this.animal_current())] : [],
                 ];
             }
+            add() {
+                const Response = $.$mol_data_record({ id: $.$mol_data_string });
+                const response = this.$.$gravity_transport.save(`shelters/${this.shelter().id()}/animals`, 'post', {
+                    name: '',
+                    readyForDepart: false,
+                    card: '',
+                    chip: '',
+                    kind: '',
+                    gender: '',
+                    cage: '',
+                    arrivedAt: '',
+                    departedAt: null,
+                    birthDate: '',
+                    weight: 0,
+                    ears: '',
+                    tail: '',
+                    size: '',
+                    color: '',
+                    description: '',
+                    photos: [],
+                    fur: '',
+                });
+                const id = Response(response).id;
+                this.$.$mol_state_arg.value('animal', id);
+            }
         }
         __decorate([
             $.$mol_mem
@@ -11530,25 +11585,6 @@ var $;
     $.$gravity_auth = $gravity_auth;
 })($ || ($ = {}));
 //auth.js.map
-;
-"use strict";
-var $;
-(function ($) {
-    class $mol_button_major extends $.$mol_button_typed {
-        attr() {
-            return Object.assign(Object.assign({}, super.attr()), { mol_theme: "$mol_theme_accent" });
-        }
-    }
-    $.$mol_button_major = $mol_button_major;
-})($ || ($ = {}));
-//major.view.tree.js.map
-;
-"use strict";
-var $;
-(function ($) {
-    $.$mol_style_attach("mol/button/major/major.view.css", "[mol_button_major][disabled] {\n\topacity: .5;\n}\n");
-})($ || ($ = {}));
-//major.view.css.js.map
 ;
 "use strict";
 var $;

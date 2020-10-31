@@ -876,6 +876,11 @@ $gravity_animal_card $mol_link
 		<= Age $mol_view sub / <= age \
 		<= Size $mol_view sub / <= size \
 
+$mol_button_major $mol_button_typed
+	attr *
+		^
+		mol_theme \$mol_theme_accent
+
 $mol_check_icon $mol_check
 
 $mol_icon_brightness_6 $mol_icon path \M12,18V6C15.31,6 18,8.69 18,12C18,15.31 15.31,18 12,18M20,15.31L23.31,12L20,8.69V4H15.31L12,0.69L8.69,4H4V8.69L0.69,12L4,15.31V20H8.69L12,23.31L15.31,20H20V15.31Z
@@ -889,6 +894,7 @@ $mol_icon_logout $mol_icon path \M16,17V14H9V10H16V7L21,12L16,17M14,2C15.1,2 16,
 
 $gravity_shelter_manage $mol_book2
 	shelter $gravity_shelter / *
+		id \1
 		name \Усы и хвосты
 		name_legal \НКО "Усы и хвосты" при ДИТ Москвы
 	animals $gravity_shelter_animals / *
@@ -897,8 +903,8 @@ $gravity_shelter_manage $mol_book2
 			tools /
 				<= Search $mol_search
 					query?val <=> search?val \
-				<= Add $mol_link
-					arg * animal \
+				<= Add $mol_button_major
+					click?event <=> add?event null
 					sub /
 						<= Add_icon $mol_icon_plus
 				<= Lights $mol_lights_toggle
@@ -923,11 +929,6 @@ $gravity_shelter_manage $mol_book2
 	Animal_card!id $gravity_animal_card
 		animal <= animal!id $gravity_animal / *
 		highlight <= search
-
-$mol_button_major $mol_button_typed
-	attr *
-		^
-		mol_theme \$mol_theme_accent
 
 $gravity_auth_form $mol_page
 	title \Вход в систему управления приютов
