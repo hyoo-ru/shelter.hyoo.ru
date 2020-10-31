@@ -1292,6 +1292,7 @@ declare namespace $ {
             'Content-Type': string;
         };
         static load(path: string): any;
+        static link(path: string): any;
         static save(path: string, method: 'post' | 'put', body: object): any;
     }
 }
@@ -1598,25 +1599,75 @@ declare namespace $.$$ {
 }
 
 declare namespace $ {
-    class $mol_card extends $mol_list {
+    class $mol_svg extends $mol_view {
+        dom_name(): string;
+        dom_name_space(): string;
+        font_size(): number;
+        font_family(): string;
+    }
+}
+
+declare namespace $ {
+    class $mol_after_work extends $mol_after_timeout {
+    }
+}
+
+declare namespace $ {
+    class $mol_state_time extends $mol_object {
+        static now(precision?: number, next?: number): number;
+    }
+}
+
+declare namespace $.$$ {
+    class $mol_svg extends $.$mol_svg {
+        computed_style(): CSSStyleDeclaration;
+        font_size(): number;
+        font_family(): any;
+    }
+}
+
+declare namespace $ {
+    class $mol_svg_root extends $mol_svg {
+        dom_name(): string;
         attr(): {
-            mol_card_status_type: string;
+            viewBox: string;
+            preserveAspectRatio: string;
         };
-        rows(): readonly $mol_view[];
-        status(): string;
-        content(): readonly (string | number | boolean | $mol_view | Node)[];
-        Content(): $mol_view;
-        status_text(): string;
-        Status(): $mol_view;
+        view_box(): string;
+        aspect(): string;
     }
 }
 
 declare namespace $ {
 }
 
-declare namespace $.$$ {
-    class $mol_card extends $.$mol_card {
-        rows(): $mol_view[];
+declare namespace $ {
+    class $mol_svg_path extends $mol_svg {
+        dom_name(): string;
+        attr(): {
+            d: string;
+        };
+        geometry(): string;
+    }
+}
+
+declare namespace $ {
+    class $mol_icon extends $mol_svg_root {
+        view_box(): string;
+        minimal_width(): number;
+        minimal_height(): number;
+        sub(): readonly any[];
+        path(): string;
+        Path(): $mol_svg_path;
+    }
+}
+
+declare namespace $ {
+}
+
+declare namespace $ {
+    class $mol_icon_download extends $mol_icon {
+        path(): string;
     }
 }
 
@@ -1685,6 +1736,29 @@ declare namespace $.$$ {
 }
 
 declare namespace $ {
+    class $mol_card extends $mol_list {
+        attr(): {
+            mol_card_status_type: string;
+        };
+        rows(): readonly $mol_view[];
+        status(): string;
+        content(): readonly (string | number | boolean | $mol_view | Node)[];
+        Content(): $mol_view;
+        status_text(): string;
+        Status(): $mol_view;
+    }
+}
+
+declare namespace $ {
+}
+
+declare namespace $.$$ {
+    class $mol_card extends $.$mol_card {
+        rows(): $mol_view[];
+    }
+}
+
+declare namespace $ {
     class $mol_button_typed extends $mol_button {
     }
 }
@@ -1694,73 +1768,6 @@ declare namespace $ {
 
 declare namespace $ {
     class $mol_button_minor extends $mol_button_typed {
-    }
-}
-
-declare namespace $ {
-}
-
-declare namespace $ {
-    class $mol_svg extends $mol_view {
-        dom_name(): string;
-        dom_name_space(): string;
-        font_size(): number;
-        font_family(): string;
-    }
-}
-
-declare namespace $ {
-    class $mol_after_work extends $mol_after_timeout {
-    }
-}
-
-declare namespace $ {
-    class $mol_state_time extends $mol_object {
-        static now(precision?: number, next?: number): number;
-    }
-}
-
-declare namespace $.$$ {
-    class $mol_svg extends $.$mol_svg {
-        computed_style(): CSSStyleDeclaration;
-        font_size(): number;
-        font_family(): any;
-    }
-}
-
-declare namespace $ {
-    class $mol_svg_root extends $mol_svg {
-        dom_name(): string;
-        attr(): {
-            viewBox: string;
-            preserveAspectRatio: string;
-        };
-        view_box(): string;
-        aspect(): string;
-    }
-}
-
-declare namespace $ {
-}
-
-declare namespace $ {
-    class $mol_svg_path extends $mol_svg {
-        dom_name(): string;
-        attr(): {
-            d: string;
-        };
-        geometry(): string;
-    }
-}
-
-declare namespace $ {
-    class $mol_icon extends $mol_svg_root {
-        view_box(): string;
-        minimal_width(): number;
-        minimal_height(): number;
-        sub(): readonly any[];
-        path(): string;
-        Path(): $mol_svg_path;
     }
 }
 
@@ -3094,7 +3101,12 @@ declare namespace $ {
     class $gravity_animal_edit extends $mol_page {
         animal(): $gravity_animal;
         title(): string;
+        tools(): readonly any[];
         body(): readonly any[];
+        download_name(): string;
+        download_link(): string;
+        Download_icon(): $mol_icon_download;
+        Download(): $$.$mol_link;
         Photos(): $$.$mol_attach;
         Photos_field(): $mol_form_field;
         name(val?: any): any;
@@ -3243,6 +3255,8 @@ declare namespace $.$$ {
         ear_suggest(): readonly string[];
         tail_suggest(): readonly string[];
         color_suggest(): readonly string[];
+        download_name(): string;
+        download_link(): any;
     }
 }
 
@@ -3341,6 +3355,7 @@ declare namespace $ {
         animals(): $gravity_shelter_animals;
         pages(): readonly any[];
         Animal_edit(id: any): $$.$gravity_animal_edit;
+        Animal_download(id: any): $$.$mol_link;
         Animal_card(id: any): $$.$gravity_animal_card;
         Add_icon(): $mol_icon_plus;
         Add(): $$.$mol_link;
