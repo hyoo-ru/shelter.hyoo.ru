@@ -15,34 +15,6 @@ $mol_book2 $mol_scroll
 	minimal_width 0
 	Placeholder $mol_view
 
-$mol_list $mol_view
-	render_visible_only true
-	render_over 0
-	sub <= rows /$mol_view
-	Empty $mol_view
-	Gap_before $mol_view style * paddingTop <= gap_before 0
-	Gap_after $mol_view style * paddingTop <= gap_after 0
-	view_window /
-		0
-		0
-
-$mol_labeler $mol_list
-	rows /
-		<= Title $mol_view
-			minimal_height 24
-			sub <= label /$mol_view_content
-				<= title
-		<= Content $mol_view
-			minimal_height 24
-			sub <= content /
-
-$mol_form_field $mol_labeler
-	label /
-		<= name \
-		<= Bid $mol_view
-			sub / <= bid \
-	Content <= control null
-
 $mol_speck $mol_view
 	attr *
 		^
@@ -88,6 +60,127 @@ $mol_page $mol_view
 		<= Foot $mol_view
 			sub <= foot /$mol_view
 
+$mol_hotkey $mol_plugin
+	event *
+		^
+		keydown?event <=> keydown?event null
+	key *
+	mod_ctrl false
+	mod_alt false
+	mod_shift false
+
+$mol_string $mol_view
+	dom_name \input
+	enabled true
+	minimal_height 40
+	autocomplete false
+	field *
+		^
+		disabled <= disabled false
+		value <= value_changed?val <=> value?val \
+		placeholder <= hint \
+		type <= type?val \text
+		spellcheck <= spellcheck false
+		autocomplete <= autocomplete_native \
+	attr *
+		^
+		maxlength <= length_max Infinity
+	event *
+		^
+		input?event <=> event_change?event null
+		keydown?event <=> event_key_press?event null
+	plugins /
+		<= Submit $mol_hotkey
+			key * enter?event <=> submit?event null
+
+$mol_list $mol_view
+	render_visible_only true
+	render_over 0
+	sub <= rows /$mol_view
+	Empty $mol_view
+	Gap_before $mol_view style * paddingTop <= gap_before 0
+	Gap_after $mol_view style * paddingTop <= gap_after 0
+	view_window /
+		0
+		0
+
+$mol_labeler $mol_list
+	rows /
+		<= Title $mol_view
+			minimal_height 24
+			sub <= label /$mol_view_content
+				<= title
+		<= Content $mol_view
+			minimal_height 24
+			sub <= content /
+
+$mol_form_field $mol_labeler
+	label /
+		<= name \
+		<= Bid $mol_view
+			sub / <= bid \
+	Content <= control null
+
+$mol_button_typed $mol_button
+
+$mol_button_major $mol_button_typed
+	attr *
+		^
+		mol_theme \$mol_theme_accent
+
+$mol_row $mol_view
+
+$mol_form $mol_view
+	submit_blocked false
+	event *
+		^
+		keydown?event <=> keydown?event null
+	submit?event null
+	sub /
+		<= Bar_fields $mol_view
+			sub <= form_fields /$mol_form_field
+		<= Bar_buttons $mol_row
+			sub <= buttons /$mol_view
+
+$gravity_auth_form $mol_page
+	title \Вход в систему управления приютов
+	plugins /
+		<= Enter $mol_hotkey
+			key * enter?event <=> submit?event null
+	body /
+		<= Form $mol_form
+			form_fields /
+				<= Login_field $mol_form_field
+					name <= Login_name \Логин
+					control <= Login $mol_string
+						value?val <=> login?val \user
+				<= Pass_field $mol_form_field
+					name <= Pass_name \Пароль
+					control <= Pass $mol_string
+						type \password
+						value?val <=> pass?val \password
+			buttons /
+				<= Submit $mol_button_major
+					title <= Auth_label \Войти
+					click?val <=> auth?val null
+
+$mol_link $mol_view
+	dom_name \a
+	attr *
+		^
+		href <= uri \
+		title <= hint \
+		target <= target \_self
+		download <= file_name \
+		mol_link_current <= current false
+		mol_theme <= theme null
+	sub /$mol_view_content
+		<= title
+	arg *
+	event *
+		^
+		click?event <=> click?event <=> event_click?event null
+
 $mol_svg $mol_view
 	dom_name \svg
 	dom_name_space \http://www.w3.org/2000/svg
@@ -118,23 +211,6 @@ $mol_icon $mol_svg_root
 
 $mol_icon_download $mol_icon path \M5,20H19V18H5M19,9H15V3H9V9H5L12,16L19,9Z
 
-$mol_link $mol_view
-	dom_name \a
-	attr *
-		^
-		href <= uri \
-		title <= hint \
-		target <= target \_self
-		download <= file_name \
-		mol_link_current <= current false
-		mol_theme <= theme null
-	sub /$mol_view_content
-		<= title
-	arg *
-	event *
-		^
-		click?event <=> click?event <=> event_click?event null
-
 $mol_card $mol_list
 	attr *
 		^
@@ -146,8 +222,6 @@ $mol_card $mol_list
 			minimal_height 30
 			sub /
 				<= status_text <= status \
-
-$mol_button_typed $mol_button
 
 $mol_button_minor $mol_button_typed
 
@@ -191,39 +265,6 @@ $mol_attach_add_input $mol_view
 	event *
 		^
 		change?val <=> event_picked?val null
-
-$mol_hotkey $mol_plugin
-	event *
-		^
-		keydown?event <=> keydown?event null
-	key *
-	mod_ctrl false
-	mod_alt false
-	mod_shift false
-
-$mol_string $mol_view
-	dom_name \input
-	enabled true
-	minimal_height 40
-	autocomplete false
-	field *
-		^
-		disabled <= disabled false
-		value <= value_changed?val <=> value?val \
-		placeholder <= hint \
-		type <= type?val \text
-		spellcheck <= spellcheck false
-		autocomplete <= autocomplete_native \
-	attr *
-		^
-		maxlength <= length_max Infinity
-	event *
-		^
-		input?event <=> event_change?event null
-		keydown?event <=> event_key_press?event null
-	plugins /
-		<= Submit $mol_hotkey
-			key * enter?event <=> submit?event null
 
 $mol_check $mol_button_minor
 	attr *
@@ -388,6 +429,7 @@ $mol_select $mol_pop
 		value?val <=> filter_pattern?val \
 		hint <= filter_hint <= hint @ \Search..
 		submit?event <=> submit?event null
+		enabled <= enabled true
 	Trigger_icon $mol_icon_chevron
 
 $mol_icon_cross $mol_icon path \M19 6.41L17.59 5L12 10.59L6.41 5L5 6.41L10.59 12L5 17.59L6.41 19L12 13.41L17.59 19L19 17.59L13.41 12L19 6.41Z
@@ -408,6 +450,7 @@ $mol_search $mol_bar
 			Trigger_icon null
 			submit?event <=> submit?event null
 			No_options null
+			enabled <= enabled true
 		<= Clear $mol_button_minor
 			sub /
 				<= Clear_icon $mol_icon_cross
@@ -573,8 +616,6 @@ $mol_icon_chevron_left $mol_icon path \M15.41,16.58L10.83,12L15.41,7.41L14,6L8,1
 
 $mol_icon_chevron_right $mol_icon path \M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z
 
-$mol_row $mol_view
-
 $mol_hor $mol_view
 
 $mol_calendar $mol_list
@@ -660,21 +701,10 @@ $mol_icon_tick $mol_icon path \M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z
 $mol_check_box $mol_check
 	Icon $mol_icon_tick
 
-$mol_form $mol_view
-	submit_blocked false
-	event *
-		^
-		keydown?event <=> keydown?event null
-	submit?event null
-	sub /
-		<= Bar_fields $mol_view
-			sub <= form_fields /$mol_form_field
-		<= Bar_buttons $mol_row
-			sub <= buttons /$mol_view
-
 $gravity_animal_edit $mol_page
 	animal $gravity_animal / *
 	title \Данные животного
+	enabled true
 	tools /
 		<= Download $mol_link
 			hint \Скачать карточку в виде документа
@@ -692,22 +722,27 @@ $gravity_animal_edit $mol_page
 					name \Кличка
 					Content <= Name $mol_string
 						value?val <=> name?val \
+						enabled <= enabled
 				<= Card_field $mol_form_field
 					name \Номер карточки
 					Content <= Сard $mol_string
 						value?val <=> card?val \
+						enabled <= enabled
 				<= Chip_field $mol_form_field
 					name \Номер чипа
 					Content <= Сhip $mol_string
 						value?val <=> chip?val \
+						enabled <= enabled
 				<= Cage_field $mol_form_field
 					name \Номер вольера
 					Content <= Cage $mol_string
 						value?val <=> cage?val \
+						enabled <= enabled
 				<= Kind_field $mol_form_field
 					name \Биологический вид
 					Content <= Kind $mol_switch
 						value?val <=> kind?val \Cat
+						enabled <= enabled
 						options *
 							Cat \🐱 Кошка
 							Dog \🐶 Собака
@@ -715,6 +750,7 @@ $gravity_animal_edit $mol_page
 					name \Пол
 					Content <= Gender $mol_switch
 						value?val <=> gender?val \Male
+						enabled <= enabled
 						options *
 							Male \🔵 Самец
 							Female \🟠 Самка
@@ -722,6 +758,7 @@ $gravity_animal_edit $mol_page
 					name \Причина ухода
 					Content <= Departed_reason $mol_switch
 						value?val <=> departed_reason?val \
+						enabled <= enabled
 						options *
 							Dead \Смерть
 							Owned \Нашёл хозяина
@@ -729,17 +766,20 @@ $gravity_animal_edit $mol_page
 					name \Причина смерти
 					Content <= Dead_reason $mol_switch
 						value?val <=> dead_reason?val \
+						enabled <= enabled
 						options *
 							E \Естественная
 							Ev \Эвтаназия
 				<= Weight_field $mol_form_field
 					name \Вес в килограммах
 					Content <= Weight $mol_number
+						enabled <= enabled
 						value?val <=> weight?val 0
 				<= Size_field $mol_form_field
 					name \Размер
 					Content <= Size $mol_switch
 						value?val <=> size?val \
+						enabled <= enabled
 						options *
 							small \Маленький
 							middle \Средний
@@ -749,41 +789,50 @@ $gravity_animal_edit $mol_page
 					Content <= Tail $mol_search
 						hint \
 						query?val <=> size?val \
+						enabled <= enabled
 						suggests <= tail_suggest /string
 				<= Ear_field $mol_form_field
 					name \Тип ушей
 					Content <= Ear $mol_search
 						hint \
 						query?val <=> ear?val \
+						enabled <= enabled
 						suggests <= ear_suggest /string
 				<= Color_field $mol_form_field
 					name \Окрас
 					Content <= Color $mol_search
 						hint \
 						query?val <=> color?val \
+						enabled <= enabled
 						suggests <= color_suggest /string
 				<= Trait_field $mol_form_field
 					name \Отличительные особенности
 					Content <= Trait $mol_textarea
+						enabled <= enabled
 				<= Arrived_date_field $mol_form_field
 					name \Дата приёма в приют
 					Content <= Arrived_date $mol_date
 						value_moment?val <=> arrived_date?val $mol_time_moment
+						enabled <= enabled
 				<= Born_date_field $mol_form_field
 					name \День рождения
 					Content <= Born_date $mol_date
 						value_moment?val <=> born_date?val $mol_time_moment
+						enabled <= enabled
 				<= Departed_date_field $mol_form_field
 					name \Дата ухода
 					Content <= Departed_date $mol_date
 						value_moment?val <=> departed_date?val $mol_time_moment
+						enabled <= enabled
 				<= Depart_ready_field $mol_form_field
 					Content <= Depart_ready $mol_check_box
 						title \Ищет хозяина
+						enabled <= enabled
 				<= Description_field $mol_form_field
 					name \Описание для сайта
 					Content <= Description $mol_textarea
 						hint \История жизни, характер, повадки и тп.
+						enabled <= enabled
 			sub /
 				<= Sections $mol_list
 					rows <= groups /
@@ -876,11 +925,6 @@ $gravity_animal_card $mol_link
 		<= Age $mol_view sub / <= age \
 		<= Size $mol_view sub / <= size \
 
-$mol_button_major $mol_button_typed
-	attr *
-		^
-		mol_theme \$mol_theme_accent
-
 $mol_check_icon $mol_check
 
 $mol_icon_brightness_6 $mol_icon path \M12,18V6C15.31,6 18,8.69 18,12C18,15.31 15.31,18 12,18M20,15.31L23.31,12L20,8.69V4H15.31L12,0.69L8.69,4H4V8.69L0.69,12L4,15.31V20H8.69L12,23.31L15.31,20H20V15.31Z
@@ -893,30 +937,74 @@ $mol_lights_toggle $mol_check_icon
 $mol_icon_logout $mol_icon path \M16,17V14H9V10H16V7L21,12L16,17M14,2C15.1,2 16,2.9 16,4V6H14V4H5V20H14V18H16V20C16,21.1 15.1,22 14,22H5C3.9,22 3,21.1 3,20V4C3,2.9 3.9,2 5,2H14Z
 
 $gravity_shelter_manage $mol_book2
-	shelter $gravity_shelter / *
-		id \1
-		name \Усы и хвосты
-		name_legal \НКО "Усы и хвосты" при ДИТ Москвы
+	shelters $gravity_shelter_list / *
+		1 *
+			id 1
+			name \Приют 1
+		2 *
+			id 2
+			name \Приют 2
+		3 *
+			id 3
+			name \Приют 3
+		4 *
+			id 4
+			name \Приют 4
+		5 *
+			id 5
+			name \Приют 5
+		6 *
+			id 6
+			name \Приют 6
+		7 *
+			id 7
+			name \Приют 7
+		8 *
+			id 8
+			name \Приют 8
+		9 *
+			id 9
+			name \Приют 9
+		10 *
+			id 10
+			name \Приют 10
 	animals $gravity_shelter_animals / *
 	pages /
-		<= Animals_page $mol_page
+		<= Filter_page $mol_page
 			tools /
-				<= Search $mol_search
-					query?val <=> search?val \
-				<= Add $mol_button_major
-					click?event <=> add?event null
-					sub /
-						<= Add_icon $mol_icon_plus
 				<= Lights $mol_lights_toggle
 				<= Logout $mol_button_minor
 					click?event <=> logout?event null
 					sub /
 						<= Logout_icon $mol_icon_logout
-			title <= shelter_name \Приют
+			title <= filter_title \Фильтры
+			body /
+				<= Filter_list $mol_list
+					rows <= filter_list /
+						<= Filter_shelter_list $gravity_shelter_manage_filter_group
+							title \Приюты
+							items <= filter_shelter_list /
+		<= Animals_page $mol_page
+			tools <= animals_page_tools /
+				<= Search $mol_search
+					query?val <=> search?val \
+				<= Add $mol_button_major
+					click?event <=> add?event null
+					hint \Добавить животное
+					sub /
+						<= Add_icon $mol_icon_plus
+			title <= animals_title \Управление приютом
 			body /
 				<= Animal_list $mol_list
 					rows <= animal_list /
+	Shelter_link_all $mol_link
+		arg * shelter null
+		sub / \Все
+	Shelter_link!id $mol_link
+		arg * shelter <= shelter_id!id \
+		sub / <= shelter_name!id \
 	Animal_edit!id $gravity_animal_edit
+		enabled <= can_edit true
 		Download => Animal_download!id
 		tools /
 			<= Animal_download!id
@@ -929,28 +1017,20 @@ $gravity_shelter_manage $mol_book2
 	Animal_card!id $gravity_animal_card
 		animal <= animal!id $gravity_animal / *
 		highlight <= search
+	-
+	Download $mol_link
+		hint \Скачать сводку в виде документа
+		file_name <= download_name \
+		uri <= download_link \
+		sub /
+			<= Download_icon $mol_icon_download
 
-$gravity_auth_form $mol_page
-	title \Вход в систему управления приютов
-	plugins /
-		<= Enter $mol_hotkey
-			key * enter?event <=> submit?event null
-	body /
-		<= Form $mol_form
-			form_fields /
-				<= Login_field $mol_form_field
-					name <= Login_name \Логин
-					control <= Login $mol_string
-						value?val <=> login?val \user
-				<= Pass_field $mol_form_field
-					name <= Pass_name \Пароль
-					control <= Pass $mol_string
-						type \password
-						value?val <=> pass?val \password
-			buttons /
-				<= Submit $mol_button_major
-					title <= Auth_label \Войти
-					click?val <=> auth?val null
+$gravity_shelter_manage_filter_group $mol_list
+	rows /
+		<= Title $mol_view
+			sub / <= title
+		<= Items $mol_list
+			rows <= items /
 
 $mol_theme_auto $mol_plugin
 	attr * mol_theme <= theme \
@@ -958,9 +1038,9 @@ $mol_theme_auto $mol_plugin
 $gravity $mol_book2
 	plugins /
 		<= Theme $mol_theme_auto
+	Auth $gravity_auth_form
 	Manage $gravity_shelter_manage
 		logout?event <=> logout?event null
-	Auth $gravity_auth_form
 
 $mol_view_tree_test_attributes_super $mol_view
 	some *
