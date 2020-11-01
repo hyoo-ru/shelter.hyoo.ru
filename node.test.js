@@ -11909,48 +11909,7 @@ var $;
 (function ($) {
     class $gravity_shelter_manage extends $.$mol_book2 {
         shelters() {
-            const obj = new this.$.$gravity_shelter_list({
-                1: {
-                    id: 1,
-                    name: "Приют 1"
-                },
-                2: {
-                    id: 2,
-                    name: "Приют 2"
-                },
-                3: {
-                    id: 3,
-                    name: "Приют 3"
-                },
-                4: {
-                    id: 4,
-                    name: "Приют 4"
-                },
-                5: {
-                    id: 5,
-                    name: "Приют 5"
-                },
-                6: {
-                    id: 6,
-                    name: "Приют 6"
-                },
-                7: {
-                    id: 7,
-                    name: "Приют 7"
-                },
-                8: {
-                    id: 8,
-                    name: "Приют 8"
-                },
-                9: {
-                    id: 9,
-                    name: "Приют 9"
-                },
-                10: {
-                    id: 10,
-                    name: "Приют 10"
-                }
-            });
+            const obj = new this.$.$gravity_shelter_list({});
             return obj;
         }
         animals() {
@@ -12005,7 +11964,7 @@ var $;
         }
         Download() {
             const obj = new this.$.$mol_link();
-            obj.hint = () => "Скачать сводку в виде документа";
+            obj.hint = () => "Скачать список животных в виде документа";
             obj.file_name = () => this.download_name();
             obj.uri = () => this.download_link();
             obj.sub = () => [
@@ -12113,12 +12072,89 @@ var $;
             obj.rows = () => this.animal_list();
             return obj;
         }
+        Summary_title() {
+            const obj = new this.$.$mol_view();
+            obj.sub = () => [
+                "Сводные отчёты: "
+            ];
+            return obj;
+        }
+        summary_1w() {
+            return "";
+        }
+        Summary_1W() {
+            const obj = new this.$.$mol_link();
+            obj.hint = () => "Скачать сводный отчёт";
+            obj.file_name = () => "1W.pdf";
+            obj.target = () => "_blank";
+            obj.uri = () => this.summary_1w();
+            obj.sub = () => [
+                "Неделя"
+            ];
+            return obj;
+        }
+        summary_1m() {
+            return "";
+        }
+        Summary_1M() {
+            const obj = new this.$.$mol_link();
+            obj.hint = () => "Скачать сводный отчёт";
+            obj.file_name = () => "1M.pdf";
+            obj.target = () => "_blank";
+            obj.uri = () => this.summary_1m();
+            obj.sub = () => [
+                "Месяц"
+            ];
+            return obj;
+        }
+        summary_3m() {
+            return "";
+        }
+        Summary_3M() {
+            const obj = new this.$.$mol_link();
+            obj.hint = () => "Скачать сводный отчёт";
+            obj.file_name = () => "3M.pdf";
+            obj.target = () => "_blank";
+            obj.uri = () => this.summary_3m();
+            obj.sub = () => [
+                "Квартал"
+            ];
+            return obj;
+        }
+        summary_1y() {
+            return "";
+        }
+        Summary_1Y() {
+            const obj = new this.$.$mol_link();
+            obj.hint = () => "Скачать сводный отчёт";
+            obj.file_name = () => "1Y.pdf";
+            obj.target = () => "_blank";
+            obj.uri = () => this.summary_1y();
+            obj.sub = () => [
+                "Год"
+            ];
+            return obj;
+        }
+        Summaries() {
+            const obj = new this.$.$mol_view();
+            obj.sub = () => [
+                this.Summary_title(),
+                this.Summary_1W(),
+                this.Summary_1M(),
+                this.Summary_3M(),
+                this.Summary_1Y()
+            ];
+            return obj;
+        }
         Animals_page() {
             const obj = new this.$.$mol_page();
             obj.tools = () => this.animals_page_tools();
             obj.title = () => this.animals_title();
             obj.body = () => [
                 this.Animal_list()
+            ];
+            obj.foot = () => [
+                this.Summaries()
             ];
             return obj;
         }
@@ -12226,6 +12262,24 @@ var $;
     ], $gravity_shelter_manage.prototype, "Animal_list", null);
     __decorate([
         $.$mol_mem
+    ], $gravity_shelter_manage.prototype, "Summary_title", null);
+    __decorate([
+        $.$mol_mem
+    ], $gravity_shelter_manage.prototype, "Summary_1W", null);
+    __decorate([
+        $.$mol_mem
+    ], $gravity_shelter_manage.prototype, "Summary_1M", null);
+    __decorate([
+        $.$mol_mem
+    ], $gravity_shelter_manage.prototype, "Summary_3M", null);
+    __decorate([
+        $.$mol_mem
+    ], $gravity_shelter_manage.prototype, "Summary_1Y", null);
+    __decorate([
+        $.$mol_mem
+    ], $gravity_shelter_manage.prototype, "Summaries", null);
+    __decorate([
+        $.$mol_mem
     ], $gravity_shelter_manage.prototype, "Animals_page", null);
     __decorate([
         $.$mol_mem_key
@@ -12288,6 +12342,9 @@ var $;
         },
     });
     $.$mol_style_define($.$gravity_shelter_manage, {
+        Summary_title: {
+            padding: [rem(.5), rem(1.5)]
+        },
         Search: {
             margin: [0, rem(.75)],
         },
@@ -12367,14 +12424,37 @@ var $;
                     return all[0];
                 return null;
             }
+            can_edit() {
+                return !!this.shelter_single();
+            }
             card_shelters() {
                 return this.shelter_current() ? null : this.shelters();
             }
             animals_page_tools() {
                 return [
                     this.Search(),
-                    ...this.can_edit() ? [this.Add()] : [this.Download()],
+                    this.Download(),
+                    this.Summaries(),
+                    ...this.can_edit() ? [this.Add()] : [],
                 ];
+            }
+            download_link() {
+                return this.$.$gravity_transport.link(`../reports/shelters/${this.shelter_current()}/animal-register.docx`);
+            }
+            download_name() {
+                return `animal-register.docx`;
+            }
+            summary_1w() {
+                return this.$.$gravity_transport.link(`../reports/summary/1W.pdf`);
+            }
+            summary_1m() {
+                return this.$.$gravity_transport.link(`../reports/summary/1M.pdf`);
+            }
+            summary_3m() {
+                return this.$.$gravity_transport.link(`../reports/summary/3M.pdf`);
+            }
+            summary_1y() {
+                return this.$.$gravity_transport.link(`../reports/summary/1Y.pdf`);
             }
             add() {
                 const Response = $.$mol_data_record({ id: $.$mol_data_string });
