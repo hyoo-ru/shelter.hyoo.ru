@@ -12,6 +12,10 @@ namespace $ {
 
 	$mol_style_define( $gravity_shelter_manage , {
 
+		Summary_title: {
+			padding: [ rem(.5), rem(1.5) ]
+		},
+
 		Search: {
 			margin: [ 0 , rem(.75) ],
 		},

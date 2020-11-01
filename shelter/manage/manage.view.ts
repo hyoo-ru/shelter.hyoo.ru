@@ -59,9 +59,9 @@ namespace $.$$ {
 			return null
 		}
 
-		// can_edit() {
-		// 	return !! this.shelter_single()
-		// }
+		can_edit() {
+			return !! this.shelter_single()
+		}
 
 		card_shelters() {
 			return this.shelter_current() ? null as any : this.shelters()
@@ -70,8 +70,34 @@ namespace $.$$ {
 		animals_page_tools() {
 			return [
 				this.Search(),
-				... this.can_edit() ? [ this.Add() ] : [ this.Download() ],
+				this.Download(),
+				this.Summaries(),
+				... this.can_edit() ? [ this.Add() ] : [ ],
 			]
+		}
+
+		download_link() {
+			return this.$.$gravity_transport.link( `../reports/shelters/${ this.shelter_current() }/animal-register.docx` )
+		}
+
+		download_name() {
+			return `animal-register.docx`
+		}
+
+		summary_1w() {
+			return this.$.$gravity_transport.link( `../reports/summary/1W.pdf` )
+		}
+
+		summary_1m() {
+			return this.$.$gravity_transport.link( `../reports/summary/1M.pdf` )
+		}
+
+		summary_3m() {
+			return this.$.$gravity_transport.link( `../reports/summary/3M.pdf` )
+		}
+
+		summary_1y() {
+			return this.$.$gravity_transport.link( `../reports/summary/1Y.pdf` )
 		}
 
 		add() {

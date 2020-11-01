@@ -1,35 +1,5 @@
 $gravity_shelter_manage $mol_book2
 	shelters $gravity_shelter_list / *
-		1 *
-			id 1
-			name \Приют 1
-		2 *
-			id 2
-			name \Приют 2
-		3 *
-			id 3
-			name \Приют 3
-		4 *
-			id 4
-			name \Приют 4
-		5 *
-			id 5
-			name \Приют 5
-		6 *
-			id 6
-			name \Приют 6
-		7 *
-			id 7
-			name \Приют 7
-		8 *
-			id 8
-			name \Приют 8
-		9 *
-			id 9
-			name \Приют 9
-		10 *
-			id 10
-			name \Приют 10
 	animals $gravity_shelter_animals / *
 	pages /
 		<= Filter_page $mol_page
@@ -59,6 +29,34 @@ $gravity_shelter_manage $mol_book2
 			body /
 				<= Animal_list $mol_list
 					rows <= animal_list /
+			foot /
+				<= Summaries $mol_view
+					sub /
+						<= Summary_title $mol_view sub / \Сводные отчёты: 
+						<= Summary_1W $mol_link
+							hint \Скачать сводный отчёт
+							file_name \1W.pdf
+							target \_blank
+							uri <= summary_1w \
+							sub / \Неделя
+						<= Summary_1M $mol_link
+							hint \Скачать сводный отчёт
+							file_name \1M.pdf
+							target \_blank
+							uri <= summary_1m \
+							sub / \Месяц
+						<= Summary_3M $mol_link
+							hint \Скачать сводный отчёт
+							file_name \3M.pdf
+							target \_blank
+							uri <= summary_3m \
+							sub / \Квартал
+						<= Summary_1Y $mol_link
+							hint \Скачать сводный отчёт
+							file_name \1Y.pdf
+							target \_blank
+							uri <= summary_1y \
+							sub / \Год
 	Shelter_link_all $mol_link
 		arg * shelter null
 		sub / \Все
@@ -82,7 +80,7 @@ $gravity_shelter_manage $mol_book2
 		shelters <= card_shelters $gravity_shelter_list / *
 	-
 	Download $mol_link
-		hint \Скачать сводку в виде документа
+		hint \Скачать список животных в виде документа
 		file_name <= download_name \
 		uri <= download_link \
 		sub /
