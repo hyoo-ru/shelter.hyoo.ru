@@ -41,7 +41,7 @@ namespace $.$$ {
 
 		pages() {
 			return [
-				... this.shelter_single() ? [] : [ this.Filter_page() ],
+				this.Filter_page(),
 				this.Animals_page(),
 				... this.animal_current() ? [ this.Animal_edit( this.animal_current() ) ] : [],
 			]
