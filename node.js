@@ -3532,6 +3532,17 @@ var $;
             });
             return res;
         }
+        static send(path, file) {
+            const uri = this.api_base() + path;
+            const body = new FormData;
+            body.append('photos[0]', file);
+            const res = this.$.$mol_fetch.json(uri, {
+                method: 'post',
+                headers: Object.assign(Object.assign({}, this.headers()), { 'Content-Type': 'multipart/form-data' }),
+                body,
+            });
+            return res;
+        }
     }
     __decorate([
         $.$mol_mem
@@ -3545,6 +3556,9 @@ var $;
     __decorate([
         $.$mol_fiber.method
     ], $gravity_transport, "save", null);
+    __decorate([
+        $.$mol_fiber.method
+    ], $gravity_transport, "send", null);
     $.$gravity_transport = $gravity_transport;
 })($ || ($ = {}));
 //transport.js.map
@@ -5694,6 +5708,10 @@ var $;
             var _a;
             return (_a = this.value('fur', next)) !== null && _a !== void 0 ? _a : '';
         }
+        description(next) {
+            var _a;
+            return (_a = this.value('description', next)) !== null && _a !== void 0 ? _a : '';
+        }
         weight(next) {
             var _a;
             return (_a = this.value('weight', next)) !== null && _a !== void 0 ? _a : 0;
@@ -5752,6 +5770,7 @@ var $;
         size: $.$mol_data_string,
         tail: $.$mol_data_string,
         shelterId: $.$mol_data_number,
+        fur: $.$mol_data_string,
     }));
     class $gravity_shelter_animals extends $.$mol_store {
         data(next) {
@@ -6558,8 +6577,9 @@ var $;
             attach_new(next) {
                 const items = this.items();
                 const item = this.Item(items.length);
-                item.url_thumb(next);
-                item.url_load(next);
+                const url = URL.createObjectURL(next);
+                item.url_thumb(url);
+                item.url_load(url);
                 this.items(items.concat(item));
             }
             content() {
@@ -6581,18 +6601,11 @@ var $;
                 if (!$.$mol_cordova_camera())
                     return;
                 next.preventDefault();
-                $.$mol_cordova_camera().getPicture((url) => {
-                    this.file_new(url);
-                }, (error) => {
-                    this.file_new(error, $.$mol_mem_force_fail);
-                }, {
-                    quality: 50
-                });
             }
             event_picked(next) {
                 var files = [].slice.call(next.target.files);
                 for (var file of files) {
-                    this.file_new(URL.createObjectURL(file));
+                    this.file_new(file);
                 }
             }
         }
@@ -10513,10 +10526,16 @@ var $;
                 return val;
             return [];
         }
+        photo_new(val) {
+            if (val !== undefined)
+                return val;
+            return null;
+        }
         Photos() {
             const obj = new this.$.$mol_attach();
             obj.items = (val) => this.photos(val);
             obj.minimal_height = () => 160;
+            obj.attach_new = (val) => this.photo_new(val);
             return obj;
         }
         Photos_field() {
@@ -10875,10 +10894,16 @@ var $;
             obj.Content = () => this.Depart_ready();
             return obj;
         }
+        description(val) {
+            if (val !== undefined)
+                return val;
+            return "";
+        }
         Description() {
             const obj = new this.$.$mol_textarea();
             obj.hint = () => "История жизни, характер, повадки и тп.";
             obj.enabled = () => this.enabled();
+            obj.value = (val) => this.description(val);
             return obj;
         }
         Description_field() {
@@ -11118,6 +11143,9 @@ var $;
     ], $gravity_animal_edit.prototype, "photos", null);
     __decorate([
         $.$mol_mem
+    ], $gravity_animal_edit.prototype, "photo_new", null);
+    __decorate([
+        $.$mol_mem
     ], $gravity_animal_edit.prototype, "Photos", null);
     __decorate([
         $.$mol_mem
@@ -11284,6 +11312,9 @@ var $;
     __decorate([
         $.$mol_mem
     ], $gravity_animal_edit.prototype, "Depart_ready_field", null);
+    __decorate([
+        $.$mol_mem
+    ], $gravity_animal_edit.prototype, "description", null);
     __decorate([
         $.$mol_mem
     ], $gravity_animal_edit.prototype, "Description", null);
@@ -11561,6 +11592,12 @@ var $;
             }
             photo(index) {
                 return this.$.$gravity_transport.link('..' + this.animal().photos()[index]);
+            }
+            photo_new(file) {
+                this.$.$gravity_transport.send(`shelters/${this.animal().shelter_id()}/photos`, file);
+            }
+            description(next) {
+                return this.animal().description(next);
             }
             name(next) {
                 return this.animal().name(next);
@@ -12744,11 +12781,12 @@ var $;
                     readyForDepart: false,
                     card: $.$mol_stub_code(),
                     kind: 'Dog',
+                    chip: $.$mol_stub_code(),
                     gender: 'Male',
                     cage: '',
                     arrivedAt: new $.$mol_time_moment().mask('1111-11-11').toString(),
                     departedAt: null,
-                    birthDate: new $.$mol_time_moment().mask('1111-11').toString(),
+                    birthDate: new $.$mol_time_moment().mask('1111-11-11').toString(),
                     weight: 0,
                     ears: '',
                     tail: '',

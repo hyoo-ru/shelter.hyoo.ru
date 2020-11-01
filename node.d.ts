@@ -1096,6 +1096,7 @@ declare namespace $ {
         static load(path: string): any;
         static link(path: string): any;
         static save(path: string, method: 'post' | 'put', body: object): any;
+        static send(path: string, file: File): any;
     }
 }
 
@@ -1847,6 +1848,7 @@ declare namespace $ {
         tail(next?: string): string;
         color(next?: string): string;
         fur(next?: string): string;
+        description(next?: string): string;
         weight(next?: number): number;
         kind(next?: $gravity_animal_kind): $gravity_animal_kind;
         gender(next?: $gravity_animal_gender): $gravity_animal_gender;
@@ -2159,14 +2161,14 @@ declare namespace $ {
 
 declare namespace $.$$ {
     class $mol_attach extends $.$mol_attach {
-        attach_new(next?: string): void;
+        attach_new(next?: File): void;
         content(): any[];
     }
     class $mol_attach_item extends $.$mol_attach_item {
         style_bg(): string;
     }
     class $mol_attach_add extends $.$mol_attach_add {
-        file_new(next?: string, force?: $mol_mem_force_fail): string | undefined;
+        file_new(next?: File, force?: $mol_mem_force_fail): File | undefined;
         event_capture(next: Event): void;
         event_picked(next: Event): void;
     }
@@ -3213,6 +3215,7 @@ declare namespace $ {
         Download_icon(): $mol_icon_download;
         Download(): $$.$mol_link;
         photos(val?: any): any;
+        photo_new(val?: any): any;
         Photos(): $$.$mol_attach;
         Photos_field(): $mol_form_field;
         name(val?: any): any;
@@ -3273,6 +3276,7 @@ declare namespace $ {
         Departed_date_field(): $mol_form_field;
         Depart_ready(): $mol_check_box;
         Depart_ready_field(): $mol_form_field;
+        description(val?: any): any;
         Description(): $$.$mol_textarea;
         Description_field(): $mol_form_field;
         Attaches(): $gravity_animal_edit_group;
@@ -3356,6 +3360,8 @@ declare namespace $.$$ {
     class $gravity_animal_edit extends $.$gravity_animal_edit {
         photos(next?: $mol_attach_item[]): $mol_attach_item[];
         photo(index: number): any;
+        photo_new(file: File): void;
+        description(next?: string): string;
         name(next?: string): string;
         card(next?: string): string;
         chip(next?: string): string;
