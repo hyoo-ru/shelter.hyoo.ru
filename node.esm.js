@@ -5690,6 +5690,10 @@ var $;
             var _a;
             return (_a = this.value('color', next)) !== null && _a !== void 0 ? _a : '';
         }
+        fur(next) {
+            var _a;
+            return (_a = this.value('fur', next)) !== null && _a !== void 0 ? _a : '';
+        }
         weight(next) {
             var _a;
             return (_a = this.value('weight', next)) !== null && _a !== void 0 ? _a : 0;
@@ -10773,6 +10777,28 @@ var $;
             obj.Content = () => this.Color();
             return obj;
         }
+        fur(val) {
+            if (val !== undefined)
+                return val;
+            return "";
+        }
+        fur_suggest() {
+            return [];
+        }
+        Fur() {
+            const obj = new this.$.$mol_search();
+            obj.hint = () => "";
+            obj.query = (val) => this.fur(val);
+            obj.enabled = () => this.enabled();
+            obj.suggests = () => this.fur_suggest();
+            return obj;
+        }
+        Fur_field() {
+            const obj = new this.$.$mol_form_field();
+            obj.name = () => "Тип шерсти";
+            obj.Content = () => this.Fur();
+            return obj;
+        }
         Trait() {
             const obj = new this.$.$mol_textarea();
             obj.enabled = () => this.enabled();
@@ -10964,6 +10990,20 @@ var $;
             ];
             return obj;
         }
+        Visual2() {
+            const obj = new this.$.$gravity_animal_edit_group();
+            obj.sub = () => [
+                this.Fur_field()
+            ];
+            return obj;
+        }
+        Appearance2() {
+            const obj = new this.$.$gravity_animal_edit_section();
+            obj.sub = () => [
+                this.Visual2()
+            ];
+            return obj;
+        }
         Exports() {
             const obj = new this.$.$gravity_animal_edit_group();
             obj.sub = () => [
@@ -11018,6 +11058,7 @@ var $;
                 this.Dates(),
                 this.Classification(),
                 this.Appearance(),
+                this.Appearance2(),
                 this.Exports(),
                 this.Documents()
             ];
@@ -11043,6 +11084,7 @@ var $;
                 this.Tail_field(),
                 this.Ear_field(),
                 this.Color_field(),
+                this.Fur_field(),
                 this.Trait_field(),
                 this.Arrived_date_field(),
                 this.Born_date_field(),
@@ -11196,6 +11238,15 @@ var $;
     ], $gravity_animal_edit.prototype, "Color_field", null);
     __decorate([
         $.$mol_mem
+    ], $gravity_animal_edit.prototype, "fur", null);
+    __decorate([
+        $.$mol_mem
+    ], $gravity_animal_edit.prototype, "Fur", null);
+    __decorate([
+        $.$mol_mem
+    ], $gravity_animal_edit.prototype, "Fur_field", null);
+    __decorate([
+        $.$mol_mem
     ], $gravity_animal_edit.prototype, "Trait", null);
     __decorate([
         $.$mol_mem
@@ -11278,6 +11329,12 @@ var $;
     __decorate([
         $.$mol_mem
     ], $gravity_animal_edit.prototype, "Appearance", null);
+    __decorate([
+        $.$mol_mem
+    ], $gravity_animal_edit.prototype, "Visual2", null);
+    __decorate([
+        $.$mol_mem
+    ], $gravity_animal_edit.prototype, "Appearance2", null);
     __decorate([
         $.$mol_mem
     ], $gravity_animal_edit.prototype, "Exports", null);
@@ -11534,6 +11591,9 @@ var $;
             color(next) {
                 return this.animal().color(next);
             }
+            fur(next) {
+                return this.animal().fur(next);
+            }
             kind(next) {
                 return this.animal().kind(next);
             }
@@ -11557,6 +11617,9 @@ var $;
             }
             color_suggest() {
                 return this.$.$gravity_dict.color_suggest(this.kind());
+            }
+            fur_suggest() {
+                return this.$.$gravity_dict.fur_suggest(this.kind());
             }
             download_name() {
                 return `${this.card()} ${this.name()}.docx`;
@@ -12680,13 +12743,12 @@ var $;
                     name: '',
                     readyForDepart: false,
                     card: $.$mol_stub_code(),
-                    chip: '',
                     kind: 'Dog',
                     gender: 'Male',
                     cage: '',
                     arrivedAt: new $.$mol_time_moment().mask('1111-11-11').toString(),
                     departedAt: null,
-                    birthDate: '',
+                    birthDate: new $.$mol_time_moment().mask('1111-11').toString(),
                     weight: 0,
                     ears: '',
                     tail: '',

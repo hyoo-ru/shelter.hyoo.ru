@@ -1846,6 +1846,7 @@ declare namespace $ {
         ear(next?: string): string;
         tail(next?: string): string;
         color(next?: string): string;
+        fur(next?: string): string;
         weight(next?: number): number;
         kind(next?: $gravity_animal_kind): $gravity_animal_kind;
         gender(next?: $gravity_animal_gender): $gravity_animal_gender;
@@ -3255,6 +3256,10 @@ declare namespace $ {
         color_suggest(): readonly string[];
         Color(): $$.$mol_search;
         Color_field(): $mol_form_field;
+        fur(val?: any): any;
+        fur_suggest(): readonly string[];
+        Fur(): $$.$mol_search;
+        Fur_field(): $mol_form_field;
         Trait(): $$.$mol_textarea;
         Trait_field(): $mol_form_field;
         arrived_date(val?: any): any;
@@ -3283,6 +3288,8 @@ declare namespace $ {
         Ends(): $gravity_animal_edit_group;
         Visual(): $gravity_animal_edit_group;
         Appearance(): $gravity_animal_edit_section;
+        Visual2(): $gravity_animal_edit_group;
+        Appearance2(): $gravity_animal_edit_section;
         Exports(): $gravity_animal_edit_group;
         Catch(): $gravity_animal_edit_links;
         Catch_field(): $mol_form_field;
@@ -3358,6 +3365,7 @@ declare namespace $.$$ {
         ear(next?: string): string;
         tail(next?: string): string;
         color(next?: string): string;
+        fur(next?: string): string;
         kind(next?: $gravity_animal_kind): $gravity_animal_kind;
         gender(next?: $gravity_animal_gender): $gravity_animal_gender;
         arrived_date(next?: $mol_time_moment): $mol_time_moment | null;
@@ -3366,6 +3374,7 @@ declare namespace $.$$ {
         ear_suggest(): readonly string[];
         tail_suggest(): readonly string[];
         color_suggest(): readonly string[];
+        fur_suggest(): readonly string[];
         download_name(): string;
         download_link(): any;
     }
