@@ -181,6 +181,20 @@ $mol_link $mol_view
 		^
 		click?event <=> click?event <=> event_click?event null
 
+$mol_card $mol_list
+	attr *
+		^
+		mol_card_status_type <= status \
+	rows /$mol_view
+		<= Content $mol_view
+			sub <= content /$mol_view_content
+		<= Status $mol_view
+			minimal_height 30
+			sub /
+				<= status_text <= status \
+
+$mol_button_minor $mol_button_typed
+
 $mol_svg $mol_view
 	dom_name \svg
 	dom_name_space \http://www.w3.org/2000/svg
@@ -208,22 +222,6 @@ $mol_icon $mol_svg_root
 	sub /
 		<= Path $mol_svg_path
 			geometry <= path \
-
-$mol_icon_download $mol_icon path \M5,20H19V18H5M19,9H15V3H9V9H5L12,16L19,9Z
-
-$mol_card $mol_list
-	attr *
-		^
-		mol_card_status_type <= status \
-	rows /$mol_view
-		<= Content $mol_view
-			sub <= content /$mol_view_content
-		<= Status $mol_view
-			minimal_height 30
-			sub /
-				<= status_text <= status \
-
-$mol_button_minor $mol_button_typed
 
 $mol_icon_attach $mol_icon path \M16.5 6v11.5c0 2.21-1.79 4-4 4s-4-1.79-4-4V5c0-1.38 1.12-2.5 2.5-2.5s2.5 1.12 2.5 2.5v10.5c0 .55-.45 1-1 1s-1-.45-1-1V6H10v9.5c0 1.38 1.12 2.5 2.5 2.5s2.5-1.12 2.5-2.5V5c0-2.21-1.79-4-4-4S7 2.79 7 5v12.5c0 3.04 2.46 5.5 5.5 5.5s5.5-2.46 5.5-5.5V6h-1.5z
 
@@ -265,6 +263,8 @@ $mol_attach_add_input $mol_view
 	event *
 		^
 		change?val <=> event_picked?val null
+
+$mol_icon_download $mol_icon path \M5,20H19V18H5M19,9H15V3H9V9H5L12,16L19,9Z
 
 $mol_check $mol_button_minor
 	attr *
@@ -718,6 +718,8 @@ $gravity_animal_edit $mol_page
 				<= Photos_field $mol_form_field
 					name \Фотографии
 					Content <= Photos $mol_attach
+						items?val <=> photos?val /$mol_attach_item
+						minimal_height 160
 				<= Name_field $mol_form_field
 					name \Кличка
 					Content <= Name $mol_string
@@ -836,6 +838,9 @@ $gravity_animal_edit $mol_page
 			sub /
 				<= Sections $mol_list
 					rows <= groups /
+						<= Attaches $gravity_animal_edit_group
+							sub /
+								<= Photos_field
 						<= General $gravity_animal_edit_section
 							sub /
 								<= Main $gravity_animal_edit_group
@@ -866,9 +871,6 @@ $gravity_animal_edit $mol_page
 									sub /
 										<= Size_field
 										<= Weight_field
-						<= Attaches $gravity_animal_edit_group
-							sub /
-								<= Photos_field
 						<= Appearance $gravity_animal_edit_section
 							sub /
 								<= Ends $gravity_animal_edit_group
@@ -894,6 +896,9 @@ $gravity_animal_edit $mol_page
 								<= Contract_field $mol_form_field
 									name \Договора
 									Content <= Contract $gravity_animal_edit_links
+	Photo!index $mol_attach_item
+		url_load <= photo!index \
+		url_thumb <= photo!index \
 
 $gravity_animal_edit_section $mol_row
 $gravity_animal_edit_group $mol_row

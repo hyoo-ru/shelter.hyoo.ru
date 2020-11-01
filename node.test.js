@@ -5643,6 +5643,10 @@ var $;
 var $;
 (function ($) {
     class $gravity_animal extends $.$mol_store {
+        photos(next) {
+            var _a;
+            return (_a = this.value('photos', next)) !== null && _a !== void 0 ? _a : [];
+        }
         id() {
             var _a;
             return String((_a = this.value('id')) !== null && _a !== void 0 ? _a : '');
@@ -6062,6 +6066,93 @@ var $;
 "use strict";
 var $;
 (function ($) {
+    class $mol_card extends $.$mol_list {
+        attr() {
+            return Object.assign(Object.assign({}, super.attr()), { mol_card_status_type: this.status() });
+        }
+        rows() {
+            return [
+                this.Content(),
+                this.Status()
+            ];
+        }
+        status() {
+            return "";
+        }
+        content() {
+            return [];
+        }
+        Content() {
+            const obj = new this.$.$mol_view();
+            obj.sub = () => this.content();
+            return obj;
+        }
+        status_text() {
+            return this.status();
+        }
+        Status() {
+            const obj = new this.$.$mol_view();
+            obj.minimal_height = () => 30;
+            obj.sub = () => [
+                this.status_text()
+            ];
+            return obj;
+        }
+    }
+    __decorate([
+        $.$mol_mem
+    ], $mol_card.prototype, "Content", null);
+    __decorate([
+        $.$mol_mem
+    ], $mol_card.prototype, "Status", null);
+    $.$mol_card = $mol_card;
+})($ || ($ = {}));
+//card.view.tree.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    $.$mol_style_attach("mol/card/card.view.css", "[mol_card] {\n\tbox-shadow: 0 0 0 1px var(--mol_theme_line);\n\tbackground: var(--mol_theme_back);\n\tcolor: var(--mol_theme_text);\n\tborder-radius: var(--mol_skin_round);\n\tdisplay: flex;\n\tflex: 0 1 auto;\n\tflex-direction: column;\n}\n\n[mol_card_content] {\n\tflex: 1 1 auto;\n\tborder-radius: var(--mol_skin_round);\n\tmargin: 0;\n}\n\n[mol_card_status] {\n\tbackground: var(--mol_theme_line);\n\ttext-transform: capitalize;\n\tpadding: .25rem .75rem;\n\tline-height: 2;\n\tmargin: 0;\n}\n\n[mol_card_status] {\n\tbackground: var(--mol_theme_line);\n}\n");
+})($ || ($ = {}));
+//card.view.css.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    var $$;
+    (function ($$) {
+        class $mol_card extends $.$mol_card {
+            rows() {
+                return [
+                    this.Content(),
+                    ...this.status_text() ? [this.Status()] : [],
+                ];
+            }
+        }
+        $$.$mol_card = $mol_card;
+    })($$ = $.$$ || ($.$$ = {}));
+})($ || ($ = {}));
+//card.view.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    class $mol_button_minor extends $.$mol_button_typed {
+    }
+    $.$mol_button_minor = $mol_button_minor;
+})($ || ($ = {}));
+//minor.view.tree.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    $.$mol_style_attach("mol/button/minor/minor.view.css", "[mol_button_minor] {\n\tcolor: var(--mol_theme_control);\n}\n");
+})($ || ($ = {}));
+//minor.view.css.js.map
+;
+"use strict";
+var $;
+(function ($) {
     class $mol_svg extends $.$mol_view {
         dom_name() {
             return "svg";
@@ -6230,105 +6321,6 @@ var $;
     $.$mol_style_attach("mol/icon/icon.view.css", "[mol_icon] {\n\tfill: currentColor;\n\tstroke: none;\n\twidth: 1em;\n\theight: 1em;\n\tflex: 0 0 auto;\n\tvertical-align: top;\n\twill-change: transform;\n\tmargin: .25em 0;\n\tdisplay: inline-block;\n}\n");
 })($ || ($ = {}));
 //icon.view.css.js.map
-;
-"use strict";
-var $;
-(function ($) {
-    class $mol_icon_download extends $.$mol_icon {
-        path() {
-            return "M5,20H19V18H5M19,9H15V3H9V9H5L12,16L19,9Z";
-        }
-    }
-    $.$mol_icon_download = $mol_icon_download;
-})($ || ($ = {}));
-//download.view.tree.js.map
-;
-"use strict";
-var $;
-(function ($) {
-    class $mol_card extends $.$mol_list {
-        attr() {
-            return Object.assign(Object.assign({}, super.attr()), { mol_card_status_type: this.status() });
-        }
-        rows() {
-            return [
-                this.Content(),
-                this.Status()
-            ];
-        }
-        status() {
-            return "";
-        }
-        content() {
-            return [];
-        }
-        Content() {
-            const obj = new this.$.$mol_view();
-            obj.sub = () => this.content();
-            return obj;
-        }
-        status_text() {
-            return this.status();
-        }
-        Status() {
-            const obj = new this.$.$mol_view();
-            obj.minimal_height = () => 30;
-            obj.sub = () => [
-                this.status_text()
-            ];
-            return obj;
-        }
-    }
-    __decorate([
-        $.$mol_mem
-    ], $mol_card.prototype, "Content", null);
-    __decorate([
-        $.$mol_mem
-    ], $mol_card.prototype, "Status", null);
-    $.$mol_card = $mol_card;
-})($ || ($ = {}));
-//card.view.tree.js.map
-;
-"use strict";
-var $;
-(function ($) {
-    $.$mol_style_attach("mol/card/card.view.css", "[mol_card] {\n\tbox-shadow: 0 0 0 1px var(--mol_theme_line);\n\tbackground: var(--mol_theme_back);\n\tcolor: var(--mol_theme_text);\n\tborder-radius: var(--mol_skin_round);\n\tdisplay: flex;\n\tflex: 0 1 auto;\n\tflex-direction: column;\n}\n\n[mol_card_content] {\n\tflex: 1 1 auto;\n\tborder-radius: var(--mol_skin_round);\n\tmargin: 0;\n}\n\n[mol_card_status] {\n\tbackground: var(--mol_theme_line);\n\ttext-transform: capitalize;\n\tpadding: .25rem .75rem;\n\tline-height: 2;\n\tmargin: 0;\n}\n\n[mol_card_status] {\n\tbackground: var(--mol_theme_line);\n}\n");
-})($ || ($ = {}));
-//card.view.css.js.map
-;
-"use strict";
-var $;
-(function ($) {
-    var $$;
-    (function ($$) {
-        class $mol_card extends $.$mol_card {
-            rows() {
-                return [
-                    this.Content(),
-                    ...this.status_text() ? [this.Status()] : [],
-                ];
-            }
-        }
-        $$.$mol_card = $mol_card;
-    })($$ = $.$$ || ($.$$ = {}));
-})($ || ($ = {}));
-//card.view.js.map
-;
-"use strict";
-var $;
-(function ($) {
-    class $mol_button_minor extends $.$mol_button_typed {
-    }
-    $.$mol_button_minor = $mol_button_minor;
-})($ || ($ = {}));
-//minor.view.tree.js.map
-;
-"use strict";
-var $;
-(function ($) {
-    $.$mol_style_attach("mol/button/minor/minor.view.css", "[mol_button_minor] {\n\tcolor: var(--mol_theme_control);\n}\n");
-})($ || ($ = {}));
-//minor.view.css.js.map
 ;
 "use strict";
 var $;
@@ -6597,6 +6589,18 @@ var $;
     })($$ = $.$$ || ($.$$ = {}));
 })($ || ($ = {}));
 //attach.view.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    class $mol_icon_download extends $.$mol_icon {
+        path() {
+            return "M5,20H19V18H5M19,9H15V3H9V9H5L12,16L19,9Z";
+        }
+    }
+    $.$mol_icon_download = $mol_icon_download;
+})($ || ($ = {}));
+//download.view.tree.js.map
 ;
 "use strict";
 var $;
@@ -10467,6 +10471,12 @@ var $;
                 this.Form()
             ];
         }
+        Photo(index) {
+            const obj = new this.$.$mol_attach_item();
+            obj.url_load = () => this.photo(index);
+            obj.url_thumb = () => this.photo(index);
+            return obj;
+        }
         download_name() {
             return "";
         }
@@ -10487,8 +10497,15 @@ var $;
             ];
             return obj;
         }
+        photos(val) {
+            if (val !== undefined)
+                return val;
+            return [];
+        }
         Photos() {
             const obj = new this.$.$mol_attach();
+            obj.items = (val) => this.photos(val);
+            obj.minimal_height = () => 160;
             return obj;
         }
         Photos_field() {
@@ -10837,6 +10854,13 @@ var $;
             obj.Content = () => this.Description();
             return obj;
         }
+        Attaches() {
+            const obj = new this.$.$gravity_animal_edit_group();
+            obj.sub = () => [
+                this.Photos_field()
+            ];
+            return obj;
+        }
         Main() {
             const obj = new this.$.$gravity_animal_edit_group();
             obj.sub = () => [
@@ -10906,13 +10930,6 @@ var $;
             obj.sub = () => [
                 this.Types(),
                 this.Gabarites()
-            ];
-            return obj;
-        }
-        Attaches() {
-            const obj = new this.$.$gravity_animal_edit_group();
-            obj.sub = () => [
-                this.Photos_field()
             ];
             return obj;
         }
@@ -10989,10 +11006,10 @@ var $;
         }
         groups() {
             return [
+                this.Attaches(),
                 this.General(),
                 this.Dates(),
                 this.Classification(),
-                this.Attaches(),
                 this.Appearance(),
                 this.Exports(),
                 this.Documents()
@@ -11031,16 +11048,25 @@ var $;
             ];
             return obj;
         }
+        photo(index) {
+            return "";
+        }
     }
     __decorate([
         $.$mol_mem
     ], $gravity_animal_edit.prototype, "animal", null);
+    __decorate([
+        $.$mol_mem_key
+    ], $gravity_animal_edit.prototype, "Photo", null);
     __decorate([
         $.$mol_mem
     ], $gravity_animal_edit.prototype, "Download_icon", null);
     __decorate([
         $.$mol_mem
     ], $gravity_animal_edit.prototype, "Download", null);
+    __decorate([
+        $.$mol_mem
+    ], $gravity_animal_edit.prototype, "photos", null);
     __decorate([
         $.$mol_mem
     ], $gravity_animal_edit.prototype, "Photos", null);
@@ -11208,6 +11234,9 @@ var $;
     ], $gravity_animal_edit.prototype, "Description_field", null);
     __decorate([
         $.$mol_mem
+    ], $gravity_animal_edit.prototype, "Attaches", null);
+    __decorate([
+        $.$mol_mem
     ], $gravity_animal_edit.prototype, "Main", null);
     __decorate([
         $.$mol_mem
@@ -11233,9 +11262,6 @@ var $;
     __decorate([
         $.$mol_mem
     ], $gravity_animal_edit.prototype, "Classification", null);
-    __decorate([
-        $.$mol_mem
-    ], $gravity_animal_edit.prototype, "Attaches", null);
     __decorate([
         $.$mol_mem
     ], $gravity_animal_edit.prototype, "Ends", null);
@@ -11412,6 +11438,23 @@ var $;
         Color: {
             alignSelf: 'stretch',
         },
+        $mol_attach_item: {
+            flex: {
+                basis: rem(10),
+            },
+            width: rem(10),
+            height: rem(10),
+        },
+        Photos: {
+            Add: {
+                width: rem(10),
+                height: rem(10),
+                flex: {
+                    basis: rem(10),
+                    grow: 0,
+                },
+            },
+        },
     });
     $.$mol_style_define($.$gravity_animal_edit_section, {
         margin: 0,
@@ -11449,6 +11492,12 @@ var $;
     var $$;
     (function ($$) {
         class $gravity_animal_edit extends $.$gravity_animal_edit {
+            photos(next) {
+                return next !== null && next !== void 0 ? next : this.animal().photos().map((link, index) => this.Photo(index));
+            }
+            photo(index) {
+                return this.$.$gravity_transport.link('..' + this.animal().photos()[index]);
+            }
             name(next) {
                 return this.animal().name(next);
             }
@@ -11509,6 +11558,9 @@ var $;
                 return this.$.$gravity_transport.link(`../reports/animals/${this.animal().id()}/animal-card.docx`);
             }
         }
+        __decorate([
+            $.$mol_mem
+        ], $gravity_animal_edit.prototype, "photos", null);
         $$.$gravity_animal_edit = $gravity_animal_edit;
     })($$ = $.$$ || ($.$$ = {}));
 })($ || ($ = {}));

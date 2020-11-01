@@ -1813,6 +1813,7 @@ declare namespace $ {
         fur?: string;
         shelterId?: number;
     }> {
+        photos(next?: string[]): readonly string[];
         id(): string;
         name(next?: string): string;
         card(next?: string): string;
@@ -1970,6 +1971,37 @@ declare namespace $.$$ {
 }
 
 declare namespace $ {
+    class $mol_card extends $mol_list {
+        attr(): {
+            mol_card_status_type: string;
+        };
+        rows(): readonly $mol_view[];
+        status(): string;
+        content(): readonly (string | number | boolean | Node | $mol_view)[];
+        Content(): $mol_view;
+        status_text(): string;
+        Status(): $mol_view;
+    }
+}
+
+declare namespace $ {
+}
+
+declare namespace $.$$ {
+    class $mol_card extends $.$mol_card {
+        rows(): $mol_view[];
+    }
+}
+
+declare namespace $ {
+    class $mol_button_minor extends $mol_button_typed {
+    }
+}
+
+declare namespace $ {
+}
+
+declare namespace $ {
     class $mol_svg extends $mol_view {
         dom_name(): string;
         dom_name_space(): string;
@@ -2035,43 +2067,6 @@ declare namespace $ {
         sub(): readonly any[];
         path(): string;
         Path(): $mol_svg_path;
-    }
-}
-
-declare namespace $ {
-}
-
-declare namespace $ {
-    class $mol_icon_download extends $mol_icon {
-        path(): string;
-    }
-}
-
-declare namespace $ {
-    class $mol_card extends $mol_list {
-        attr(): {
-            mol_card_status_type: string;
-        };
-        rows(): readonly $mol_view[];
-        status(): string;
-        content(): readonly (string | number | boolean | Node | $mol_view)[];
-        Content(): $mol_view;
-        status_text(): string;
-        Status(): $mol_view;
-    }
-}
-
-declare namespace $ {
-}
-
-declare namespace $.$$ {
-    class $mol_card extends $.$mol_card {
-        rows(): $mol_view[];
-    }
-}
-
-declare namespace $ {
-    class $mol_button_minor extends $mol_button_typed {
     }
 }
 
@@ -2161,6 +2156,12 @@ declare namespace $.$$ {
         file_new(next?: string, force?: $mol_mem_force_fail): string | undefined;
         event_capture(next: Event): void;
         event_picked(next: Event): void;
+    }
+}
+
+declare namespace $ {
+    class $mol_icon_download extends $mol_icon {
+        path(): string;
     }
 }
 
@@ -3187,10 +3188,12 @@ declare namespace $ {
         enabled(): boolean;
         tools(): readonly any[];
         body(): readonly any[];
+        Photo(index: any): $$.$mol_attach_item;
         download_name(): string;
         download_link(): string;
         Download_icon(): $mol_icon_download;
         Download(): $$.$mol_link;
+        photos(val?: any): any;
         Photos(): $$.$mol_attach;
         Photos_field(): $mol_form_field;
         name(val?: any): any;
@@ -3249,6 +3252,7 @@ declare namespace $ {
         Depart_ready_field(): $mol_form_field;
         Description(): $$.$mol_textarea;
         Description_field(): $mol_form_field;
+        Attaches(): $gravity_animal_edit_group;
         Main(): $gravity_animal_edit_group;
         Codes(): $gravity_animal_edit_group;
         General(): $gravity_animal_edit_section;
@@ -3258,7 +3262,6 @@ declare namespace $ {
         Types(): $gravity_animal_edit_group;
         Gabarites(): $gravity_animal_edit_group;
         Classification(): $gravity_animal_edit_section;
-        Attaches(): $gravity_animal_edit_group;
         Ends(): $gravity_animal_edit_group;
         Visual(): $gravity_animal_edit_group;
         Appearance(): $gravity_animal_edit_section;
@@ -3273,6 +3276,7 @@ declare namespace $ {
         groups(): readonly any[];
         Sections(): $$.$mol_list;
         Form(): $$.$mol_form;
+        photo(index: any): string;
     }
     class $gravity_animal_edit_section extends $mol_row {
     }
@@ -3325,6 +3329,8 @@ declare namespace $ {
 
 declare namespace $.$$ {
     class $gravity_animal_edit extends $.$gravity_animal_edit {
+        photos(next?: $mol_attach_item[]): $mol_attach_item[];
+        photo(index: number): any;
         name(next?: string): string;
         card(next?: string): string;
         chip(next?: string): string;
