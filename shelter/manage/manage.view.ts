@@ -39,7 +39,20 @@ namespace $.$$ {
 			return this.$.$mol_state_arg.value( 'animal' , next )
 		}
 
+		only() {
+			return this.$.$mol_state_arg.value( 'only' )
+		}
+
 		pages() {
+			if( this.animal_current() ) {
+				return [
+					... ( this.only() === null ) ? [
+						this.Filter_page(),
+						this.Animals_page(),
+					]: [],
+					this.Animal_edit( this.animal_current() ),
+				]
+			}
 			return [
 				this.Filter_page(),
 				this.Animals_page(),
@@ -105,12 +118,12 @@ namespace $.$$ {
 			const response = this.$.$gravity_transport.save( `shelters/${ this.shelter_current() }/animals`, 'post', {
 				name: '',
 				readyForDepart: false,
-				card: '',
+				card: $mol_stub_code(),
 				chip: '',
-				kind: '',
-				gender: '',
+				kind: 'Dog',
+				gender: 'Male',
 				cage: '',
-				arrivedAt: '',
+				arrivedAt: new $mol_time_moment().mask('1111-11-11').toString(),
 				departedAt: null,
 				birthDate: '',
 				weight: 0,
