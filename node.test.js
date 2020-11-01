@@ -12768,7 +12768,7 @@ var $;
                 return this.$.$gravity_transport.link(`../reports/summary/1Y.pdf`);
             }
             add() {
-                const Response = $.$mol_data_record({ id: $.$mol_data_string });
+                const Response = $.$mol_data_record({ id: $.$mol_data_integer });
                 const response = this.$.$gravity_transport.save(`shelters/${this.shelter_current()}/animals`, 'post', {
                     name: '',
                     readyForDepart: false,
@@ -12790,7 +12790,7 @@ var $;
                     fur: '',
                 });
                 const id = Response(response).id;
-                this.$.$mol_state_arg.value('animal', id);
+                this.$.$mol_state_arg.value('animal', String(id));
             }
             filter_shelter_list() {
                 return [
