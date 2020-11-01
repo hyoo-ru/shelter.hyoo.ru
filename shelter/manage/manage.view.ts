@@ -136,7 +136,7 @@ namespace $.$$ {
 				fur: '',
 			} )
 			const id = Response( response ).id
-			this.$.$mol_state_arg.value( 'animal', id )
+			this.$.$mol_state_arg.value( 'animal', String( id ) )
 		}
 
 		filter_shelter_list() {
