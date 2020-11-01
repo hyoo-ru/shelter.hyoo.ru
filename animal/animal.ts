@@ -65,6 +65,10 @@ namespace $ {
 			return this.value( 'color' , next ) ?? ''
 		}
 
+		fur( next? : string ) {
+			return this.value( 'fur' , next ) ?? ''
+		}
+
 		weight( next? : number ) {
 			return this.value( 'weight' , next ) ?? 0
 		}

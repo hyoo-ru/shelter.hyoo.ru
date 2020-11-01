@@ -104,6 +104,13 @@ $gravity_animal_edit $mol_page
 						query?val <=> color?val \
 						enabled <= enabled
 						suggests <= color_suggest /string
+				<= Fur_field $mol_form_field
+					name \Тип шерсти
+					Content <= Fur $mol_search
+						hint \
+						query?val <=> fur?val \
+						enabled <= enabled
+						suggests <= fur_suggest /string
 				<= Trait_field $mol_form_field
 					name \Отличительные особенности
 					Content <= Trait $mol_textarea
@@ -178,6 +185,11 @@ $gravity_animal_edit $mol_page
 									sub /
 										<= Color_field
 										<= Trait_field
+						<= Appearance2 $gravity_animal_edit_section
+							sub /
+								<= Visual2 $gravity_animal_edit_group
+									sub /
+										<= Fur_field
 						<= Exports $gravity_animal_edit_group
 							sub /
 								<= Description_field
