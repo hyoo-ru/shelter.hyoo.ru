@@ -25,6 +25,10 @@ namespace $ {
 		shelterId?: number
 	}> {
 
+		photos( next?: string[] ) {
+			return this.value( 'photos', next ) ?? []
+		}
+
 		id() {
 			return String( this.value( 'id' ) ?? '' )
 		}

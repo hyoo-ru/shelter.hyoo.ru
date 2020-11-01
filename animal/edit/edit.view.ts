@@ -2,6 +2,15 @@ namespace $.$$ {
 	
 	export class $gravity_animal_edit extends $.$gravity_animal_edit {
 
+		@ $mol_mem
+		photos( next?: $mol_attach_item[] ) {
+			return next ?? this.animal().photos().map( ( link, index )=> this.Photo( index ) )
+		}
+
+		photo( index: number ) {
+			return this.$.$gravity_transport.link( '..' + this.animal().photos()[ index ] )
+		}
+
 		name( next?: string ) {
 			return this.animal().name( next )
 		}

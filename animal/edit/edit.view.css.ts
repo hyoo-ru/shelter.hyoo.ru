@@ -26,6 +26,25 @@ namespace $ {
 			alignSelf: 'stretch',
 		},
 
+		$mol_attach_item: {
+			flex: {
+				basis: rem(10),
+			},
+			width: rem(10),
+			height: rem(10),
+		},
+
+		Photos: {
+			Add: {
+				width: rem(10),
+				height: rem(10),
+				flex: {
+					basis: rem(10),
+					grow: 0,
+				},
+			},
+		},
+
 	} )
 
 	$mol_style_define( $gravity_animal_edit_section , {

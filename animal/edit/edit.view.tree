@@ -15,6 +15,8 @@ $gravity_animal_edit $mol_page
 				<= Photos_field $mol_form_field
 					name \Фотографии
 					Content <= Photos $mol_attach
+						items?val <=> photos?val /$mol_attach_item
+						minimal_height 160
 				<= Name_field $mol_form_field
 					name \Кличка
 					Content <= Name $mol_string
@@ -133,6 +135,9 @@ $gravity_animal_edit $mol_page
 			sub /
 				<= Sections $mol_list
 					rows <= groups /
+						<= Attaches $gravity_animal_edit_group
+							sub /
+								<= Photos_field
 						<= General $gravity_animal_edit_section
 							sub /
 								<= Main $gravity_animal_edit_group
@@ -163,9 +168,6 @@ $gravity_animal_edit $mol_page
 									sub /
 										<= Size_field
 										<= Weight_field
-						<= Attaches $gravity_animal_edit_group
-							sub /
-								<= Photos_field
 						<= Appearance $gravity_animal_edit_section
 							sub /
 								<= Ends $gravity_animal_edit_group
@@ -191,6 +193,9 @@ $gravity_animal_edit $mol_page
 								<= Contract_field $mol_form_field
 									name \Договора
 									Content <= Contract $gravity_animal_edit_links
+	Photo!index $mol_attach_item
+		url_load <= photo!index \
+		url_thumb <= photo!index \
 
 $gravity_animal_edit_section $mol_row
 $gravity_animal_edit_group $mol_row
