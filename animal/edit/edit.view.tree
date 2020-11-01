@@ -17,6 +17,7 @@ $gravity_animal_edit $mol_page
 					Content <= Photos $mol_attach
 						items?val <=> photos?val /$mol_attach_item
 						minimal_height 160
+						attach_new?val <=> photo_new?val null
 				<= Name_field $mol_form_field
 					name \Кличка
 					Content <= Name $mol_string
@@ -139,6 +140,7 @@ $gravity_animal_edit $mol_page
 					Content <= Description $mol_textarea
 						hint \История жизни, характер, повадки и тп.
 						enabled <= enabled
+						value?val <=> description?val \
 			sub /
 				<= Sections $mol_list
 					rows <= groups /

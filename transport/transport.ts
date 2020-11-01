@@ -57,6 +57,26 @@ namespace $ {
 			return res
 		}
 
+		@ $mol_fiber.method
+		static send(
+			path : string ,
+			file : File
+		) : any {
+
+			const uri = this.api_base() + path
+
+			const body = new FormData
+			body.append( 'photos[0]', file )
+			
+			const res = this.$.$mol_fetch.json( uri , {
+				method: 'post' ,
+				headers : { ... this.headers(), 'Content-Type': 'multipart/form-data' },
+				body,
+			} )
+
+			return res
+		}
+
 	}
 
 }

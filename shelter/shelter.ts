@@ -20,6 +20,7 @@ namespace $ {
 			size: $mol_data_string,
 			tail: $mol_data_string,
 			shelterId: $mol_data_number,
+			fur: $mol_data_string,
 		})
 	)
 	

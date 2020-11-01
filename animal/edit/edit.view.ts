@@ -11,6 +11,14 @@ namespace $.$$ {
 			return this.$.$gravity_transport.link( '..' + this.animal().photos()[ index ] )
 		}
 
+		photo_new( file: File ) {
+			this.$.$gravity_transport.send( `shelters/${ this.animal().shelter_id() }/photos`, file )
+		}
+
+		description( next?: string ) {
+			return this.animal().description( next )
+		}
+
 		name( next?: string ) {
 			return this.animal().name( next )
 		}
