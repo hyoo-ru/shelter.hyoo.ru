@@ -114,7 +114,7 @@ namespace $.$$ {
 		}
 
 		add() {
-			const Response = $mol_data_record({ id : $mol_data_string })
+			const Response = $mol_data_record({ id : $mol_data_integer })
 			const response = this.$.$gravity_transport.save( `shelters/${ this.shelter_current() }/animals`, 'post', {
 				name: '',
 				readyForDepart: false,
