@@ -3447,6 +3447,20 @@ declare namespace $.$$ {
 }
 
 declare namespace $ {
+    class $mol_icon_github_circle extends $mol_icon {
+        path(): string;
+    }
+}
+
+declare namespace $ {
+    class $mol_link_source extends $mol_link {
+        hint(): string;
+        sub(): readonly any[];
+        Icon(): $mol_icon_github_circle;
+    }
+}
+
+declare namespace $ {
     function $mol_lights(this: $mol_ambient_context, next?: boolean): boolean;
 }
 
@@ -3500,6 +3514,7 @@ declare namespace $ {
         Animal_download(id: any): $$.$mol_link;
         Animal_card(id: any): $$.$hyoo_shelter_animal_card;
         Download(): $$.$mol_link;
+        Source_link(): $mol_link_source;
         Lights(): $$.$mol_lights_toggle;
         logout(event?: any): any;
         Logout_icon(): $mol_icon_logout;
