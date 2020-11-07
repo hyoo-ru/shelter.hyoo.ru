@@ -1,6 +1,6 @@
 {
-  "name": "gravity",
-  "version": "0.0.3",
+  "name": "hyoo_shelter",
+  "version": "0.0.1",
   "main": "node.js",
   "module": "node.esm.js",
   "browser": "web.js",

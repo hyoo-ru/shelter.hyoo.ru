@@ -27,7 +27,7 @@ $mol_speck $mol_view
 
 $mol_button $mol_view
 	enabled true
-	minimal_height 40
+	minimal_height 32
 	click?event null
 	event_click?event null
 	event *
@@ -72,7 +72,7 @@ $mol_hotkey $mol_plugin
 $mol_string $mol_view
 	dom_name \input
 	enabled true
-	minimal_height 40
+	minimal_height 32
 	autocomplete false
 	field *
 		^
@@ -142,7 +142,7 @@ $mol_form $mol_view
 		<= Bar_buttons $mol_row
 			sub <= buttons /$mol_view
 
-$gravity_auth_form $mol_page
+$hyoo_shelter_auth_form $mol_page
 	title \Вход в систему управления приютов
 	plugins /
 		<= Enter $mol_hotkey
@@ -280,7 +280,6 @@ $mol_check $mol_button_minor
 					<= title \
 
 $mol_switch $mol_view
-	minimal_height 40
 	Option!id $mol_switch_option
 		checked?val <=> option_checked!id?val false
 		label <= option_label!id / <= option_title!id \
@@ -400,12 +399,10 @@ $mol_select $mol_pop
 	dictionary *
 	options /string
 	value?val \
-	minimal_height 40
 	Option_row!id $mol_button_minor
 		event_click?event <=> event_select!id?event null
 		sub <= option_content!id /
 			<= Option_label!id $mol_dimmer
-				minimal_height 40
 				haystack <= option_label!id \
 				needle <= filter_pattern?val \
 	No_options $mol_view
@@ -463,7 +460,7 @@ $mol_float $mol_view
 		minHeight \auto
 
 $mol_check_expand $mol_check
-	minimal_height 40
+	minimal_height 32
 	Icon $mol_icon_chevron
 	level 0
 	style *
@@ -473,7 +470,7 @@ $mol_check_expand $mol_check
 	enabled <= expandable false
 
 $mol_grid $mol_scroll
-	row_height 40
+	row_height 32
 	row_ids /string[]
 	row_id!index null
 	col_ids /
@@ -519,7 +516,7 @@ $mol_grid_row $mol_view
 
 $mol_grid_cell $mol_view
 	dom_name \td
-	minimal_height 40
+	minimal_height 32
 
 $mol_grid_number $mol_grid_cell
 
@@ -701,8 +698,8 @@ $mol_icon_tick $mol_icon path \M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z
 $mol_check_box $mol_check
 	Icon $mol_icon_tick
 
-$gravity_animal_edit $mol_page
-	animal $gravity_animal / *
+$hyoo_shelter_animal_edit $mol_page
+	animal $hyoo_shelter_animal / *
 	title \Данные животного
 	enabled true
 	tools /
@@ -847,86 +844,86 @@ $gravity_animal_edit $mol_page
 			sub /
 				<= Sections $mol_list
 					rows <= groups /
-						<= Attaches $gravity_animal_edit_group
+						<= Attaches $hyoo_shelter_animal_edit_group
 							sub /
 								<= Photos_field
-						<= General $gravity_animal_edit_section
+						<= General $hyoo_shelter_animal_edit_section
 							sub /
-								<= Main $gravity_animal_edit_group
+								<= Main $hyoo_shelter_animal_edit_group
 									sub /
 										<= Name_field
 										<= Cage_field
-								<= Codes $gravity_animal_edit_group
+								<= Codes $hyoo_shelter_animal_edit_group
 									sub /
 										<= Card_field
 										<= Chip_field
-						<= Dates $gravity_animal_edit_section
+						<= Dates $hyoo_shelter_animal_edit_section
 							sub /
-								<= Transitions $gravity_animal_edit_group
+								<= Transitions $hyoo_shelter_animal_edit_group
 									sub /
 										<= Arrived_date_field
 										<= Born_date_field
-								<= Lifetime $gravity_animal_edit_group
+								<= Lifetime $hyoo_shelter_animal_edit_group
 									sub /
 										<= Departed_date_field
 										<= Departed_reason_field
-						<= Classification $gravity_animal_edit_section
+						<= Classification $hyoo_shelter_animal_edit_section
 							sub /
-								<= Types $gravity_animal_edit_group
+								<= Types $hyoo_shelter_animal_edit_group
 									sub /
 										<= Kind_field
 										<= Gender_field
-								<= Gabarites $gravity_animal_edit_group
+								<= Gabarites $hyoo_shelter_animal_edit_group
 									sub /
 										<= Size_field
 										<= Weight_field
-						<= Appearance $gravity_animal_edit_section
+						<= Appearance $hyoo_shelter_animal_edit_section
 							sub /
-								<= Ends $gravity_animal_edit_group
+								<= Ends $hyoo_shelter_animal_edit_group
 									sub /
 										<= Tail_field
 										<= Ear_field
-								<= Visual $gravity_animal_edit_group
+								<= Visual $hyoo_shelter_animal_edit_group
 									sub /
 										<= Color_field
 										<= Trait_field
-						<= Appearance2 $gravity_animal_edit_section
+						<= Appearance2 $hyoo_shelter_animal_edit_section
 							sub /
-								<= Visual2 $gravity_animal_edit_group
+								<= Visual2 $hyoo_shelter_animal_edit_group
 									sub /
 										<= Fur_field
-						<= Exports $gravity_animal_edit_group
+						<= Exports $hyoo_shelter_animal_edit_group
 							sub /
 								<= Description_field
 								<= Depart_ready_field
-						<= Documents $gravity_animal_edit_group
+						<= Documents $hyoo_shelter_animal_edit_group
 							sub /
 								<= Catch_field $mol_form_field
 									name \Акты отлова
-									Content <= Catch $gravity_animal_edit_links
+									Content <= Catch $hyoo_shelter_animal_edit_links
 								<= Procedure_field $mol_form_field
 									name \Процедуры
-									Content <= Procedure $gravity_animal_edit_links
+									Content <= Procedure $hyoo_shelter_animal_edit_links
 								<= Contract_field $mol_form_field
 									name \Договора
-									Content <= Contract $gravity_animal_edit_links
+									Content <= Contract $hyoo_shelter_animal_edit_links
 	Photo!index $mol_attach_item
 		url_load <= photo!index \
 		url_thumb <= photo!index \
 
-$gravity_animal_edit_section $mol_row
-$gravity_animal_edit_group $mol_row
+$hyoo_shelter_animal_edit_section $mol_row
+$hyoo_shelter_animal_edit_group $mol_row
 
-$gravity_animal_edit_links $mol_bar
+$hyoo_shelter_animal_edit_links $mol_bar
 	sub /
 		- <= List $mol_textarea
 		<= Add $mol_button_minor
 			sub /
 				<= Add_icon $mol_icon_plus
 
-$gravity_animal_card $mol_link
-	animal $gravity_animal / *
-	shelters $gravity_shelter_list / *
+$hyoo_shelter_animal_card $mol_link
+	animal $hyoo_shelter_animal / *
+	shelters $hyoo_shelter_shelter_list / *
 	arg * animal <= id \
 	attr *
 		^
@@ -935,9 +932,6 @@ $gravity_animal_card $mol_link
 		<= Shelter $mol_view sub / <= shelter_name \
 		<= Card $mol_dimmer
 			haystack <= card \
-			needle <= highlight \
-		<= Chip $mol_dimmer
-			haystack <= chip \
 			needle <= highlight \
 		<= Kind $mol_view sub / <= kind \
 		<= Name $mol_dimmer
@@ -957,9 +951,9 @@ $mol_lights_toggle $mol_check_icon
 
 $mol_icon_logout $mol_icon path \M16,17V14H9V10H16V7L21,12L16,17M14,2C15.1,2 16,2.9 16,4V6H14V4H5V20H14V18H16V20C16,21.1 15.1,22 14,22H5C3.9,22 3,21.1 3,20V4C3,2.9 3.9,2 5,2H14Z
 
-$gravity_shelter_manage $mol_book2
-	shelters $gravity_shelter_list / *
-	animals $gravity_shelter_animals / *
+$hyoo_shelter_shelter_manage $mol_book2
+	shelters $hyoo_shelter_shelter_list / *
+	animals $hyoo_shelter_shelter_animals / *
 	pages /
 		<= Filter_page $mol_page
 			tools /
@@ -972,9 +966,39 @@ $gravity_shelter_manage $mol_book2
 			body /
 				<= Filter_list $mol_list
 					rows <= filter_list /
-						<= Filter_shelter_list $gravity_shelter_manage_filter_group
+						<= Filter_shelter_list $hyoo_shelter_shelter_manage_filter_group
 							title \Приюты
 							items <= filter_shelter_list /
+			foot /
+				<= Summaries $mol_view
+					sub /
+						<= Summary_title $mol_view sub / \Отчёты
+						<= Summary_options $mol_view
+							sub /
+								<= Summary_1W $mol_link
+									hint \Скачать сводный отчёт
+									file_name \1W.pdf
+									target \_blank
+									uri <= summary_1w \
+									sub / \Неделя
+								<= Summary_1M $mol_link
+									hint \Скачать сводный отчёт
+									file_name \1M.pdf
+									target \_blank
+									uri <= summary_1m \
+									sub / \Месяц
+								<= Summary_3M $mol_link
+									hint \Скачать сводный отчёт
+									file_name \3M.pdf
+									target \_blank
+									uri <= summary_3m \
+									sub / \Квартал
+								<= Summary_1Y $mol_link
+									hint \Скачать сводный отчёт
+									file_name \1Y.pdf
+									target \_blank
+									uri <= summary_1y \
+									sub / \Год
 		<= Animals_page $mol_page
 			tools <= animals_page_tools /
 				<= Search $mol_search
@@ -988,41 +1012,13 @@ $gravity_shelter_manage $mol_book2
 			body /
 				<= Animal_list $mol_list
 					rows <= animal_list /
-			foot /
-				<= Summaries $mol_view
-					sub /
-						<= Summary_title $mol_view sub / \Сводные отчёты: 
-						<= Summary_1W $mol_link
-							hint \Скачать сводный отчёт
-							file_name \1W.pdf
-							target \_blank
-							uri <= summary_1w \
-							sub / \Неделя
-						<= Summary_1M $mol_link
-							hint \Скачать сводный отчёт
-							file_name \1M.pdf
-							target \_blank
-							uri <= summary_1m \
-							sub / \Месяц
-						<= Summary_3M $mol_link
-							hint \Скачать сводный отчёт
-							file_name \3M.pdf
-							target \_blank
-							uri <= summary_3m \
-							sub / \Квартал
-						<= Summary_1Y $mol_link
-							hint \Скачать сводный отчёт
-							file_name \1Y.pdf
-							target \_blank
-							uri <= summary_1y \
-							sub / \Год
 	Shelter_link_all $mol_link
 		arg * shelter null
 		sub / \Все
 	Shelter_link!id $mol_link
 		arg * shelter <= shelter_id!id \
 		sub / <= shelter_name!id \
-	Animal_edit!id $gravity_animal_edit
+	Animal_edit!id $hyoo_shelter_animal_edit
 		enabled <= can_edit true
 		Download => Animal_download!id
 		tools /
@@ -1033,10 +1029,10 @@ $gravity_shelter_manage $mol_book2
 					<= Close_icon!id $mol_icon_cross
 		animal <= animal!id
 	-
-	Animal_card!id $gravity_animal_card
-		animal <= animal!id $gravity_animal / *
+	Animal_card!id $hyoo_shelter_animal_card
+		animal <= animal!id $hyoo_shelter_animal / *
 		highlight <= search
-		shelters <= card_shelters $gravity_shelter_list / *
+		shelters <= card_shelters $hyoo_shelter_shelter_list / *
 	-
 	Download $mol_link
 		hint \Скачать список животных в виде документа
@@ -1045,7 +1041,7 @@ $gravity_shelter_manage $mol_book2
 		sub /
 			<= Download_icon $mol_icon_download
 
-$gravity_shelter_manage_filter_group $mol_list
+$hyoo_shelter_shelter_manage_filter_group $mol_list
 	rows /
 		<= Title $mol_view
 			sub / <= title
@@ -1055,11 +1051,11 @@ $gravity_shelter_manage_filter_group $mol_list
 $mol_theme_auto $mol_plugin
 	attr * mol_theme <= theme \
 
-$gravity $mol_book2
+$hyoo_shelter $mol_book2
 	plugins /
 		<= Theme $mol_theme_auto
-	Auth $gravity_auth_form
-	Manage $gravity_shelter_manage
+	Auth $hyoo_shelter_auth_form
+	Manage $hyoo_shelter_shelter_manage
 		logout?event <=> logout?event null
 
 $mol_view_tree_test_attributes_super $mol_view

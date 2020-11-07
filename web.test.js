@@ -2108,25 +2108,6 @@ var $;
 var $;
 (function ($) {
     $.$mol_test({
-        'null by default'() {
-            const key = String(Math.random());
-            $.$mol_assert_equal($.$mol_state_session.value(key), null);
-        },
-        'storing'() {
-            const key = String(Math.random());
-            $.$mol_state_session.value(key, '$mol_state_session_test');
-            $.$mol_assert_equal($.$mol_state_session.value(key), '$mol_state_session_test');
-            $.$mol_state_session.value(key, null);
-            $.$mol_assert_equal($.$mol_state_session.value(key), null);
-        },
-    });
-})($ || ($ = {}));
-//session.test.js.map
-;
-"use strict";
-var $;
-(function ($) {
-    $.$mol_test({
         'equal paths'() {
             const diff = $.$mol_diff_path([1, 2, 3, 4], [1, 2, 3, 4], [1, 2, 3, 4]);
             $.$mol_assert_like(diff, {
@@ -2184,33 +2165,6 @@ var $;
 var $;
 (function ($) {
     $.$mol_test({
-        'Is string'() {
-            $.$mol_data_string('');
-        },
-        'Is not string'() {
-            $.$mol_assert_fail(() => {
-                $.$mol_data_string(0);
-            }, '0 is not a string');
-        },
-        'Is object string'() {
-            $.$mol_assert_fail(() => {
-                $.$mol_data_string(new String('x'));
-            }, 'x is not a string');
-        },
-    });
-})($ || ($ = {}));
-//string.test.js.map
-;
-"use strict";
-//merge.test.js.map
-;
-"use strict";
-//undefined.test.js.map
-;
-"use strict";
-var $;
-(function ($) {
-    $.$mol_test({
         'config by value'() {
             const N = $.$mol_data_setup((a) => a, 5);
             $.$mol_assert_equal(N.config, 5);
@@ -2218,104 +2172,6 @@ var $;
     });
 })($ || ($ = {}));
 //setup.test.js.map
-;
-"use strict";
-var $;
-(function ($) {
-    $.$mol_test({
-        'Fit to record'() {
-            const User = $.$mol_data_record({ age: $.$mol_data_number });
-            User({ age: 0 });
-        },
-        'Extends record'() {
-            const User = $.$mol_data_record({ age: $.$mol_data_number });
-            User({ age: 0, name: 'Jin' });
-        },
-        'Shrinks record'() {
-            $.$mol_assert_fail(() => {
-                const User = $.$mol_data_record({ age: $.$mol_data_number, name: $.$mol_data_string });
-                User({ age: 0 });
-            }, '["name"] undefined is not a string');
-        },
-        'Shrinks deep record'() {
-            $.$mol_assert_fail(() => {
-                const User = $.$mol_data_record({ wife: $.$mol_data_record({ age: $.$mol_data_number }) });
-                User({ wife: {} });
-            }, '["wife"] ["age"] undefined is not a number');
-        },
-    });
-})($ || ($ = {}));
-//record.test.js.map
-;
-"use strict";
-var $;
-(function ($) {
-    $.$mol_test_mocks.push(context => {
-        class $mol_state_local_mock extends $.$mol_state_local {
-            static value(key, next = this.state[key], force) {
-                return this.state[key] = (next || null);
-            }
-        }
-        $mol_state_local_mock.state = {};
-        __decorate([
-            $.$mol_mem_key
-        ], $mol_state_local_mock, "value", null);
-        context.$mol_state_local = $mol_state_local_mock;
-    });
-})($ || ($ = {}));
-//local.mock.test.js.map
-;
-"use strict";
-var $;
-(function ($) {
-    $.$mol_test({
-        'local get set delete'() {
-            var key = '$mol_state_local_test:' + Math.random();
-            $.$mol_assert_equal($.$mol_state_local.value(key), null);
-            $.$mol_state_local.value(key, 123);
-            $.$mol_assert_equal($.$mol_state_local.value(key), 123);
-            $.$mol_state_local.value(key, null);
-            $.$mol_assert_equal($.$mol_state_local.value(key), null);
-        },
-    });
-})($ || ($ = {}));
-//local.test.js.map
-;
-"use strict";
-var $;
-(function ($_1) {
-    var $$;
-    (function ($$) {
-        $_1.$mol_test({
-            'handle clicks by default'($) {
-                let clicked = false;
-                const clicker = $$.$mol_button.make({
-                    $,
-                    event_click: (event) => { clicked = true; },
-                });
-                const element = clicker.dom_tree();
-                const event = $_1.$mol_dom_context.document.createEvent('mouseevent');
-                event.initEvent('click', true, true);
-                element.dispatchEvent(event);
-                $_1.$mol_assert_ok(clicked);
-            },
-            'no handle clicks if disabled'($) {
-                let clicked = false;
-                const clicker = $$.$mol_button.make({
-                    $,
-                    event_click: (event) => { clicked = true; },
-                    enabled: () => false,
-                });
-                const element = clicker.dom_tree();
-                const event = $_1.$mol_dom_context.document.createEvent('mouseevent');
-                event.initEvent('click', true, true);
-                element.dispatchEvent(event);
-                $_1.$mol_assert_not(clicked);
-            },
-        });
-    })($$ = $_1.$$ || ($_1.$$ = {}));
-})($ || ($ = {}));
-//button.test.js.map
 ;
 "use strict";
 var $;
@@ -2345,6 +2201,61 @@ var $;
     });
 })($ || ($ = {}));
 //array.test.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    $.$mol_test({
+        'Is string'() {
+            $.$mol_data_string('');
+        },
+        'Is not string'() {
+            $.$mol_assert_fail(() => {
+                $.$mol_data_string(0);
+            }, '0 is not a string');
+        },
+        'Is object string'() {
+            $.$mol_assert_fail(() => {
+                $.$mol_data_string(new String('x'));
+            }, 'x is not a string');
+        },
+    });
+})($ || ($ = {}));
+//string.test.js.map
+;
+"use strict";
+//merge.test.js.map
+;
+"use strict";
+//undefined.test.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    $.$mol_test({
+        'Fit to record'() {
+            const User = $.$mol_data_record({ age: $.$mol_data_number });
+            User({ age: 0 });
+        },
+        'Extends record'() {
+            const User = $.$mol_data_record({ age: $.$mol_data_number });
+            User({ age: 0, name: 'Jin' });
+        },
+        'Shrinks record'() {
+            $.$mol_assert_fail(() => {
+                const User = $.$mol_data_record({ age: $.$mol_data_number, name: $.$mol_data_string });
+                User({ age: 0 });
+            }, '["name"] undefined is not a string');
+        },
+        'Shrinks deep record'() {
+            $.$mol_assert_fail(() => {
+                const User = $.$mol_data_record({ wife: $.$mol_data_record({ age: $.$mol_data_number }) });
+                User({ wife: {} });
+            }, '["wife"] ["age"] undefined is not a number');
+        },
+    });
+})($ || ($ = {}));
+//record.test.js.map
 ;
 "use strict";
 var $;
@@ -2630,6 +2541,95 @@ var $;
     });
 })($ || ($ = {}));
 //moment.test.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    $.$mol_test_mocks.push(context => {
+        class $mol_state_local_mock extends $.$mol_state_local {
+            static value(key, next = this.state[key], force) {
+                return this.state[key] = (next || null);
+            }
+        }
+        $mol_state_local_mock.state = {};
+        __decorate([
+            $.$mol_mem_key
+        ], $mol_state_local_mock, "value", null);
+        context.$mol_state_local = $mol_state_local_mock;
+    });
+})($ || ($ = {}));
+//local.mock.test.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    $.$mol_test({
+        'local get set delete'() {
+            var key = '$mol_state_local_test:' + Math.random();
+            $.$mol_assert_equal($.$mol_state_local.value(key), null);
+            $.$mol_state_local.value(key, 123);
+            $.$mol_assert_equal($.$mol_state_local.value(key), 123);
+            $.$mol_state_local.value(key, null);
+            $.$mol_assert_equal($.$mol_state_local.value(key), null);
+        },
+    });
+})($ || ($ = {}));
+//local.test.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    $.$mol_test({
+        'null by default'() {
+            const key = String(Math.random());
+            $.$mol_assert_equal($.$mol_state_session.value(key), null);
+        },
+        'storing'() {
+            const key = String(Math.random());
+            $.$mol_state_session.value(key, '$mol_state_session_test');
+            $.$mol_assert_equal($.$mol_state_session.value(key), '$mol_state_session_test');
+            $.$mol_state_session.value(key, null);
+            $.$mol_assert_equal($.$mol_state_session.value(key), null);
+        },
+    });
+})($ || ($ = {}));
+//session.test.js.map
+;
+"use strict";
+var $;
+(function ($_1) {
+    var $$;
+    (function ($$) {
+        $_1.$mol_test({
+            'handle clicks by default'($) {
+                let clicked = false;
+                const clicker = $$.$mol_button.make({
+                    $,
+                    event_click: (event) => { clicked = true; },
+                });
+                const element = clicker.dom_tree();
+                const event = $_1.$mol_dom_context.document.createEvent('mouseevent');
+                event.initEvent('click', true, true);
+                element.dispatchEvent(event);
+                $_1.$mol_assert_ok(clicked);
+            },
+            'no handle clicks if disabled'($) {
+                let clicked = false;
+                const clicker = $$.$mol_button.make({
+                    $,
+                    event_click: (event) => { clicked = true; },
+                    enabled: () => false,
+                });
+                const element = clicker.dom_tree();
+                const event = $_1.$mol_dom_context.document.createEvent('mouseevent');
+                event.initEvent('click', true, true);
+                element.dispatchEvent(event);
+                $_1.$mol_assert_not(clicked);
+            },
+        });
+    })($$ = $_1.$$ || ($_1.$$ = {}));
+})($ || ($ = {}));
+//button.test.js.map
 ;
 "use strict";
 var $;

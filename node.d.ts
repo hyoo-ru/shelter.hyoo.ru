@@ -809,9 +809,9 @@ declare namespace $ {
     export type $mol_style_properties = Partial<$mol_type_override<CSSStyleDeclaration, Overrides>>;
     type Common = 'inherit' | 'initial' | 'unset';
     type Color = keyof typeof $mol_colors | 'transparent' | 'currentcolor' | $mol_style_func<'hsla' | 'rgba' | 'var'>;
-    type Length = 0 | $mol_style_unit<$mol_style_unit_length> | $mol_style_func<'calc'>;
+    type Length = 0 | $mol_style_unit<$mol_style_unit_length> | $mol_style_func<'calc' | 'var'>;
     type Size = 'auto' | 'max-content' | 'min-content' | 'fit-content' | Length | Common;
-    type Directions<Value> = Value | [Value, Value] | {
+    type Directions<Value> = Value | readonly [Value, Value] | {
         top?: Value;
         right?: Value;
         bottom?: Value;
@@ -822,10 +822,10 @@ declare namespace $ {
     type Overflow = 'visible' | 'hidden' | 'clip' | 'scroll' | 'auto' | 'overlay' | Common;
     type ContainRule = 'size' | 'layout' | 'style' | 'paint';
     interface Overrides {
-        alignContent?: 'baseline' | 'start' | 'end' | 'flex-start' | 'flex-end' | 'center' | 'normal' | 'space-between' | 'space-around' | 'space-evenly' | 'stretch' | ['first' | 'last', 'baseline'] | ['safe' | 'unsafe', 'start' | 'end' | 'flex-start' | 'flex-end'] | Common;
+        alignContent?: 'baseline' | 'start' | 'end' | 'flex-start' | 'flex-end' | 'center' | 'normal' | 'space-between' | 'space-around' | 'space-evenly' | 'stretch' | readonly ['first' | 'last', 'baseline'] | readonly ['safe' | 'unsafe', 'start' | 'end' | 'flex-start' | 'flex-end'] | Common;
         background?: 'none' | {
             color?: Color | Common;
-            image?: [$mol_style_func<'url'>][];
+            image?: readonly (readonly [$mol_style_func<'url'>])[];
         };
         box?: {
             shadow?: readonly {
@@ -850,17 +850,17 @@ declare namespace $ {
             y?: Overflow | Common;
             anchor?: 'auto' | 'none' | Common;
         };
-        contain?: 'none' | 'strict' | 'content' | ContainRule | ContainRule[] | Common;
+        contain?: 'none' | 'strict' | 'content' | ContainRule | readonly ContainRule[] | Common;
         whiteSpace?: 'normal' | 'nowrap' | 'break-spaces' | 'pre' | 'pre-wrap' | 'pre-line' | Common;
         webkitOverflowScrolling?: 'auto' | 'touch';
         scrollbar?: {
-            color?: [Color, Color] | 'dark' | 'light' | 'auto' | Common;
+            color?: readonly [Color, Color] | 'dark' | 'light' | 'auto' | Common;
         };
         scroll?: {
             snap?: {
-                type: 'none' | Snap_axis | [Snap_axis, 'mandatory' | 'proximity'] | Common;
+                type: 'none' | Snap_axis | readonly [Snap_axis, 'mandatory' | 'proximity'] | Common;
                 stop: 'normal' | 'always' | Common;
-                align: Span_align | [Span_align, Span_align] | Common;
+                align: Span_align | readonly [Span_align, Span_align] | Common;
             };
         };
         width?: Size;
@@ -918,6 +918,384 @@ declare namespace $ {
 
 declare namespace $ {
     function $mol_style_define<Component extends $mol_view, Config extends $mol_style_guard<Component, Config>>(Component: new () => Component, config: Config): HTMLStyleElement | null;
+}
+
+declare namespace $ {
+    type $mol_data_value<Input = any, Output = any> = (val: Input) => Output;
+}
+
+declare namespace $ {
+    function $mol_data_setup<Value extends $mol_data_value, Config = never>(value: Value, config: Config): Value & {
+        config: Config;
+        Value: ReturnType<Value>;
+    };
+}
+
+declare namespace $ {
+    function $mol_diff_path<Item>(...paths: Item[][]): {
+        prefix: Item[];
+        suffix: Item[][];
+    };
+}
+
+declare namespace $ {
+    class $mol_error_mix extends Error {
+        errors: Error[];
+        constructor(message: string, ...errors: Error[]);
+        toJSON(): string;
+    }
+}
+
+declare namespace $ {
+    class $mol_data_error extends $mol_error_mix {
+    }
+}
+
+declare namespace $ {
+    function $mol_data_array<Sub extends $mol_data_value>(sub: Sub): ((val: readonly Parameters<Sub>[0][] | unknown) => readonly ReturnType<Sub>[]) & {
+        config: Sub;
+        Value: readonly ReturnType<Sub>[];
+    };
+}
+
+declare namespace $ {
+    type $mol_type_merge<Intersection> = Intersection extends (...a: any[]) => any ? Intersection : Intersection extends new (...a: any[]) => any ? Intersection : Intersection extends object ? {
+        [Key in keyof Intersection]: $mol_type_merge<Intersection[Key]>;
+    } : Intersection;
+}
+
+declare namespace $ {
+    type $mol_type_partial_undefined<Val> = $mol_type_merge<Partial<Val> & Pick<Val, {
+        [Field in keyof Val]: undefined extends Val[Field] ? never : Field;
+    }[keyof Val]>>;
+}
+
+declare namespace $ {
+    function $mol_data_record<Sub extends Record<string, $mol_data_value<any>>>(sub: Sub): ((val: unknown) => Readonly<$mol_type_merge<Partial<{ [key in keyof Sub]: ReturnType<Sub[key]>; }> & Pick<{ [key in keyof Sub]: ReturnType<Sub[key]>; }, { [Field in keyof { [key in keyof Sub]: ReturnType<Sub[key]>; }]: undefined extends { [key in keyof Sub]: ReturnType<Sub[key]>; }[Field] ? never : Field; }[keyof Sub]>>>) & {
+        config: Sub;
+        Value: Readonly<$mol_type_merge<Partial<{ [key in keyof Sub]: ReturnType<Sub[key]>; }> & Pick<{ [key in keyof Sub]: ReturnType<Sub[key]>; }, { [Field in keyof { [key in keyof Sub]: ReturnType<Sub[key]>; }]: undefined extends { [key in keyof Sub]: ReturnType<Sub[key]>; }[Field] ? never : Field; }[keyof Sub]>>>;
+    };
+}
+
+declare namespace $ {
+    let $mol_data_string: (val: string) => string;
+}
+
+declare namespace $ {
+    function $mol_data_nullable<Sub extends $mol_data_value>(sub: Sub): ((val: Parameters<Sub>[0] | null) => ReturnType<Sub> | null) & {
+        config: Sub;
+        Value: ReturnType<Sub> | null;
+    };
+}
+
+declare namespace $ {
+    let $mol_data_number: (val: number) => number;
+}
+
+declare namespace $ {
+    function $mol_data_integer(val: number): number;
+}
+
+declare namespace $ {
+    let $mol_data_boolean: (val: boolean) => boolean;
+}
+
+declare namespace $ {
+    function $mol_data_variant<Sub extends $mol_data_value[]>(...sub: Sub): ((val: Parameters<Sub[number]>[0]) => ReturnType<Sub[number]>) & {
+        config: Sub;
+        Value: ReturnType<Sub[number]>;
+    };
+}
+
+declare namespace $ {
+    function $mol_data_const<Val extends {} | string | number>(ref: Val): ((val: Val) => Val) & {
+        config: Val;
+        Value: Val;
+    };
+}
+
+declare namespace $ {
+    class $mol_store<Data> extends $mol_object2 {
+        data_default?: Data | undefined;
+        constructor(data_default?: Data | undefined);
+        data(next?: Data): Data;
+        snapshot(next?: string): string;
+        value<Key extends keyof Data>(key: Key, next?: Data[Key]): NonNullable<Data[Key]>;
+        sub<Key extends keyof Data, Lens extends $mol_store<Data[Key]> = $mol_store<Data[Key]>>(key: Key, lens?: Lens): NonNullable<Lens>;
+    }
+}
+
+declare namespace $ {
+    class $mol_time_base {
+        static patterns: Record<string, (arg: any) => string>;
+        static formatter(pattern: string): (arg: any) => string;
+        toString(pattern: string): string;
+    }
+}
+
+declare namespace $ {
+    type $mol_time_duration_config = number | string | {
+        year?: number;
+        month?: number;
+        day?: number;
+        hour?: number;
+        minute?: number;
+        second?: number;
+    };
+    class $mol_time_duration extends $mol_time_base {
+        constructor(config?: $mol_time_duration_config);
+        readonly year: number;
+        readonly month: number;
+        readonly day: number;
+        readonly hour: number;
+        readonly minute: number;
+        readonly second: number;
+        summ(config: $mol_time_duration_config): $mol_time_duration;
+        mult(numb: number): $mol_time_duration;
+        count(config: $mol_time_duration_config): number;
+        valueOf(): number;
+        toJSON(): string;
+        toString(pattern?: string): string;
+        static patterns: {
+            '#Y': (duration: $mol_time_duration) => string;
+            '#M': (duration: $mol_time_duration) => string;
+            '#D': (duration: $mol_time_duration) => string;
+            '#h': (duration: $mol_time_duration) => string;
+            '#m': (duration: $mol_time_duration) => string;
+            '#s': (duration: $mol_time_duration) => string;
+            '+hh': (duration: $mol_time_duration) => string;
+            mm: (duration: $mol_time_duration) => string;
+        };
+    }
+}
+
+declare namespace $ {
+    type $mol_time_moment_config = number | Date | string | {
+        year?: number;
+        month?: number;
+        day?: number;
+        hour?: number;
+        minute?: number;
+        second?: number;
+        offset?: $mol_time_duration_config;
+    };
+    class $mol_time_moment extends $mol_time_base {
+        constructor(config?: $mol_time_moment_config);
+        readonly year: number | undefined;
+        readonly month: number | undefined;
+        readonly day: number | undefined;
+        readonly hour: number | undefined;
+        readonly minute: number | undefined;
+        readonly second: number | undefined;
+        readonly offset: $mol_time_duration | undefined;
+        get weekday(): number;
+        _native: Date | undefined;
+        get native(): Date;
+        _normal: $mol_time_moment | undefined;
+        get normal(): $mol_time_moment;
+        merge(config: $mol_time_moment_config): $mol_time_moment;
+        shift(config: $mol_time_duration_config): $mol_time_moment;
+        mask(config: $mol_time_moment_config): $mol_time_moment;
+        toOffset(config: $mol_time_duration_config): $mol_time_moment;
+        valueOf(): number;
+        toJSON(): string;
+        toString(pattern?: string): string;
+        static patterns: {
+            YYYY: (moment: $mol_time_moment) => string;
+            AD: (moment: $mol_time_moment) => string;
+            YY: (moment: $mol_time_moment) => string;
+            Month: (moment: $mol_time_moment) => string;
+            'DD Month': (moment: $mol_time_moment) => string;
+            'D Month': (moment: $mol_time_moment) => string;
+            Mon: (moment: $mol_time_moment) => string;
+            'DD Mon': (moment: $mol_time_moment) => string;
+            'D Mon': (moment: $mol_time_moment) => string;
+            '-MM': (moment: $mol_time_moment) => string;
+            MM: (moment: $mol_time_moment) => string;
+            M: (moment: $mol_time_moment) => string;
+            WeekDay: (moment: $mol_time_moment) => string;
+            WD: (moment: $mol_time_moment) => string;
+            '-DD': (moment: $mol_time_moment) => string;
+            DD: (moment: $mol_time_moment) => string;
+            D: (moment: $mol_time_moment) => string;
+            Thh: (moment: $mol_time_moment) => string;
+            hh: (moment: $mol_time_moment) => string;
+            h: (moment: $mol_time_moment) => string;
+            ':mm': (moment: $mol_time_moment) => string;
+            mm: (moment: $mol_time_moment) => string;
+            m: (moment: $mol_time_moment) => string;
+            ':ss': (moment: $mol_time_moment) => string;
+            ss: (moment: $mol_time_moment) => string;
+            s: (moment: $mol_time_moment) => string;
+            '.sss': (moment: $mol_time_moment) => string;
+            sss: (moment: $mol_time_moment) => string;
+            Z: (moment: $mol_time_moment) => string;
+        };
+    }
+}
+
+declare namespace $ {
+    type $hyoo_shelter_animal_kind = 'Cat' | 'Dog';
+    type $hyoo_shelter_animal_gender = 'Male' | 'Female';
+    class $hyoo_shelter_animal extends $mol_store<{
+        id?: number;
+        name?: string;
+        card?: string;
+        chip?: string;
+        cage?: string;
+        arrivedAt?: string;
+        departedAt?: string | null;
+        birthDate?: string;
+        kind?: $hyoo_shelter_animal_kind;
+        gender?: $hyoo_shelter_animal_gender;
+        weight?: number;
+        ears?: string;
+        tail?: string;
+        size?: string;
+        color?: string;
+        description?: string;
+        photos?: readonly string[];
+        fur?: string;
+        shelterId?: number;
+    }> {
+        photos(next?: string[]): readonly string[];
+        id(): string;
+        name(next?: string): string;
+        card(next?: string): string;
+        chip(next?: string): string;
+        cage(next?: string): string;
+        size(next?: string): string;
+        ear(next?: string): string;
+        tail(next?: string): string;
+        color(next?: string): string;
+        fur(next?: string): string;
+        description(next?: string): string;
+        weight(next?: number): number;
+        kind(next?: $hyoo_shelter_animal_kind): $hyoo_shelter_animal_kind;
+        gender(next?: $hyoo_shelter_animal_gender): $hyoo_shelter_animal_gender;
+        shelter_id(): string;
+        arrived_date(next?: $mol_time_moment | null): $mol_time_moment | null;
+        departed_date(next?: $mol_time_moment | null): $mol_time_moment | null;
+        born_date(next?: $mol_time_moment | null): $mol_time_moment | null;
+    }
+}
+
+declare namespace $ {
+    class $mol_state_local<Value> extends $mol_object {
+        static 'native()': Pick<Storage, 'getItem' | 'setItem' | 'removeItem'>;
+        static native(): Storage | {
+            getItem(key: string): any;
+            setItem(key: string, value: string): void;
+            removeItem(key: string): void;
+        };
+        static value<Value>(key: string, next?: Value, force?: $mol_mem_force): Value | null;
+        prefix(): string;
+        value(key: string, next?: Value): Value | null;
+    }
+}
+
+declare namespace $ {
+    function $mol_dom_parse(text: string, type?: DOMParserSupportedType): Document;
+}
+
+declare namespace $ {
+    class $mol_fetch_response extends $mol_object2 {
+        readonly native: Response;
+        constructor(native: Response);
+        headers(): Headers;
+        mime(): string | null;
+        stream(): ReadableStream<Uint8Array> | null;
+        text(): string;
+        json(): unknown;
+        buffer(): ArrayBuffer;
+        xml(): Document;
+        xhtml(): Document;
+        html(): Document;
+    }
+    class $mol_fetch extends $mol_object2 {
+        static request: (input: RequestInfo, init?: RequestInit | undefined) => Response;
+        static response(input: RequestInfo, init?: RequestInit): $mol_fetch_response;
+        static stream(input: RequestInfo, init?: RequestInit): ReadableStream<Uint8Array> | null;
+        static text(input: RequestInfo, init?: RequestInit): string;
+        static json(input: RequestInfo, init?: RequestInit): unknown;
+        static buffer(input: RequestInfo, init?: RequestInit): void;
+        static xml(input: RequestInfo, init?: RequestInit): Document;
+        static xhtml(input: RequestInfo, init?: RequestInit): Document;
+        static html(input: RequestInfo, init?: RequestInit): Document;
+    }
+}
+
+declare namespace $ {
+    class $hyoo_shelter_transport extends $mol_object2 {
+        static api_base(): string;
+        static token(next?: string | null): string | null;
+        static headers(): {
+            'Content-Type': string;
+        } | {
+            Authorization: string;
+            'Content-Type': string;
+        };
+        static load(path: string): any;
+        static link(path: string): any;
+        static save(path: string, method: 'post' | 'put', body: object): any;
+        static send(path: string, file: File): any;
+    }
+}
+
+declare namespace $ {
+    class $hyoo_shelter_shelter_animals extends $mol_store<Record<string, ReturnType<$hyoo_shelter_animal['data']>>> {
+        data(next?: Record<string, ReturnType<$hyoo_shelter_animal['data']>>): Record<string, {
+            id?: number | undefined;
+            name?: string | undefined;
+            card?: string | undefined;
+            chip?: string | undefined;
+            cage?: string | undefined;
+            arrivedAt?: string | undefined;
+            departedAt?: string | null | undefined;
+            birthDate?: string | undefined;
+            kind?: "Cat" | "Dog" | undefined;
+            gender?: "Male" | "Female" | undefined;
+            weight?: number | undefined;
+            ears?: string | undefined;
+            tail?: string | undefined;
+            size?: string | undefined;
+            color?: string | undefined;
+            description?: string | undefined;
+            photos?: readonly string[] | undefined;
+            fur?: string | undefined;
+            shelterId?: number | undefined;
+        }>;
+        value(key: string, next?: ReturnType<$hyoo_shelter_animal['data']>): {
+            id?: number | undefined;
+            name?: string | undefined;
+            card?: string | undefined;
+            chip?: string | undefined;
+            cage?: string | undefined;
+            arrivedAt?: string | undefined;
+            departedAt?: string | null | undefined;
+            birthDate?: string | undefined;
+            kind?: "Cat" | "Dog" | undefined;
+            gender?: "Male" | "Female" | undefined;
+            weight?: number | undefined;
+            ears?: string | undefined;
+            tail?: string | undefined;
+            size?: string | undefined;
+            color?: string | undefined;
+            description?: string | undefined;
+            photos?: readonly string[] | undefined;
+            fur?: string | undefined;
+            shelterId?: number | undefined;
+        };
+        list(): $hyoo_shelter_animal[];
+        Animal(index: string): $hyoo_shelter_animal;
+    }
+    class $hyoo_shelter_shelter extends $mol_store<{
+        id?: number;
+        name?: string;
+    }> {
+        id(): string;
+        name(next?: string): string;
+    }
 }
 
 declare namespace $ {
@@ -985,123 +1363,7 @@ declare namespace $.$$ {
 }
 
 declare namespace $ {
-    type $mol_data_value<Input = any, Output = any> = (val: Input) => Output;
-}
-
-declare namespace $ {
-    type $mol_type_merge<Intersection> = Intersection extends (...a: any[]) => any ? Intersection : Intersection extends new (...a: any[]) => any ? Intersection : Intersection extends object ? {
-        [Key in keyof Intersection]: $mol_type_merge<Intersection[Key]>;
-    } : Intersection;
-}
-
-declare namespace $ {
-    type $mol_type_partial_undefined<Val> = $mol_type_merge<Partial<Val> & Pick<Val, {
-        [Field in keyof Val]: undefined extends Val[Field] ? never : Field;
-    }[keyof Val]>>;
-}
-
-declare namespace $ {
-    function $mol_data_setup<Value extends $mol_data_value, Config = never>(value: Value, config: Config): Value & {
-        config: Config;
-        Value: ReturnType<Value>;
-    };
-}
-
-declare namespace $ {
-    function $mol_data_record<Sub extends Record<string, $mol_data_value<any>>>(sub: Sub): ((val: unknown) => Readonly<$mol_type_merge<Partial<{ [key in keyof Sub]: ReturnType<Sub[key]>; }> & Pick<{ [key in keyof Sub]: ReturnType<Sub[key]>; }, { [Field in keyof { [key in keyof Sub]: ReturnType<Sub[key]>; }]: undefined extends { [key in keyof Sub]: ReturnType<Sub[key]>; }[Field] ? never : Field; }[keyof Sub]>>>) & {
-        config: Sub;
-        Value: Readonly<$mol_type_merge<Partial<{ [key in keyof Sub]: ReturnType<Sub[key]>; }> & Pick<{ [key in keyof Sub]: ReturnType<Sub[key]>; }, { [Field in keyof { [key in keyof Sub]: ReturnType<Sub[key]>; }]: undefined extends { [key in keyof Sub]: ReturnType<Sub[key]>; }[Field] ? never : Field; }[keyof Sub]>>>;
-    };
-}
-
-declare namespace $ {
-    function $mol_diff_path<Item>(...paths: Item[][]): {
-        prefix: Item[];
-        suffix: Item[][];
-    };
-}
-
-declare namespace $ {
-    class $mol_error_mix extends Error {
-        errors: Error[];
-        constructor(message: string, ...errors: Error[]);
-        toJSON(): string;
-    }
-}
-
-declare namespace $ {
-    class $mol_data_error extends $mol_error_mix {
-    }
-}
-
-declare namespace $ {
-    let $mol_data_string: (val: string) => string;
-}
-
-declare namespace $ {
-    class $mol_state_local<Value> extends $mol_object {
-        static 'native()': Pick<Storage, 'getItem' | 'setItem' | 'removeItem'>;
-        static native(): Storage | {
-            getItem(key: string): any;
-            setItem(key: string, value: string): void;
-            removeItem(key: string): void;
-        };
-        static value<Value>(key: string, next?: Value, force?: $mol_mem_force): Value | null;
-        prefix(): string;
-        value(key: string, next?: Value): Value | null;
-    }
-}
-
-declare namespace $ {
-    function $mol_dom_parse(text: string, type?: DOMParserSupportedType): Document;
-}
-
-declare namespace $ {
-    class $mol_fetch_response extends $mol_object2 {
-        readonly native: Response;
-        constructor(native: Response);
-        headers(): Headers;
-        mime(): string | null;
-        stream(): ReadableStream<Uint8Array> | null;
-        text(): string;
-        json(): unknown;
-        buffer(): ArrayBuffer;
-        xml(): Document;
-        xhtml(): Document;
-        html(): Document;
-    }
-    class $mol_fetch extends $mol_object2 {
-        static request: (input: RequestInfo, init?: RequestInit | undefined) => Response;
-        static response(input: RequestInfo, init?: RequestInit): $mol_fetch_response;
-        static stream(input: RequestInfo, init?: RequestInit): ReadableStream<Uint8Array> | null;
-        static text(input: RequestInfo, init?: RequestInit): string;
-        static json(input: RequestInfo, init?: RequestInit): unknown;
-        static buffer(input: RequestInfo, init?: RequestInit): void;
-        static xml(input: RequestInfo, init?: RequestInit): Document;
-        static xhtml(input: RequestInfo, init?: RequestInit): Document;
-        static html(input: RequestInfo, init?: RequestInit): Document;
-    }
-}
-
-declare namespace $ {
-    class $gravity_transport extends $mol_object2 {
-        static api_base(): string;
-        static token(next?: string | null): string | null;
-        static headers(): {
-            'Content-Type': string;
-        } | {
-            Authorization: string;
-            'Content-Type': string;
-        };
-        static load(path: string): any;
-        static link(path: string): any;
-        static save(path: string, method: 'post' | 'put', body: object): any;
-        static send(path: string, file: File): any;
-    }
-}
-
-declare namespace $ {
-    class $gravity_auth extends $mol_object2 {
+    class $hyoo_shelter_auth extends $mol_object2 {
         static auth(creds: {
             username: string;
             password: string;
@@ -1109,6 +1371,16 @@ declare namespace $ {
         static signed(): boolean;
         static drop(): void;
     }
+}
+
+declare namespace $ {
+}
+
+declare namespace $ {
+    let $mol_gap: {
+        readonly block: $mol_style_func<"var", "--mol_gap_block">;
+        readonly text: $mol_style_func<"var", "--mol_gap_text">;
+    };
 }
 
 declare namespace $ {
@@ -1622,7 +1894,7 @@ declare namespace $.$$ {
 }
 
 declare namespace $ {
-    class $gravity_auth_form extends $mol_page {
+    class $hyoo_shelter_auth_form extends $mol_page {
         title(): string;
         plugins(): readonly any[];
         body(): readonly any[];
@@ -1647,282 +1919,20 @@ declare namespace $.$$ {
 }
 
 declare namespace $.$$ {
-    class $gravity_auth_form extends $.$gravity_auth_form {
+    class $hyoo_shelter_auth_form extends $.$hyoo_shelter_auth_form {
         auth(): void;
         submit(event: KeyboardEvent): void;
     }
 }
 
 declare namespace $ {
-    function $mol_data_array<Sub extends $mol_data_value>(sub: Sub): ((val: readonly Parameters<Sub>[0][] | unknown) => readonly ReturnType<Sub>[]) & {
-        config: Sub;
-        Value: readonly ReturnType<Sub>[];
-    };
-}
-
-declare namespace $ {
-    function $mol_data_nullable<Sub extends $mol_data_value>(sub: Sub): ((val: Parameters<Sub>[0] | null) => ReturnType<Sub> | null) & {
-        config: Sub;
-        Value: ReturnType<Sub> | null;
-    };
-}
-
-declare namespace $ {
-    let $mol_data_number: (val: number) => number;
-}
-
-declare namespace $ {
-    function $mol_data_integer(val: number): number;
-}
-
-declare namespace $ {
-    let $mol_data_boolean: (val: boolean) => boolean;
-}
-
-declare namespace $ {
-    function $mol_data_variant<Sub extends $mol_data_value[]>(...sub: Sub): ((val: Parameters<Sub[number]>[0]) => ReturnType<Sub[number]>) & {
-        config: Sub;
-        Value: ReturnType<Sub[number]>;
-    };
-}
-
-declare namespace $ {
-    function $mol_data_const<Val extends {} | string | number>(ref: Val): ((val: Val) => Val) & {
-        config: Val;
-        Value: Val;
-    };
-}
-
-declare namespace $ {
-    class $mol_store<Data> extends $mol_object2 {
-        data_default?: Data | undefined;
-        constructor(data_default?: Data | undefined);
-        data(next?: Data): Data;
-        snapshot(next?: string): string;
-        value<Key extends keyof Data>(key: Key, next?: Data[Key]): NonNullable<Data[Key]>;
-        sub<Key extends keyof Data, Lens extends $mol_store<Data[Key]> = $mol_store<Data[Key]>>(key: Key, lens?: Lens): NonNullable<Lens>;
-    }
-}
-
-declare namespace $ {
-    class $mol_time_base {
-        static patterns: Record<string, (arg: any) => string>;
-        static formatter(pattern: string): (arg: any) => string;
-        toString(pattern: string): string;
-    }
-}
-
-declare namespace $ {
-    type $mol_time_duration_config = number | string | {
-        year?: number;
-        month?: number;
-        day?: number;
-        hour?: number;
-        minute?: number;
-        second?: number;
-    };
-    class $mol_time_duration extends $mol_time_base {
-        constructor(config?: $mol_time_duration_config);
-        readonly year: number;
-        readonly month: number;
-        readonly day: number;
-        readonly hour: number;
-        readonly minute: number;
-        readonly second: number;
-        summ(config: $mol_time_duration_config): $mol_time_duration;
-        mult(numb: number): $mol_time_duration;
-        count(config: $mol_time_duration_config): number;
-        valueOf(): number;
-        toJSON(): string;
-        toString(pattern?: string): string;
-        static patterns: {
-            '#Y': (duration: $mol_time_duration) => string;
-            '#M': (duration: $mol_time_duration) => string;
-            '#D': (duration: $mol_time_duration) => string;
-            '#h': (duration: $mol_time_duration) => string;
-            '#m': (duration: $mol_time_duration) => string;
-            '#s': (duration: $mol_time_duration) => string;
-            '+hh': (duration: $mol_time_duration) => string;
-            mm: (duration: $mol_time_duration) => string;
-        };
-    }
-}
-
-declare namespace $ {
-    type $mol_time_moment_config = number | Date | string | {
-        year?: number;
-        month?: number;
-        day?: number;
-        hour?: number;
-        minute?: number;
-        second?: number;
-        offset?: $mol_time_duration_config;
-    };
-    class $mol_time_moment extends $mol_time_base {
-        constructor(config?: $mol_time_moment_config);
-        readonly year: number | undefined;
-        readonly month: number | undefined;
-        readonly day: number | undefined;
-        readonly hour: number | undefined;
-        readonly minute: number | undefined;
-        readonly second: number | undefined;
-        readonly offset: $mol_time_duration | undefined;
-        get weekday(): number;
-        _native: Date | undefined;
-        get native(): Date;
-        _normal: $mol_time_moment | undefined;
-        get normal(): $mol_time_moment;
-        merge(config: $mol_time_moment_config): $mol_time_moment;
-        shift(config: $mol_time_duration_config): $mol_time_moment;
-        mask(config: $mol_time_moment_config): $mol_time_moment;
-        toOffset(config: $mol_time_duration_config): $mol_time_moment;
-        valueOf(): number;
-        toJSON(): string;
-        toString(pattern?: string): string;
-        static patterns: {
-            YYYY: (moment: $mol_time_moment) => string;
-            AD: (moment: $mol_time_moment) => string;
-            YY: (moment: $mol_time_moment) => string;
-            Month: (moment: $mol_time_moment) => string;
-            'DD Month': (moment: $mol_time_moment) => string;
-            'D Month': (moment: $mol_time_moment) => string;
-            Mon: (moment: $mol_time_moment) => string;
-            'DD Mon': (moment: $mol_time_moment) => string;
-            'D Mon': (moment: $mol_time_moment) => string;
-            '-MM': (moment: $mol_time_moment) => string;
-            MM: (moment: $mol_time_moment) => string;
-            M: (moment: $mol_time_moment) => string;
-            WeekDay: (moment: $mol_time_moment) => string;
-            WD: (moment: $mol_time_moment) => string;
-            '-DD': (moment: $mol_time_moment) => string;
-            DD: (moment: $mol_time_moment) => string;
-            D: (moment: $mol_time_moment) => string;
-            Thh: (moment: $mol_time_moment) => string;
-            hh: (moment: $mol_time_moment) => string;
-            h: (moment: $mol_time_moment) => string;
-            ':mm': (moment: $mol_time_moment) => string;
-            mm: (moment: $mol_time_moment) => string;
-            m: (moment: $mol_time_moment) => string;
-            ':ss': (moment: $mol_time_moment) => string;
-            ss: (moment: $mol_time_moment) => string;
-            s: (moment: $mol_time_moment) => string;
-            '.sss': (moment: $mol_time_moment) => string;
-            sss: (moment: $mol_time_moment) => string;
-            Z: (moment: $mol_time_moment) => string;
-        };
-    }
-}
-
-declare namespace $ {
-    type $gravity_animal_kind = 'Cat' | 'Dog';
-    type $gravity_animal_gender = 'Male' | 'Female';
-    class $gravity_animal extends $mol_store<{
-        id?: number;
-        name?: string;
-        card?: string;
-        chip?: string;
-        cage?: string;
-        arrivedAt?: string;
-        departedAt?: string | null;
-        birthDate?: string;
-        kind?: $gravity_animal_kind;
-        gender?: $gravity_animal_gender;
-        weight?: number;
-        ears?: string;
-        tail?: string;
-        size?: string;
-        color?: string;
-        description?: string;
-        photos?: readonly string[];
-        fur?: string;
-        shelterId?: number;
-    }> {
-        photos(next?: string[]): readonly string[];
-        id(): string;
-        name(next?: string): string;
-        card(next?: string): string;
-        chip(next?: string): string;
-        cage(next?: string): string;
-        size(next?: string): string;
-        ear(next?: string): string;
-        tail(next?: string): string;
-        color(next?: string): string;
-        fur(next?: string): string;
-        description(next?: string): string;
-        weight(next?: number): number;
-        kind(next?: $gravity_animal_kind): $gravity_animal_kind;
-        gender(next?: $gravity_animal_gender): $gravity_animal_gender;
-        shelter_id(): string;
-        arrived_date(next?: $mol_time_moment | null): $mol_time_moment | null;
-        departed_date(next?: $mol_time_moment | null): $mol_time_moment | null;
-        born_date(next?: $mol_time_moment | null): $mol_time_moment | null;
-    }
-}
-
-declare namespace $ {
-    class $gravity_shelter_animals extends $mol_store<Record<string, ReturnType<$gravity_animal['data']>>> {
-        data(next?: Record<string, ReturnType<$gravity_animal['data']>>): Record<string, {
-            id?: number | undefined;
-            name?: string | undefined;
-            card?: string | undefined;
-            chip?: string | undefined;
-            cage?: string | undefined;
-            arrivedAt?: string | undefined;
-            departedAt?: string | null | undefined;
-            birthDate?: string | undefined;
-            kind?: "Cat" | "Dog" | undefined;
-            gender?: "Male" | "Female" | undefined;
-            weight?: number | undefined;
-            ears?: string | undefined;
-            tail?: string | undefined;
-            size?: string | undefined;
-            color?: string | undefined;
-            description?: string | undefined;
-            photos?: readonly string[] | undefined;
-            fur?: string | undefined;
-            shelterId?: number | undefined;
-        }>;
-        value(key: string, next?: ReturnType<$gravity_animal['data']>): {
-            id?: number | undefined;
-            name?: string | undefined;
-            card?: string | undefined;
-            chip?: string | undefined;
-            cage?: string | undefined;
-            arrivedAt?: string | undefined;
-            departedAt?: string | null | undefined;
-            birthDate?: string | undefined;
-            kind?: "Cat" | "Dog" | undefined;
-            gender?: "Male" | "Female" | undefined;
-            weight?: number | undefined;
-            ears?: string | undefined;
-            tail?: string | undefined;
-            size?: string | undefined;
-            color?: string | undefined;
-            description?: string | undefined;
-            photos?: readonly string[] | undefined;
-            fur?: string | undefined;
-            shelterId?: number | undefined;
-        };
-        list(): $gravity_animal[];
-        Animal(index: string): $gravity_animal;
-    }
-    class $gravity_shelter extends $mol_store<{
-        id?: number;
-        name?: string;
-    }> {
-        id(): string;
-        name(next?: string): string;
-    }
-}
-
-declare namespace $ {
-    class $gravity_shelter_list extends $mol_store<Record<string, ReturnType<$gravity_shelter['data']>>> {
+    class $hyoo_shelter_shelter_list extends $mol_store<Record<string, ReturnType<$hyoo_shelter_shelter['data']>>> {
         data(): Record<string, Readonly<{
             id: number;
             name: string;
         }>>;
-        list(): $gravity_shelter[];
-        Shelter(index: string): $gravity_shelter;
+        list(): $hyoo_shelter_shelter[];
+        Shelter(index: string): $hyoo_shelter_shelter;
     }
 }
 
@@ -2216,7 +2226,6 @@ declare namespace $.$$ {
 
 declare namespace $ {
     class $mol_switch extends $mol_view {
-        minimal_height(): number;
         Option(id: any): $$.$mol_switch_option;
         value(val?: any): any;
         options(): {};
@@ -2563,7 +2572,6 @@ declare namespace $ {
         dictionary(): {};
         options(): readonly string[];
         value(val?: any): any;
-        minimal_height(): number;
         Option_row(id: any): $mol_button_minor;
         No_options(): $mol_view;
         plugins(): readonly any[];
@@ -3203,8 +3211,8 @@ declare namespace $ {
 }
 
 declare namespace $ {
-    class $gravity_animal_edit extends $mol_page {
-        animal(): $gravity_animal;
+    class $hyoo_shelter_animal_edit extends $mol_page {
+        animal(): $hyoo_shelter_animal;
         title(): string;
         enabled(): boolean;
         tools(): readonly any[];
@@ -3279,39 +3287,39 @@ declare namespace $ {
         description(val?: any): any;
         Description(): $$.$mol_textarea;
         Description_field(): $mol_form_field;
-        Attaches(): $gravity_animal_edit_group;
-        Main(): $gravity_animal_edit_group;
-        Codes(): $gravity_animal_edit_group;
-        General(): $gravity_animal_edit_section;
-        Transitions(): $gravity_animal_edit_group;
-        Lifetime(): $gravity_animal_edit_group;
-        Dates(): $gravity_animal_edit_section;
-        Types(): $gravity_animal_edit_group;
-        Gabarites(): $gravity_animal_edit_group;
-        Classification(): $gravity_animal_edit_section;
-        Ends(): $gravity_animal_edit_group;
-        Visual(): $gravity_animal_edit_group;
-        Appearance(): $gravity_animal_edit_section;
-        Visual2(): $gravity_animal_edit_group;
-        Appearance2(): $gravity_animal_edit_section;
-        Exports(): $gravity_animal_edit_group;
-        Catch(): $gravity_animal_edit_links;
+        Attaches(): $hyoo_shelter_animal_edit_group;
+        Main(): $hyoo_shelter_animal_edit_group;
+        Codes(): $hyoo_shelter_animal_edit_group;
+        General(): $hyoo_shelter_animal_edit_section;
+        Transitions(): $hyoo_shelter_animal_edit_group;
+        Lifetime(): $hyoo_shelter_animal_edit_group;
+        Dates(): $hyoo_shelter_animal_edit_section;
+        Types(): $hyoo_shelter_animal_edit_group;
+        Gabarites(): $hyoo_shelter_animal_edit_group;
+        Classification(): $hyoo_shelter_animal_edit_section;
+        Ends(): $hyoo_shelter_animal_edit_group;
+        Visual(): $hyoo_shelter_animal_edit_group;
+        Appearance(): $hyoo_shelter_animal_edit_section;
+        Visual2(): $hyoo_shelter_animal_edit_group;
+        Appearance2(): $hyoo_shelter_animal_edit_section;
+        Exports(): $hyoo_shelter_animal_edit_group;
+        Catch(): $hyoo_shelter_animal_edit_links;
         Catch_field(): $mol_form_field;
-        Procedure(): $gravity_animal_edit_links;
+        Procedure(): $hyoo_shelter_animal_edit_links;
         Procedure_field(): $mol_form_field;
-        Contract(): $gravity_animal_edit_links;
+        Contract(): $hyoo_shelter_animal_edit_links;
         Contract_field(): $mol_form_field;
-        Documents(): $gravity_animal_edit_group;
+        Documents(): $hyoo_shelter_animal_edit_group;
         groups(): readonly any[];
         Sections(): $$.$mol_list;
         Form(): $$.$mol_form;
         photo(index: any): string;
     }
-    class $gravity_animal_edit_section extends $mol_row {
+    class $hyoo_shelter_animal_edit_section extends $mol_row {
     }
-    class $gravity_animal_edit_group extends $mol_row {
+    class $hyoo_shelter_animal_edit_group extends $mol_row {
     }
-    class $gravity_animal_edit_links extends $mol_bar {
+    class $hyoo_shelter_animal_edit_links extends $mol_bar {
         sub(): readonly any[];
         List(): $$.$mol_textarea;
         Add_icon(): $mol_icon_plus;
@@ -3327,7 +3335,7 @@ declare namespace $ {
 }
 
 declare namespace $ {
-    class $gravity_dict extends $mol_object2 {
+    class $hyoo_shelter_dict extends $mol_object2 {
         static data(): Readonly<{
             tail_types: readonly string[];
             ears_types: readonly string[];
@@ -3347,9 +3355,9 @@ declare namespace $ {
         static ear_suggest(): readonly string[];
         static dead_reason_suggest(): readonly string[];
         static departed_reason_suggest(): readonly string[];
-        static fur_suggest(kind: $gravity_animal_kind): readonly string[];
-        static color_suggest(kind: $gravity_animal_kind): readonly string[];
-        static breed_suggest(kind: $gravity_animal_kind): readonly string[];
+        static fur_suggest(kind: $hyoo_shelter_animal_kind): readonly string[];
+        static color_suggest(kind: $hyoo_shelter_animal_kind): readonly string[];
+        static breed_suggest(kind: $hyoo_shelter_animal_kind): readonly string[];
     }
 }
 
@@ -3357,7 +3365,7 @@ declare namespace $ {
 }
 
 declare namespace $.$$ {
-    class $gravity_animal_edit extends $.$gravity_animal_edit {
+    class $hyoo_shelter_animal_edit extends $.$hyoo_shelter_animal_edit {
         photos(next?: $mol_attach_item[]): $mol_attach_item[];
         photo(index: number): any;
         photo_new(file: File): void;
@@ -3372,8 +3380,8 @@ declare namespace $.$$ {
         tail(next?: string): string;
         color(next?: string): string;
         fur(next?: string): string;
-        kind(next?: $gravity_animal_kind): $gravity_animal_kind;
-        gender(next?: $gravity_animal_gender): $gravity_animal_gender;
+        kind(next?: $hyoo_shelter_animal_kind): $hyoo_shelter_animal_kind;
+        gender(next?: $hyoo_shelter_animal_gender): $hyoo_shelter_animal_gender;
         arrived_date(next?: $mol_time_moment): $mol_time_moment | null;
         departed_date(next?: $mol_time_moment): $mol_time_moment | null;
         born_date(next?: $mol_time_moment): $mol_time_moment | null;
@@ -3387,9 +3395,9 @@ declare namespace $.$$ {
 }
 
 declare namespace $ {
-    class $gravity_animal_card extends $mol_link {
-        animal(): $gravity_animal;
-        shelters(): $gravity_shelter_list;
+    class $hyoo_shelter_animal_card extends $mol_link {
+        animal(): $hyoo_shelter_animal;
+        shelters(): $hyoo_shelter_shelter_list;
         arg(): {
             animal: string;
         };
@@ -3410,8 +3418,6 @@ declare namespace $ {
         card(): string;
         highlight(): string;
         Card(): $$.$mol_dimmer;
-        chip(): string;
-        Chip(): $$.$mol_dimmer;
         kind(): string;
         Kind(): $mol_view;
         name(): string;
@@ -3427,14 +3433,13 @@ declare namespace $ {
 }
 
 declare namespace $.$$ {
-    class $gravity_animal_card extends $.$gravity_animal_card {
+    class $hyoo_shelter_animal_card extends $.$hyoo_shelter_animal_card {
         id(): string;
         sub(): $mol_view[];
         shelter_name(): string;
         name(): string;
         card(): string;
-        chip(): string;
-        gender(): $gravity_animal_gender;
+        gender(): $hyoo_shelter_animal_gender;
         size(): string;
         age(): string;
         kind(): string;
@@ -3485,15 +3490,15 @@ declare namespace $ {
 }
 
 declare namespace $ {
-    class $gravity_shelter_manage extends $mol_book2 {
-        shelters(): $gravity_shelter_list;
-        animals(): $gravity_shelter_animals;
+    class $hyoo_shelter_shelter_manage extends $mol_book2 {
+        shelters(): $hyoo_shelter_shelter_list;
+        animals(): $hyoo_shelter_shelter_animals;
         pages(): readonly any[];
         Shelter_link_all(): $$.$mol_link;
         Shelter_link(id: any): $$.$mol_link;
-        Animal_edit(id: any): $$.$gravity_animal_edit;
+        Animal_edit(id: any): $$.$hyoo_shelter_animal_edit;
         Animal_download(id: any): $$.$mol_link;
-        Animal_card(id: any): $$.$gravity_animal_card;
+        Animal_card(id: any): $$.$hyoo_shelter_animal_card;
         Download(): $$.$mol_link;
         Lights(): $$.$mol_lights_toggle;
         logout(event?: any): any;
@@ -3501,9 +3506,20 @@ declare namespace $ {
         Logout(): $mol_button_minor;
         filter_title(): string;
         filter_shelter_list(): readonly any[];
-        Filter_shelter_list(): $gravity_shelter_manage_filter_group;
+        Filter_shelter_list(): $hyoo_shelter_shelter_manage_filter_group;
         filter_list(): readonly any[];
         Filter_list(): $$.$mol_list;
+        Summary_title(): $mol_view;
+        summary_1w(): string;
+        Summary_1W(): $$.$mol_link;
+        summary_1m(): string;
+        Summary_1M(): $$.$mol_link;
+        summary_3m(): string;
+        Summary_3M(): $$.$mol_link;
+        summary_1y(): string;
+        Summary_1Y(): $$.$mol_link;
+        Summary_options(): $mol_view;
+        Summaries(): $mol_view;
         Filter_page(): $$.$mol_page;
         search(val?: any): any;
         Search(): $$.$mol_search;
@@ -3514,29 +3530,19 @@ declare namespace $ {
         animals_title(): string;
         animal_list(): readonly any[];
         Animal_list(): $$.$mol_list;
-        Summary_title(): $mol_view;
-        summary_1w(): string;
-        Summary_1W(): $$.$mol_link;
-        summary_1m(): string;
-        Summary_1M(): $$.$mol_link;
-        summary_3m(): string;
-        Summary_3M(): $$.$mol_link;
-        summary_1y(): string;
-        Summary_1Y(): $$.$mol_link;
-        Summaries(): $mol_view;
         Animals_page(): $$.$mol_page;
         shelter_id(id: any): string;
         shelter_name(id: any): string;
         can_edit(): boolean;
         Close_icon(id: any): $mol_icon_cross;
         Close(id: any): $$.$mol_link;
-        animal(id: any): $gravity_animal;
-        card_shelters(): $gravity_shelter_list;
+        animal(id: any): $hyoo_shelter_animal;
+        card_shelters(): $hyoo_shelter_shelter_list;
         download_name(): string;
         download_link(): string;
         Download_icon(): $mol_icon_download;
     }
-    class $gravity_shelter_manage_filter_group extends $mol_list {
+    class $hyoo_shelter_shelter_manage_filter_group extends $mol_list {
         rows(): readonly any[];
         Title(): $mol_view;
         items(): readonly any[];
@@ -3589,18 +3595,18 @@ declare namespace $ {
 }
 
 declare namespace $.$$ {
-    class $gravity_shelter_manage extends $.$gravity_shelter_manage {
-        animal(key: string): $gravity_animal;
-        animal_list_filtered(): $gravity_animal[];
-        animal_list(): $gravity_animal_card[];
+    class $hyoo_shelter_shelter_manage extends $.$hyoo_shelter_shelter_manage {
+        animal(key: string): $hyoo_shelter_animal;
+        animal_list_filtered(): $hyoo_shelter_animal[];
+        animal_list(): $hyoo_shelter_animal_card[];
         animal_current(next?: string): string | null;
         only(): string | null;
-        pages(): ($mol_page | $gravity_animal_edit)[];
+        pages(): ($mol_page | $hyoo_shelter_animal_edit)[];
         shelter_current(): string | null;
-        shelter_single(): $gravity_shelter | null;
+        shelter_single(): $hyoo_shelter_shelter | null;
         can_edit(): boolean;
         card_shelters(): any;
-        animals_page_tools(): ($mol_view | $mol_search)[];
+        animals_page_tools(): ($mol_link | $mol_search | $mol_button_major)[];
         download_link(): any;
         download_name(): string;
         summary_1w(): any;
@@ -3630,10 +3636,10 @@ declare namespace $.$$ {
 }
 
 declare namespace $ {
-    class $gravity extends $mol_book2 {
+    class $hyoo_shelter extends $mol_book2 {
         plugins(): readonly any[];
-        Auth(): $$.$gravity_auth_form;
-        Manage(): $$.$gravity_shelter_manage;
+        Auth(): $$.$hyoo_shelter_auth_form;
+        Manage(): $$.$hyoo_shelter_shelter_manage;
         Theme(): $$.$mol_theme_auto;
         logout(event?: any): any;
     }
@@ -3643,8 +3649,8 @@ declare namespace $.$$ {
 }
 
 declare namespace $.$$ {
-    class $gravity extends $.$gravity {
-        pages(): ($mol_page | $gravity_animal_edit)[] | $gravity_auth_form[];
+    class $hyoo_shelter extends $.$hyoo_shelter {
+        pages(): ($mol_page | $hyoo_shelter_animal_edit)[] | $hyoo_shelter_auth_form[];
         logout(): void;
     }
 }
