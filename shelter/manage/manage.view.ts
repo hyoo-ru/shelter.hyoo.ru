@@ -73,7 +73,11 @@ namespace $.$$ {
 		}
 
 		can_edit() {
-			return true // !! this.shelter_single()
+			return true
+		}
+
+		can_add() {
+			return Boolean( this.can_edit() && this.shelter_current() )
 		}
 
 		card_shelters() {
@@ -84,7 +88,7 @@ namespace $.$$ {
 			return [
 				this.Search(),
 				this.Download(),
-				... this.can_edit() ? [ this.Add() ] : [ ],
+				... this.can_add() ? [ this.Add() ] : [ ],
 			]
 		}
 

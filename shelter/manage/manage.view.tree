@@ -61,6 +61,8 @@ $hyoo_shelter_shelter_manage $mol_book2
 			body /
 				<= Animal_list $mol_list
 					rows <= animal_list /
+					Empty <= Animal_list_empty $mol_row
+						sub / \Нет животных
 	Shelter_link_all $mol_link
 		arg * shelter null
 		sub / \Все
