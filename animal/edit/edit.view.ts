@@ -1,6 +1,6 @@
 namespace $.$$ {
 	
-	export class $gravity_animal_edit extends $.$gravity_animal_edit {
+	export class $hyoo_shelter_animal_edit extends $.$hyoo_shelter_animal_edit {
 
 		@ $mol_mem
 		photos( next?: $mol_attach_item[] ) {
@@ -8,11 +8,11 @@ namespace $.$$ {
 		}
 
 		photo( index: number ) {
-			return this.$.$gravity_transport.link( '..' + this.animal().photos()[ index ] )
+			return this.$.$hyoo_shelter_transport.link( '..' + this.animal().photos()[ index ] )
 		}
 
 		photo_new( file: File ) {
-			this.$.$gravity_transport.send( `shelters/${ this.animal().shelter_id() }/photos`, file )
+			this.$.$hyoo_shelter_transport.send( `shelters/${ this.animal().shelter_id() }/photos`, file )
 		}
 
 		description( next?: string ) {
@@ -61,11 +61,11 @@ namespace $.$$ {
 			return this.animal().fur( next )
 		}
 
-		kind( next?: $gravity_animal_kind ) {
+		kind( next?: $hyoo_shelter_animal_kind ) {
 			return this.animal().kind( next )
 		}
 
-		gender( next?: $gravity_animal_gender ) {
+		gender( next?: $hyoo_shelter_animal_gender ) {
 			return this.animal().gender( next )
 		}
 
@@ -82,19 +82,19 @@ namespace $.$$ {
 		}
 
 		ear_suggest() {
-			return this.$.$gravity_dict.ear_suggest()
+			return this.$.$hyoo_shelter_dict.ear_suggest()
 		}
 
 		tail_suggest() {
-			return this.$.$gravity_dict.tail_suggest()
+			return this.$.$hyoo_shelter_dict.tail_suggest()
 		}
 
 		color_suggest() {
-			return this.$.$gravity_dict.color_suggest( this.kind() )
+			return this.$.$hyoo_shelter_dict.color_suggest( this.kind() )
 		}
 
 		fur_suggest() {
-			return this.$.$gravity_dict.fur_suggest( this.kind() )
+			return this.$.$hyoo_shelter_dict.fur_suggest( this.kind() )
 		}
 
 		download_name() {
@@ -102,7 +102,7 @@ namespace $.$$ {
 		}
 
 		download_link() {
-			return this.$.$gravity_transport.link( `../reports/animals/${ this.animal().id() }/animal-card.docx` )
+			return this.$.$hyoo_shelter_transport.link( `../reports/animals/${ this.animal().id() }/animal-card.docx` )
 		}
 
 	}

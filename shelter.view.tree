@@ -1,0 +1,6 @@
+$hyoo_shelter $mol_book2
+	plugins /
+		<= Theme $mol_theme_auto
+	Auth $hyoo_shelter_auth_form
+	Manage $hyoo_shelter_shelter_manage
+		logout?event <=> logout?event null

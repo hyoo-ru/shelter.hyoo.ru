@@ -1,9 +1,9 @@
 namespace $ {
 
-	export type $gravity_animal_kind = 'Cat' | 'Dog' 
-	export type $gravity_animal_gender = 'Male' | 'Female' 
+	export type $hyoo_shelter_animal_kind = 'Cat' | 'Dog' 
+	export type $hyoo_shelter_animal_gender = 'Male' | 'Female' 
 	
-	export class $gravity_animal extends $mol_store<{
+	export class $hyoo_shelter_animal extends $mol_store<{
 		id?: number
 		name?: string
 		card?: string
@@ -12,8 +12,8 @@ namespace $ {
 		arrivedAt?: string
 		departedAt?: string | null
 		birthDate?: string
-		kind?: $gravity_animal_kind
-		gender?: $gravity_animal_gender
+		kind?: $hyoo_shelter_animal_kind
+		gender?: $hyoo_shelter_animal_gender
 		weight?: number
 		ears?: string
 		tail?: string
@@ -77,11 +77,11 @@ namespace $ {
 			return this.value( 'weight' , next ) ?? 0
 		}
 
-		kind( next? : $gravity_animal_kind ) {
+		kind( next? : $hyoo_shelter_animal_kind ) {
 			return this.value( 'kind' , next ) ?? ''
 		}
 
-		gender( next? : $gravity_animal_gender ) {
+		gender( next? : $hyoo_shelter_animal_gender ) {
 			return this.value( 'gender' , next ) ?? ''
 		}
 

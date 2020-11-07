@@ -1,10 +1,10 @@
 namespace $.$$ {
 
-	export class $gravity_auth_form extends $.$gravity_auth_form {
+	export class $hyoo_shelter_auth_form extends $.$hyoo_shelter_auth_form {
 
 		auth() {
 
-			const person = this.$.$gravity_auth.auth({
+			const person = this.$.$hyoo_shelter_auth.auth({
 				username : this.login() ,
 				password : this.pass() ,
 			})

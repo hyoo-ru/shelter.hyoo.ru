@@ -24,18 +24,18 @@ namespace $ {
 		})
 	)
 	
-	export class $gravity_shelter_animals extends $mol_store<
-		Record< string, ReturnType< $gravity_animal['data'] > >
+	export class $hyoo_shelter_shelter_animals extends $mol_store<
+		Record< string, ReturnType< $hyoo_shelter_animal['data'] > >
 	> {
 
 		@ $mol_mem
-		data( next?: Record< string, ReturnType< $gravity_animal['data'] > > ) {
+		data( next?: Record< string, ReturnType< $hyoo_shelter_animal['data'] > > ) {
 
 			if( next !== undefined ) return next
 
-			const list = Animals( this.$.$gravity_transport.load( 'animals' ) )
+			const list = Animals( this.$.$hyoo_shelter_transport.load( 'animals' ) )
 			
-			const dict = {} as Record< string, ReturnType< $gravity_animal['data'] > >
+			const dict = {} as Record< string, ReturnType< $hyoo_shelter_animal['data'] > >
 			for( const item of list ) {
 				dict[ item.id ] = item
 			}
@@ -43,11 +43,11 @@ namespace $ {
 			return dict
 		}
 
-		value( key : string , next? : ReturnType< $gravity_animal['data'] > ) {
+		value( key : string , next? : ReturnType< $hyoo_shelter_animal['data'] > ) {
 			
 			if( next ) {
 				try {
-					this.$.$gravity_transport.save( `animals/${key}`, 'put', next )
+					this.$.$hyoo_shelter_transport.save( `animals/${key}`, 'put', next )
 				} catch( error ) {
 					if( 'then' in error ) $mol_fail_hidden( error )
 					console.error( error )
@@ -66,12 +66,12 @@ namespace $ {
 
 		@ $mol_mem_key
 		Animal( index : string ) {
-			return this.sub( index , new $gravity_animal( this.data()[ index ] ?? {} ) )
+			return this.sub( index , new $hyoo_shelter_animal( this.data()[ index ] ?? {} ) )
 		}
 
 	}
 
-	export class $gravity_shelter extends $mol_store<{
+	export class $hyoo_shelter_shelter extends $mol_store<{
 		id?: number
 		name?: string
 	}> {

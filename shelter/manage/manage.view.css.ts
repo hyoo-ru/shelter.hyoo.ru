@@ -2,33 +2,43 @@ namespace $ {
 
 	const { rem } = $mol_style_unit
 
-	$mol_style_define( $gravity_shelter_manage_filter_group , {
-		padding: rem(.75),
+	$mol_style_define( $hyoo_shelter_shelter_manage_filter_group , {
+		padding: $mol_gap.block,
 		Title: {
-			padding: rem(.75),
+			padding: $mol_gap.block,
 			textShadow: '0 0 ',
 		},
 	} )
 
-	$mol_style_define( $gravity_shelter_manage , {
+	$mol_style_define( $hyoo_shelter_shelter_manage , {
 
-		Summary_title: {
-			padding: [ rem(.5), rem(1.5) ]
+		Summaries: {
+			padding: $mol_gap.block,
+			flex: {
+				wrap: 'wrap',
+			},
 		},
 
-		Search: {
-			margin: [ 0 , rem(.75) ],
+		Summary_options: {
+			flex: {
+				wrap: 'wrap',
+			},
+		},
+
+		Summary_title: {
+			textShadow: '0 0 ',
+			padding: $mol_gap.text,
 		},
 
 		Filter_page: {
 			flex: {
-				basis: rem(15),
+				basis: rem(17),
 			},
 		},
 
 		Animals_page: {
 			flex: {
-				basis: rem(45),
+				basis: rem(30),
 			},
 			Title: {
 				flex: {
@@ -40,13 +50,13 @@ namespace $ {
 
 		Animal_edit: {
 			flex: {
-				basis: rem(35),
+				basis: rem(33),
 				grow: 1000,
 			},
 		},
 
 		Animal_list: {
-			padding: rem(.75),
+			padding: rem(.5),
 		},
 
 	} )

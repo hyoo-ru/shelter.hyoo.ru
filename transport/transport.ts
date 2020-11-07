@@ -1,6 +1,6 @@
 namespace $ {
 	
-	export class $gravity_transport extends $mol_object2 {
+	export class $hyoo_shelter_transport extends $mol_object2 {
 
 		static api_base() {
 			return 'https://gravity-animal-shelter.herokuapp.com/api/'

@@ -2,9 +2,9 @@ namespace $ {
 
 	const { rem } = $mol_style_unit
 
-	$mol_style_define( $gravity_animal_card , {
+	$mol_style_define( $hyoo_shelter_animal_card , {
 
-		padding: rem(.5),
+		padding: $mol_gap.text,
 
 		flex: {
 			wrap: 'wrap',
@@ -20,7 +20,7 @@ namespace $ {
 
 		Card: {
 			flex: {
-				basis: rem(5),
+				basis: rem(6),
 				grow: 0,
 				shrink: 0,
 			},
@@ -38,14 +38,6 @@ namespace $ {
 		Size: {
 			flex: {
 				basis: rem(5),
-				grow: 0,
-				shrink: 0,
-			},
-		},
-
-		Chip: {
-			flex: {
-				basis: rem(9),
 				grow: 0,
 				shrink: 0,
 			},
@@ -82,12 +74,6 @@ namespace $ {
 			},
 		},
 		
-		'>': {
-			$mol_view: {
-				margin: rem(.25),
-			},
-		},
-
 	} )
 
 }

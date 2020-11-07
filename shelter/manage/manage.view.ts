@@ -1,6 +1,6 @@
 namespace $.$$ {
 
-	export class $gravity_shelter_manage extends $.$gravity_shelter_manage {
+	export class $hyoo_shelter_shelter_manage extends $.$hyoo_shelter_shelter_manage {
 
 		animal( key: string ) {
 			return this.animals().Animal( key )
@@ -73,7 +73,7 @@ namespace $.$$ {
 		}
 
 		can_edit() {
-			return !! this.shelter_single()
+			return true // !! this.shelter_single()
 		}
 
 		card_shelters() {
@@ -84,13 +84,12 @@ namespace $.$$ {
 			return [
 				this.Search(),
 				this.Download(),
-				this.Summaries(),
 				... this.can_edit() ? [ this.Add() ] : [ ],
 			]
 		}
 
 		download_link() {
-			return this.$.$gravity_transport.link( `../reports/shelters/${ this.shelter_current() }/animal-register.docx` )
+			return this.$.$hyoo_shelter_transport.link( `../reports/shelters/${ this.shelter_current() }/animal-register.docx` )
 		}
 
 		download_name() {
@@ -98,24 +97,24 @@ namespace $.$$ {
 		}
 
 		summary_1w() {
-			return this.$.$gravity_transport.link( `../reports/summary/1W.pdf` )
+			return this.$.$hyoo_shelter_transport.link( `../reports/summary/1W.pdf` )
 		}
 
 		summary_1m() {
-			return this.$.$gravity_transport.link( `../reports/summary/1M.pdf` )
+			return this.$.$hyoo_shelter_transport.link( `../reports/summary/1M.pdf` )
 		}
 
 		summary_3m() {
-			return this.$.$gravity_transport.link( `../reports/summary/3M.pdf` )
+			return this.$.$hyoo_shelter_transport.link( `../reports/summary/3M.pdf` )
 		}
 
 		summary_1y() {
-			return this.$.$gravity_transport.link( `../reports/summary/1Y.pdf` )
+			return this.$.$hyoo_shelter_transport.link( `../reports/summary/1Y.pdf` )
 		}
 
 		add() {
 			const Response = $mol_data_record({ id : $mol_data_integer })
-			const response = this.$.$gravity_transport.save( `shelters/${ this.shelter_current() }/animals`, 'post', {
+			const response = this.$.$hyoo_shelter_transport.save( `shelters/${ this.shelter_current() }/animals`, 'post', {
 				name: '',
 				readyForDepart: false,
 				card: $mol_stub_code(),

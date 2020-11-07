@@ -1,6 +1,6 @@
 namespace $.$$ {
 	
-	$mol_style_define( $gravity_auth_form, {
+	$mol_style_define( $hyoo_shelter_auth_form, {
 
 		Title: {
 			justifyContent: 'center',

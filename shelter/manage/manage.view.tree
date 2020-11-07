@@ -1,6 +1,6 @@
-$gravity_shelter_manage $mol_book2
-	shelters $gravity_shelter_list / *
-	animals $gravity_shelter_animals / *
+$hyoo_shelter_shelter_manage $mol_book2
+	shelters $hyoo_shelter_shelter_list / *
+	animals $hyoo_shelter_shelter_animals / *
 	pages /
 		<= Filter_page $mol_page
 			tools /
@@ -13,9 +13,39 @@ $gravity_shelter_manage $mol_book2
 			body /
 				<= Filter_list $mol_list
 					rows <= filter_list /
-						<= Filter_shelter_list $gravity_shelter_manage_filter_group
+						<= Filter_shelter_list $hyoo_shelter_shelter_manage_filter_group
 							title \Приюты
 							items <= filter_shelter_list /
+			foot /
+				<= Summaries $mol_view
+					sub /
+						<= Summary_title $mol_view sub / \Отчёты
+						<= Summary_options $mol_view
+							sub /
+								<= Summary_1W $mol_link
+									hint \Скачать сводный отчёт
+									file_name \1W.pdf
+									target \_blank
+									uri <= summary_1w \
+									sub / \Неделя
+								<= Summary_1M $mol_link
+									hint \Скачать сводный отчёт
+									file_name \1M.pdf
+									target \_blank
+									uri <= summary_1m \
+									sub / \Месяц
+								<= Summary_3M $mol_link
+									hint \Скачать сводный отчёт
+									file_name \3M.pdf
+									target \_blank
+									uri <= summary_3m \
+									sub / \Квартал
+								<= Summary_1Y $mol_link
+									hint \Скачать сводный отчёт
+									file_name \1Y.pdf
+									target \_blank
+									uri <= summary_1y \
+									sub / \Год
 		<= Animals_page $mol_page
 			tools <= animals_page_tools /
 				<= Search $mol_search
@@ -29,41 +59,13 @@ $gravity_shelter_manage $mol_book2
 			body /
 				<= Animal_list $mol_list
 					rows <= animal_list /
-			foot /
-				<= Summaries $mol_view
-					sub /
-						<= Summary_title $mol_view sub / \Сводные отчёты: 
-						<= Summary_1W $mol_link
-							hint \Скачать сводный отчёт
-							file_name \1W.pdf
-							target \_blank
-							uri <= summary_1w \
-							sub / \Неделя
-						<= Summary_1M $mol_link
-							hint \Скачать сводный отчёт
-							file_name \1M.pdf
-							target \_blank
-							uri <= summary_1m \
-							sub / \Месяц
-						<= Summary_3M $mol_link
-							hint \Скачать сводный отчёт
-							file_name \3M.pdf
-							target \_blank
-							uri <= summary_3m \
-							sub / \Квартал
-						<= Summary_1Y $mol_link
-							hint \Скачать сводный отчёт
-							file_name \1Y.pdf
-							target \_blank
-							uri <= summary_1y \
-							sub / \Год
 	Shelter_link_all $mol_link
 		arg * shelter null
 		sub / \Все
 	Shelter_link!id $mol_link
 		arg * shelter <= shelter_id!id \
 		sub / <= shelter_name!id \
-	Animal_edit!id $gravity_animal_edit
+	Animal_edit!id $hyoo_shelter_animal_edit
 		enabled <= can_edit true
 		Download => Animal_download!id
 		tools /
@@ -74,10 +76,10 @@ $gravity_shelter_manage $mol_book2
 					<= Close_icon!id $mol_icon_cross
 		animal <= animal!id
 	-
-	Animal_card!id $gravity_animal_card
-		animal <= animal!id $gravity_animal / *
+	Animal_card!id $hyoo_shelter_animal_card
+		animal <= animal!id $hyoo_shelter_animal / *
 		highlight <= search
-		shelters <= card_shelters $gravity_shelter_list / *
+		shelters <= card_shelters $hyoo_shelter_shelter_list / *
 	-
 	Download $mol_link
 		hint \Скачать список животных в виде документа
@@ -86,7 +88,7 @@ $gravity_shelter_manage $mol_book2
 		sub /
 			<= Download_icon $mol_icon_download
 
-$gravity_shelter_manage_filter_group $mol_list
+$hyoo_shelter_shelter_manage_filter_group $mol_list
 	rows /
 		<= Title $mol_view
 			sub / <= title

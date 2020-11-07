@@ -1,4 +1,4 @@
-$gravity_auth_form $mol_page
+$hyoo_shelter_auth_form $mol_page
 	title \Вход в систему управления приютов
 	plugins /
 		<= Enter $mol_hotkey

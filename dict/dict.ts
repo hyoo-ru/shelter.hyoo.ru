@@ -10,12 +10,12 @@ namespace $ {
 		breeds: $mol_data_dict( $mol_data_array( $mol_data_string ) ),
 	})
 
-	export class $gravity_dict extends $mol_object2 {
+	export class $hyoo_shelter_dict extends $mol_object2 {
 
 		@ $mol_mem
 		static data() {
 			$mol_mem_persist()
-			return Response( this.$.$gravity_transport.load( `dictionaries` ) )
+			return Response( this.$.$hyoo_shelter_transport.load( `dictionaries` ) )
 		}
 
 		static tail_suggest() {
@@ -34,15 +34,15 @@ namespace $ {
 			return this.data().departure_reasons
 		}
 
-		static fur_suggest( kind : $gravity_animal_kind ) {
+		static fur_suggest( kind : $hyoo_shelter_animal_kind ) {
 			return this.data().fur_types[ kind ]
 		}
 
-		static color_suggest( kind : $gravity_animal_kind ) {
+		static color_suggest( kind : $hyoo_shelter_animal_kind ) {
 			return this.data().colors[ kind ]
 		}
 
-		static breed_suggest( kind : $gravity_animal_kind ) {
+		static breed_suggest( kind : $hyoo_shelter_animal_kind ) {
 			return this.data().breeds[ kind ]
 		}
 

@@ -9,14 +9,14 @@ namespace $ {
 
 	type Shelter = ( typeof Shelters.Value )[ number ]
 	
-	export class $gravity_shelter_list extends $mol_store<
-		Record< string, ReturnType< $gravity_shelter['data'] > >
+	export class $hyoo_shelter_shelter_list extends $mol_store<
+		Record< string, ReturnType< $hyoo_shelter_shelter['data'] > >
 	> {
 
 		@ $mol_mem
 		data() {
 
-			const list = Shelters( this.$.$gravity_transport.load( 'shelters' ) )
+			const list = Shelters( this.$.$hyoo_shelter_transport.load( 'shelters' ) )
 			
 			const dict = {} as Record< string, Shelter >
 			for( const item of list ) {
@@ -35,7 +35,7 @@ namespace $ {
 
 		@ $mol_mem_key
 		Shelter( index : string ) {
-			return this.sub( index , new $gravity_shelter( this.data()[ index ] ?? {} ) )
+			return this.sub( index , new $hyoo_shelter_shelter( this.data()[ index ] ?? {} ) )
 		}
 
 	}

@@ -1,6 +1,6 @@
 namespace $.$$ {
 	
-	export class $gravity_animal_card extends $.$gravity_animal_card {
+	export class $hyoo_shelter_animal_card extends $.$hyoo_shelter_animal_card {
 
 		id() {
 			return this.animal().id()
@@ -10,7 +10,6 @@ namespace $.$$ {
 			return [
 				... this.shelters() ? [ this.Shelter() ] : [],
 				this.Card(),
-				this.Chip(),
 				this.Kind(),
 				this.Name(),
 				this.Age(),
@@ -28,10 +27,6 @@ namespace $.$$ {
 
 		card() {
 			return this.animal().card()
-		}
-
-		chip() {
-			return this.animal().chip()
 		}
 
 		gender() {

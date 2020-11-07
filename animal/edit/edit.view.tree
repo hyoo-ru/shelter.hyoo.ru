@@ -1,5 +1,5 @@
-$gravity_animal_edit $mol_page
-	animal $gravity_animal / *
+$hyoo_shelter_animal_edit $mol_page
+	animal $hyoo_shelter_animal / *
 	title \Данные животного
 	enabled true
 	tools /
@@ -144,77 +144,77 @@ $gravity_animal_edit $mol_page
 			sub /
 				<= Sections $mol_list
 					rows <= groups /
-						<= Attaches $gravity_animal_edit_group
+						<= Attaches $hyoo_shelter_animal_edit_group
 							sub /
 								<= Photos_field
-						<= General $gravity_animal_edit_section
+						<= General $hyoo_shelter_animal_edit_section
 							sub /
-								<= Main $gravity_animal_edit_group
+								<= Main $hyoo_shelter_animal_edit_group
 									sub /
 										<= Name_field
 										<= Cage_field
-								<= Codes $gravity_animal_edit_group
+								<= Codes $hyoo_shelter_animal_edit_group
 									sub /
 										<= Card_field
 										<= Chip_field
-						<= Dates $gravity_animal_edit_section
+						<= Dates $hyoo_shelter_animal_edit_section
 							sub /
-								<= Transitions $gravity_animal_edit_group
+								<= Transitions $hyoo_shelter_animal_edit_group
 									sub /
 										<= Arrived_date_field
 										<= Born_date_field
-								<= Lifetime $gravity_animal_edit_group
+								<= Lifetime $hyoo_shelter_animal_edit_group
 									sub /
 										<= Departed_date_field
 										<= Departed_reason_field
-						<= Classification $gravity_animal_edit_section
+						<= Classification $hyoo_shelter_animal_edit_section
 							sub /
-								<= Types $gravity_animal_edit_group
+								<= Types $hyoo_shelter_animal_edit_group
 									sub /
 										<= Kind_field
 										<= Gender_field
-								<= Gabarites $gravity_animal_edit_group
+								<= Gabarites $hyoo_shelter_animal_edit_group
 									sub /
 										<= Size_field
 										<= Weight_field
-						<= Appearance $gravity_animal_edit_section
+						<= Appearance $hyoo_shelter_animal_edit_section
 							sub /
-								<= Ends $gravity_animal_edit_group
+								<= Ends $hyoo_shelter_animal_edit_group
 									sub /
 										<= Tail_field
 										<= Ear_field
-								<= Visual $gravity_animal_edit_group
+								<= Visual $hyoo_shelter_animal_edit_group
 									sub /
 										<= Color_field
 										<= Trait_field
-						<= Appearance2 $gravity_animal_edit_section
+						<= Appearance2 $hyoo_shelter_animal_edit_section
 							sub /
-								<= Visual2 $gravity_animal_edit_group
+								<= Visual2 $hyoo_shelter_animal_edit_group
 									sub /
 										<= Fur_field
-						<= Exports $gravity_animal_edit_group
+						<= Exports $hyoo_shelter_animal_edit_group
 							sub /
 								<= Description_field
 								<= Depart_ready_field
-						<= Documents $gravity_animal_edit_group
+						<= Documents $hyoo_shelter_animal_edit_group
 							sub /
 								<= Catch_field $mol_form_field
 									name \Акты отлова
-									Content <= Catch $gravity_animal_edit_links
+									Content <= Catch $hyoo_shelter_animal_edit_links
 								<= Procedure_field $mol_form_field
 									name \Процедуры
-									Content <= Procedure $gravity_animal_edit_links
+									Content <= Procedure $hyoo_shelter_animal_edit_links
 								<= Contract_field $mol_form_field
 									name \Договора
-									Content <= Contract $gravity_animal_edit_links
+									Content <= Contract $hyoo_shelter_animal_edit_links
 	Photo!index $mol_attach_item
 		url_load <= photo!index \
 		url_thumb <= photo!index \
 
-$gravity_animal_edit_section $mol_row
-$gravity_animal_edit_group $mol_row
+$hyoo_shelter_animal_edit_section $mol_row
+$hyoo_shelter_animal_edit_group $mol_row
 
-$gravity_animal_edit_links $mol_bar
+$hyoo_shelter_animal_edit_links $mol_bar
 	sub /
 		- <= List $mol_textarea
 		<= Add $mol_button_minor

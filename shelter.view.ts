@@ -1,10 +1,10 @@
 namespace $.$$ {
-	export class $gravity extends $.$gravity {
+	export class $hyoo_shelter extends $.$hyoo_shelter {
 		
 		@ $mol_mem
 		pages() {
 
-			if( !this.$.$gravity_auth.signed() ) {
+			if( !this.$.$hyoo_shelter_auth.signed() ) {
 				return [ this.Auth() ]
 			}
 
@@ -13,7 +13,7 @@ namespace $.$$ {
 		}
 
 		logout() {
-			this.$.$gravity_auth.drop()
+			this.$.$hyoo_shelter_auth.drop()
 		}
 
 	}

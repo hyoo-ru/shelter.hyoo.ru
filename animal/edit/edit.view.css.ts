@@ -2,10 +2,10 @@ namespace $ {
 
 	const { rem } = $mol_style_unit
 
-	$mol_style_define( $gravity_animal_edit , {
+	$mol_style_define( $hyoo_shelter_animal_edit , {
 
 		Sections: {
-			padding: rem(.75),
+			padding: $mol_gap.block,
 		},
 
 		Weight: {
@@ -47,12 +47,12 @@ namespace $ {
 
 	} )
 
-	$mol_style_define( $gravity_animal_edit_section , {
+	$mol_style_define( $hyoo_shelter_animal_edit_section , {
 		margin: 0,
 		padding: 0,
 	})
 	
-	$mol_style_define( $gravity_animal_edit_group , {
+	$mol_style_define( $hyoo_shelter_animal_edit_group , {
 		
 		margin: 0,
 		padding: 0,
@@ -67,13 +67,13 @@ namespace $ {
 			flex: {
 				grow: 1,
 				shrink: 0,
-				basis: rem(15),
+				basis: rem(14),
 			},
 		},
 
 	} )
 
-	$mol_style_define( $gravity_animal_edit_links , {
+	$mol_style_define( $hyoo_shelter_animal_edit_links , {
 		
 		Add: {
 			flex: {
