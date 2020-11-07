@@ -4,6 +4,8 @@ $hyoo_shelter_shelter_manage $mol_book2
 	pages /
 		<= Filter_page $mol_page
 			tools /
+				<= Source_link $mol_link_source
+					uri \https://github.com/hyoo-ru/shelter.hyoo.ru
 				<= Lights $mol_lights_toggle
 				<= Logout $mol_button_minor
 					click?event <=> logout?event null
