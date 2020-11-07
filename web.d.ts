@@ -3526,6 +3526,7 @@ declare namespace $ {
         animals_page_tools(): readonly any[];
         animals_title(): string;
         animal_list(): readonly any[];
+        Animal_list_empty(): $mol_row;
         Animal_list(): $$.$mol_list;
         Animals_page(): $$.$mol_page;
         shelter_id(id: any): string;
@@ -3602,6 +3603,7 @@ declare namespace $.$$ {
         shelter_current(): string | null;
         shelter_single(): $hyoo_shelter_shelter | null;
         can_edit(): boolean;
+        can_add(): boolean;
         card_shelters(): any;
         animals_page_tools(): ($mol_link | $mol_search | $mol_button_major)[];
         download_link(): any;

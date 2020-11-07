@@ -12325,9 +12325,17 @@ var $;
         animal_list() {
             return [];
         }
+        Animal_list_empty() {
+            const obj = new this.$.$mol_row();
+            obj.sub = () => [
+                "Нет животных"
+            ];
+            return obj;
+        }
         Animal_list() {
             const obj = new this.$.$mol_list();
             obj.rows = () => this.animal_list();
+            obj.Empty = () => this.Animal_list_empty();
             return obj;
         }
         Animals_page() {
@@ -12462,6 +12470,9 @@ var $;
     __decorate([
         $.$mol_mem
     ], $hyoo_shelter_shelter_manage.prototype, "Add", null);
+    __decorate([
+        $.$mol_mem
+    ], $hyoo_shelter_shelter_manage.prototype, "Animal_list_empty", null);
     __decorate([
         $.$mol_mem
     ], $hyoo_shelter_shelter_manage.prototype, "Animal_list", null);
@@ -12782,6 +12793,9 @@ var $;
             can_edit() {
                 return true;
             }
+            can_add() {
+                return Boolean(this.can_edit() && this.shelter_current());
+            }
             card_shelters() {
                 return this.shelter_current() ? null : this.shelters();
             }
@@ -12789,7 +12803,7 @@ var $;
                 return [
                     this.Search(),
                     this.Download(),
-                    ...this.can_edit() ? [this.Add()] : [],
+                    ...this.can_add() ? [this.Add()] : [],
                 ];
             }
             download_link() {
