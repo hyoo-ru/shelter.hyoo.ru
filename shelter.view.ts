@@ -16,5 +16,21 @@ namespace $.$$ {
 			this.$.$hyoo_shelter_auth.drop()
 		}
 
+		render() {
+
+			const login = this.$.$mol_state_arg.value( 'login' )
+			if( login ) {
+
+				$mol_fiber_defer( ()=> {
+					this.Auth().login( login )
+					this.Auth().submit( new KeyboardEvent( 'keypress' ) )
+					this.$.$mol_state_arg.value( 'login', null )
+				} )
+				
+			}
+			
+			return super.render()
+		}
+
 	}
 }
