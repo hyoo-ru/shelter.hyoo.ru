@@ -295,40 +295,40 @@ $hyoo_shelter_auth_form $mol_page
 						value?val <=> login?val \user
 						dictionary *
 							user \ЖКХ
-							gbu1 \ГБУ 1
-							gbu2 \ГБУ 2
-							gbu3 \ГБУ 3
-							gbu4 \ГБУ 4
-							gbu5 \ГБУ 5
-							gbu6 \ГБУ 6
-							gbu7 \ГБУ 7
-							gbu8 \ГБУ 8
-							gbu9 \ГБУ 9
-							gbu10 \ГБУ 10
-							gbu11 \ГБУ 11
-							gbu12 \ГБУ 12
-							gbu13 \ГБУ 13
-							admin1 \Префектура 1
-							admin2 \Префектура 2
-							admin3 \Префектура 3
-							admin4 \Префектура 4
-							admin5 \Префектура 5
-							admin6 \Префектура 6
-							admin7 \Префектура 7
-							admin8 \Префектура 8
-							trustee1 \Приют 1
-							trustee2 \Приют 2
-							trustee3 \Приют 3
-							trustee4 \Приют 4
-							trustee5 \Приют 5
-							trustee6 \Приют 6
-							trustee7 \Приют 7
-							trustee8 \Приют 8
-							trustee9 \Приют 9
-							trustee10 \Приют 10
-							trustee11 \Приют 11
-							trustee12 \Приют 12
-							trustee13 \Приют 13
+							gbu1 \ГБУ_1
+							gbu2 \ГБУ_2
+							gbu3 \ГБУ_3
+							gbu4 \ГБУ_4
+							gbu5 \ГБУ_5
+							gbu6 \ГБУ_6
+							gbu7 \ГБУ_7
+							gbu8 \ГБУ_8
+							gbu9 \ГБУ_9
+							gbu10 \ГБУ_10
+							gbu11 \ГБУ_11
+							gbu12 \ГБУ_12
+							gbu13 \ГБУ_13
+							admin1 \Префектура_1
+							admin2 \Префектура_2
+							admin3 \Префектура_3
+							admin4 \Префектура_4
+							admin5 \Префектура_5
+							admin6 \Префектура_6
+							admin7 \Префектура_7
+							admin8 \Префектура_8
+							trustee1 \Приют_1
+							trustee2 \Приют_2
+							trustee3 \Приют_3
+							trustee4 \Приют_4
+							trustee5 \Приют_5
+							trustee6 \Приют_6
+							trustee7 \Приют_7
+							trustee8 \Приют_8
+							trustee9 \Приют_9
+							trustee10 \Приют_10
+							trustee11 \Приют_11
+							trustee12 \Приют_12
+							trustee13 \Приют_13
 				<= Pass_field $mol_form_field
 					name <= Pass_name \Пароль
 					control <= Pass $mol_string
