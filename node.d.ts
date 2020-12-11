@@ -1044,7 +1044,7 @@ declare namespace $ {
         data(next?: Data): Data;
         snapshot(next?: string): string;
         value<Key extends keyof Data>(key: Key, next?: Data[Key]): NonNullable<Data[Key]>;
-        sub<Key extends keyof Data, Lens extends $mol_store<Data[Key]> = $mol_store<Data[Key]>>(key: Key, lens?: Lens): NonNullable<Lens>;
+        sub<Key extends keyof Data, Lens extends $mol_store<Data[Key]> = $mol_store<NonNullable<Data[Key]>>>(key: Key, lens?: Lens): NonNullable<Lens>;
         reset(): void;
     }
 }
