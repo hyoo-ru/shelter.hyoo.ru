@@ -1719,11 +1719,11 @@ declare namespace $ {
         plugins(): readonly $mol_plugin[];
         sub(): readonly any[];
         keydown(event?: any): any;
-        Meter(): $$.$mol_meter;
         top(): number;
         bottom(): number;
         left(): number;
         right(): number;
+        Meter(): $$.$mol_meter;
         Anchor(): any;
         align(): string;
         bubble_content(): readonly (string | number | boolean | $mol_view | Node)[];
@@ -3280,8 +3280,8 @@ declare namespace $ {
         Next_icon(): $mol_icon_chevron_right;
         Next(): $mol_button_minor;
         Calendar_tools(): $mol_view;
-        Calendar(): $mol_date_calendar;
         Calendar_title(): $mol_view;
+        Calendar(): $mol_date_calendar;
     }
     class $mol_date_calendar extends $mol_calendar {
         day_content(day: any): readonly any[];
@@ -3624,8 +3624,8 @@ declare namespace $ {
         pages(): readonly any[];
         Shelter_link_all(): $$.$mol_link;
         Shelter_link(id: any): $$.$mol_link;
-        Animal_edit(id: any): $$.$hyoo_shelter_animal_edit;
         Animal_download(id: any): $$.$mol_link;
+        Animal_edit(id: any): $$.$hyoo_shelter_animal_edit;
         Animal_card(id: any): $$.$hyoo_shelter_animal_card;
         Download(): $$.$mol_link;
         Source_link(): $mol_link_source;
@@ -3813,8 +3813,8 @@ declare namespace $ {
 
 declare namespace $ {
     class $mol_view_tree_test_binding_right extends $mol_view {
-        Test(): $mol_view_tree_test_binding_right_test;
         outer_width(v?: any): any;
+        Test(): $mol_view_tree_test_binding_right_test;
     }
     class $mol_view_tree_test_binding_right_test extends $mol_view {
         width(val?: any): any;

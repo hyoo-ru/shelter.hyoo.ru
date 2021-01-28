@@ -4914,10 +4914,6 @@ var $;
                 return event;
             return null;
         }
-        Meter() {
-            const obj = new this.$.$mol_meter();
-            return obj;
-        }
         top() {
             return this.Meter().top();
         }
@@ -4929,6 +4925,10 @@ var $;
         }
         right() {
             return this.Meter().right();
+        }
+        Meter() {
+            const obj = new this.$.$mol_meter();
+            return obj;
         }
         Anchor() {
             return null;
@@ -10449,6 +10449,9 @@ var $;
             ];
             return obj;
         }
+        Calendar_title() {
+            return this.Calendar().Title();
+        }
         Calendar() {
             const obj = new this.$.$mol_date_calendar();
             obj.month_moment = () => this.month_moment();
@@ -10458,9 +10461,6 @@ var $;
                 this.Calendar_tools()
             ];
             return obj;
-        }
-        Calendar_title() {
-            return this.Calendar().Title();
         }
     }
     __decorate([
@@ -12297,6 +12297,9 @@ var $;
             ];
             return obj;
         }
+        Animal_download(id) {
+            return this.Animal_edit(id).Download();
+        }
         Animal_edit(id) {
             const obj = new this.$.$hyoo_shelter_animal_edit();
             obj.enabled = () => this.can_edit();
@@ -12306,9 +12309,6 @@ var $;
             ];
             obj.animal = () => this.animal(id);
             return obj;
-        }
-        Animal_download(id) {
-            return this.Animal_edit(id).Download();
         }
         Animal_card(id) {
             const obj = new this.$.$hyoo_shelter_animal_card();
@@ -13244,12 +13244,12 @@ var $;
 var $;
 (function ($) {
     class $mol_view_tree_test_binding_right extends $.$mol_view {
+        outer_width(v) {
+            return this.Test().width(v);
+        }
         Test() {
             const obj = new this.$.$mol_view_tree_test_binding_right_test();
             return obj;
-        }
-        outer_width(v) {
-            return this.Test().width(v);
         }
     }
     __decorate([
