@@ -11218,27 +11218,6 @@ var $;
             obj.Content = () => this.Departed_reason();
             return obj;
         }
-        dead_reason(val) {
-            if (val !== undefined)
-                return val;
-            return "";
-        }
-        Dead_reason() {
-            const obj = new this.$.$mol_switch();
-            obj.value = (val) => this.dead_reason(val);
-            obj.enabled = () => this.enabled();
-            obj.options = () => ({
-                E: "Естественная",
-                Ev: "Эвтаназия"
-            });
-            return obj;
-        }
-        Dead_reason_field() {
-            const obj = new this.$.$mol_form_field();
-            obj.name = () => "Причина смерти";
-            obj.Content = () => this.Dead_reason();
-            return obj;
-        }
         weight(val) {
             if (val !== undefined)
                 return val;
@@ -11758,15 +11737,6 @@ var $;
     ], $hyoo_shelter_animal_edit.prototype, "Departed_reason_field", null);
     __decorate([
         $.$mol_mem
-    ], $hyoo_shelter_animal_edit.prototype, "dead_reason", null);
-    __decorate([
-        $.$mol_mem
-    ], $hyoo_shelter_animal_edit.prototype, "Dead_reason", null);
-    __decorate([
-        $.$mol_mem
-    ], $hyoo_shelter_animal_edit.prototype, "Dead_reason_field", null);
-    __decorate([
-        $.$mol_mem
     ], $hyoo_shelter_animal_edit.prototype, "weight", null);
     __decorate([
         $.$mol_mem
@@ -11952,10 +11922,6 @@ var $;
                 this.Add()
             ];
         }
-        List() {
-            const obj = new this.$.$mol_textarea();
-            return obj;
-        }
         Add_icon() {
             const obj = new this.$.$mol_icon_plus();
             return obj;
@@ -11968,9 +11934,6 @@ var $;
             return obj;
         }
     }
-    __decorate([
-        $.$mol_mem
-    ], $hyoo_shelter_animal_edit_links.prototype, "List", null);
     __decorate([
         $.$mol_mem
     ], $hyoo_shelter_animal_edit_links.prototype, "Add_icon", null);

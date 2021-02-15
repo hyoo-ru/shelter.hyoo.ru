@@ -3384,9 +3384,6 @@ declare namespace $ {
         departed_reason(val?: any): any;
         Departed_reason(): $$.$mol_switch;
         Departed_reason_field(): $mol_form_field;
-        dead_reason(val?: any): any;
-        Dead_reason(): $$.$mol_switch;
-        Dead_reason_field(): $mol_form_field;
         weight(val?: any): any;
         Weight(): $$.$mol_number;
         Weight_field(): $mol_form_field;
@@ -3458,7 +3455,6 @@ declare namespace $ {
     }
     class $hyoo_shelter_animal_edit_links extends $mol_bar {
         sub(): readonly any[];
-        List(): $$.$mol_textarea;
         Add_icon(): $mol_icon_plus;
         Add(): $mol_button_minor;
     }
