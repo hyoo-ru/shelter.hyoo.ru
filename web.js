@@ -2328,11 +2328,11 @@ var $;
                 kids[index].force_render(path);
             }
         }
-        async ensure_visible(view) {
+        async ensure_visible(view, align = "start") {
             const path = this.view_find(v => v === view).next().value;
             this.force_render(new Set(path));
             await $.$mol_fiber_warp();
-            view.dom_node().scrollIntoView();
+            view.dom_node().scrollIntoView({ block: align });
         }
     }
     $mol_view.watchers = new Set();
@@ -6422,6 +6422,7 @@ var $;
         }
         bubble_content() {
             return [
+                this.Filter(),
                 this.Menu()
             ];
         }
@@ -6667,7 +6668,7 @@ var $;
             }
             menu_content() {
                 return [
-                    ...this.nav_components(),
+                    ...this.option_rows(),
                     ...(this.options_filtered().length === 0) ? [this.No_options()] : []
                 ];
             }
@@ -7383,7 +7384,7 @@ var $;
                 return null;
             }
             minimal_height() {
-                return Math.max(super.minimal_height() || 32);
+                return Math.max(super.minimal_height(), 40);
             }
             target() {
                 return (this.uri_native().origin === $.$mol_dom_context.location.origin) ? '_self' : '_blank';
@@ -8134,52 +8135,40 @@ var $;
 "use strict";
 var $;
 (function ($) {
-    class $mol_bar extends $.$mol_view {
-    }
-    $.$mol_bar = $mol_bar;
-})($ || ($ = {}));
-//bar.view.tree.js.map
-;
-"use strict";
-var $;
-(function ($) {
-    $.$mol_style_attach("mol/bar/bar.view.css", "[mol_bar] {\n\tdisplay: flex;\n\tbox-shadow: inset 0 0 0 1px var(--mol_theme_line);\n\tborder-radius: var(--mol_skin_round);\n}\n\n[mol_bar] > * {\n\tborder-radius: 0;\n}\n\n[mol_bar] > *:first-child {\n\tborder-top-left-radius: var(--mol_skin_round);\n\tborder-bottom-left-radius: var(--mol_skin_round);\n}\n\n[mol_bar] > *:not(:first-child) {\n\tmargin-left: 1px;\n}\n\n[mol_bar] > *:last-child {\n\tborder-top-right-radius: var(--mol_skin_round);\n\tborder-bottom-right-radius: var(--mol_skin_round);\n}\n");
-})($ || ($ = {}));
-//bar.view.css.js.map
-;
-"use strict";
-var $;
-(function ($) {
-    class $mol_icon_cross extends $.$mol_icon {
-        path() {
-            return "M19 6.41L17.59 5L12 10.59L6.41 5L5 6.41L10.59 12L5 17.59L6.41 19L12 13.41L17.59 19L19 17.59L13.41 12L19 6.41Z";
-        }
-    }
-    $.$mol_icon_cross = $mol_icon_cross;
-})($ || ($ = {}));
-//cross.view.tree.js.map
-;
-"use strict";
-var $;
-(function ($) {
-    class $mol_search extends $.$mol_bar {
+    class $mol_search extends $.$mol_pop {
         query(val) {
             if (val !== undefined)
                 return val;
             return "";
         }
+        suggests() {
+            return [];
+        }
         plugins() {
             return [
-                this.Hotkey()
+                ...super.plugins(),
+                this.Hotkey(),
+                this.Nav()
             ];
         }
-        sub() {
+        showed(val) {
+            return this.suggests_showed(val);
+        }
+        Anchor() {
+            return this.Query();
+        }
+        bubble_content() {
             return [
-                this.Suggest(),
-                this.Clear()
+                this.Menu()
             ];
         }
-        event_clear(val) {
+        Suggest(id) {
+            const obj = new this.$.$mol_button_minor();
+            obj.click = (event) => this.suggest_select(id, event);
+            obj.sub = () => this.suggest_content(id);
+            return obj;
+        }
+        clear(val) {
             if (val !== undefined)
                 return val;
             return null;
@@ -8187,23 +8176,31 @@ var $;
         Hotkey() {
             const obj = new this.$.$mol_hotkey();
             obj.key = () => ({
-                escape: (val) => this.event_clear(val)
+                escape: (val) => this.clear(val)
             });
             return obj;
         }
-        suggest_selected(val) {
+        nav_components() {
+            return [];
+        }
+        nav_focused(component) {
+            if (component !== undefined)
+                return component;
+            return null;
+        }
+        Nav() {
+            const obj = new this.$.$mol_nav();
+            obj.keys_y = () => this.nav_components();
+            obj.current_y = (component) => this.nav_focused(component);
+            return obj;
+        }
+        suggests_showed(val) {
             if (val !== undefined)
                 return val;
-            return "";
+            return false;
         }
         hint() {
             return this.$.$mol_locale.text('$mol_search_hint');
-        }
-        suggests_showed() {
-            return false;
-        }
-        suggests() {
-            return [];
         }
         submit(event) {
             if (event !== undefined)
@@ -8213,70 +8210,78 @@ var $;
         enabled() {
             return true;
         }
-        Suggest_filter() {
-            return this.Suggest().Filter();
-        }
-        suggest_option_rows() {
-            return this.Suggest().option_rows();
-        }
-        Suggest() {
-            const obj = new this.$.$mol_select();
-            obj.value = (val) => this.suggest_selected(val);
-            obj.filter_pattern = (val) => this.suggest_selected(val);
+        Query() {
+            const obj = new this.$.$mol_string();
+            obj.value = (val) => this.query(val);
             obj.hint = () => this.hint();
-            obj.filter_pattern = (val) => this.query(val);
-            obj.options_showed = () => this.suggests_showed();
-            obj.options = () => this.suggests();
             obj.submit = (event) => this.submit(event);
-            obj.No_options = () => null;
             obj.enabled = () => this.enabled();
-            obj.menu_content = () => this.suggest_option_rows();
-            obj.trigger_content = () => [
-                this.Suggest_filter()
+            return obj;
+        }
+        menu_items() {
+            return [];
+        }
+        Menu() {
+            const obj = new this.$.$mol_list();
+            obj.rows = () => this.menu_items();
+            return obj;
+        }
+        suggest_select(id, event) {
+            if (event !== undefined)
+                return event;
+            return null;
+        }
+        suggest_label(id) {
+            return "";
+        }
+        Suggest_label(id) {
+            const obj = new this.$.$mol_dimmer();
+            obj.haystack = () => this.suggest_label(id);
+            obj.needle = () => this.query();
+            return obj;
+        }
+        suggest_content(id) {
+            return [
+                this.Suggest_label(id)
             ];
-            return obj;
-        }
-        Clear_icon() {
-            const obj = new this.$.$mol_icon_cross();
-            return obj;
-        }
-        clear_hint() {
-            return this.$.$mol_locale.text('$mol_search_clear_hint');
-        }
-        Clear() {
-            const obj = new this.$.$mol_button_minor();
-            obj.sub = () => [
-                this.Clear_icon()
-            ];
-            obj.event_click = (val) => this.event_clear(val);
-            obj.hint = () => this.clear_hint();
-            return obj;
         }
     }
     __decorate([
         $.$mol_mem
     ], $mol_search.prototype, "query", null);
     __decorate([
+        $.$mol_mem_key
+    ], $mol_search.prototype, "Suggest", null);
+    __decorate([
         $.$mol_mem
-    ], $mol_search.prototype, "event_clear", null);
+    ], $mol_search.prototype, "clear", null);
     __decorate([
         $.$mol_mem
     ], $mol_search.prototype, "Hotkey", null);
     __decorate([
         $.$mol_mem
-    ], $mol_search.prototype, "suggest_selected", null);
+    ], $mol_search.prototype, "nav_focused", null);
+    __decorate([
+        $.$mol_mem
+    ], $mol_search.prototype, "Nav", null);
+    __decorate([
+        $.$mol_mem
+    ], $mol_search.prototype, "suggests_showed", null);
     __decorate([
         $.$mol_mem
     ], $mol_search.prototype, "submit", null);
     __decorate([
         $.$mol_mem
-    ], $mol_search.prototype, "Suggest", null);
+    ], $mol_search.prototype, "Query", null);
     __decorate([
         $.$mol_mem
-    ], $mol_search.prototype, "Clear_icon", null);
+    ], $mol_search.prototype, "Menu", null);
     __decorate([
-        $.$mol_mem
-    ], $mol_search.prototype, "Clear", null);
+        $.$mol_mem_key
+    ], $mol_search.prototype, "suggest_select", null);
+    __decorate([
+        $.$mol_mem_key
+    ], $mol_search.prototype, "Suggest_label", null);
     $.$mol_search = $mol_search;
 })($ || ($ = {}));
 //search.view.tree.js.map
@@ -8284,7 +8289,7 @@ var $;
 "use strict";
 var $;
 (function ($) {
-    $.$mol_style_attach("mol/search/search.view.css", "[mol_search] {\n\talign-self: flex-start;\n\tflex: auto;\n}\n\n[mol_search_suggest] {\n\tflex: 1 1 auto;\n}\n\n[mol_search_clear] {\n\tmargin: 0;\n\tflex: none;\n}\n\n[mol_search_clear_icon] {\n}\n");
+    $.$mol_style_attach("mol/search/search.view.css", "[mol_search] {\n\talign-self: flex-start;\n\tflex: auto;\n}\n\n[mol_search_query] {\n\tflex-grow: 1;\n}\n\n[mol_search_menu] {\n\tmin-height: .75rem;\n\tdisplay: flex;\n}\n\n[mol_search_suggest] {\n\ttext-align: left;\n}\n");
 })($ || ($ = {}));
 //search.view.css.js.map
 ;
@@ -8294,27 +8299,63 @@ var $;
     var $$;
     (function ($$) {
         class $mol_search extends $.$mol_search {
-            suggests_showed() {
+            suggests_showed(next = true) {
+                this.query();
+                console.log($.$mol_view_selection.focused());
                 if (!this.focused())
                     return false;
-                return this.suggests().length > 1;
+                return next;
             }
             suggest_selected(next) {
                 if (next === undefined)
                     return;
                 this.query(next);
-                $.$mol_fiber_defer(() => this.Suggest_filter().focused(true));
+                $.$mol_fiber_defer(() => {
+                    this.Query().focused(true);
+                });
             }
-            sub() {
+            nav_components() {
                 return [
-                    this.Suggest(),
-                    ...(this.query().length > 0) ? [this.Clear()] : [],
+                    this.Query(),
+                    ...this.menu_items(),
                 ];
             }
-            event_clear(event) {
+            nav_focused(component) {
+                if (!this.focused())
+                    return null;
+                if (component == null) {
+                    for (let comp of this.nav_components()) {
+                        if (comp && comp.focused())
+                            return comp;
+                    }
+                    return null;
+                }
+                if (this.suggests_showed()) {
+                    this.ensure_visible(component, "center");
+                    component.focused(true);
+                }
+                return component;
+            }
+            suggest_label(key) {
+                return key;
+            }
+            menu_items() {
+                return this.suggests().map((suggest) => this.Suggest(suggest));
+            }
+            suggest_select(id, event) {
+                this.query(id);
+                this.Query().focused(false);
+            }
+            clear(event) {
                 this.query('');
             }
         }
+        __decorate([
+            $.$mol_mem
+        ], $mol_search.prototype, "suggests_showed", null);
+        __decorate([
+            $.$mol_mem
+        ], $mol_search.prototype, "nav_focused", null);
         $$.$mol_search = $mol_search;
     })($$ = $.$$ || ($.$$ = {}));
 })($ || ($ = {}));
@@ -10620,6 +10661,22 @@ var $;
 "use strict";
 var $;
 (function ($) {
+    class $mol_bar extends $.$mol_view {
+    }
+    $.$mol_bar = $mol_bar;
+})($ || ($ = {}));
+//bar.view.tree.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    $.$mol_style_attach("mol/bar/bar.view.css", "[mol_bar] {\n\tdisplay: flex;\n\tbox-shadow: inset 0 0 0 1px var(--mol_theme_line);\n\tborder-radius: var(--mol_skin_round);\n}\n\n[mol_bar] > * {\n\tborder-radius: 0;\n}\n\n[mol_bar] > *:first-child {\n\tborder-top-left-radius: var(--mol_skin_round);\n\tborder-bottom-left-radius: var(--mol_skin_round);\n}\n\n[mol_bar] > *:not(:first-child) {\n\tmargin-left: 1px;\n}\n\n[mol_bar] > *:last-child {\n\tborder-top-right-radius: var(--mol_skin_round);\n\tborder-bottom-right-radius: var(--mol_skin_round);\n}\n");
+})($ || ($ = {}));
+//bar.view.css.js.map
+;
+"use strict";
+var $;
+(function ($) {
     class $hyoo_shelter_animal_edit extends $.$mol_page {
         animal() {
             const obj = new this.$.$hyoo_shelter_animal({});
@@ -12178,6 +12235,18 @@ var $;
     $.$mol_icon_logout = $mol_icon_logout;
 })($ || ($ = {}));
 //logout.view.tree.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    class $mol_icon_cross extends $.$mol_icon {
+        path() {
+            return "M19 6.41L17.59 5L12 10.59L6.41 5L5 6.41L10.59 12L5 17.59L6.41 19L12 13.41L17.59 19L19 17.59L13.41 12L19 6.41Z";
+        }
+    }
+    $.$mol_icon_cross = $mol_icon_cross;
+})($ || ($ = {}));
+//cross.view.tree.js.map
 ;
 "use strict";
 var $;

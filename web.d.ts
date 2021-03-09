@@ -614,7 +614,7 @@ declare namespace $ {
         plugins(): readonly $mol_view[];
         view_find(check: (path: $mol_view, text?: string) => boolean, path?: $mol_view[]): Generator<$mol_view[]>;
         force_render(path: Set<$mol_view>): void;
-        ensure_visible(view: $mol_view): Promise<void>;
+        ensure_visible(view: $mol_view, align?: ScrollLogicalPosition): Promise<void>;
     }
     type $mol_view_all = $mol_type_pick<$, typeof $mol_view>;
 }
@@ -2206,7 +2206,7 @@ declare namespace $.$$ {
         event_select(id: string, event?: MouseEvent): void;
         nav_components(): ($mol_string | $mol_button_minor)[];
         trigger_content(): readonly $mol_view_content[];
-        menu_content(): ($mol_view | $mol_string)[];
+        menu_content(): $mol_view[];
     }
 }
 
@@ -2625,38 +2625,30 @@ declare namespace $.$$ {
 }
 
 declare namespace $ {
-    class $mol_bar extends $mol_view {
-    }
-}
-
-declare namespace $ {
-}
-
-declare namespace $ {
-    class $mol_icon_cross extends $mol_icon {
-        path(): string;
-    }
-}
-
-declare namespace $ {
-    class $mol_search extends $mol_bar {
+    class $mol_search extends $mol_pop {
         query(val?: any): any;
-        plugins(): readonly any[];
-        sub(): readonly any[];
-        event_clear(val?: any): any;
-        Hotkey(): $$.$mol_hotkey;
-        suggest_selected(val?: any): any;
-        hint(): string;
-        suggests_showed(): boolean;
         suggests(): readonly string[];
+        plugins(): readonly $mol_plugin[];
+        showed(val?: any): any;
+        Anchor(): $$.$mol_string;
+        bubble_content(): readonly $mol_view_content[];
+        Suggest(id: any): $mol_button_minor;
+        clear(val?: any): any;
+        Hotkey(): $$.$mol_hotkey;
+        nav_components(): readonly $mol_view[];
+        nav_focused(component?: any): any;
+        Nav(): $$.$mol_nav;
+        suggests_showed(val?: any): any;
+        hint(): string;
         submit(event?: any): any;
         enabled(): boolean;
-        Suggest_filter(): $$.$mol_string;
-        suggest_option_rows(): $mol_button_minor[];
-        Suggest(): $$.$mol_select;
-        Clear_icon(): $mol_icon_cross;
-        clear_hint(): string;
-        Clear(): $mol_button_minor;
+        Query(): $$.$mol_string;
+        menu_items(): readonly $mol_view[];
+        Menu(): $$.$mol_list;
+        suggest_select(id: any, event?: any): any;
+        suggest_label(id: any): string;
+        Suggest_label(id: any): $$.$mol_dimmer;
+        suggest_content(id: any): readonly $mol_view_content[];
     }
 }
 
@@ -2665,10 +2657,14 @@ declare namespace $ {
 
 declare namespace $.$$ {
     class $mol_search extends $.$mol_search {
-        suggests_showed(): boolean;
+        suggests_showed(next?: boolean): boolean;
         suggest_selected(next?: string): void;
-        sub(): ($mol_select | $mol_button_minor)[];
-        event_clear(event?: Event): void;
+        nav_components(): ($mol_string | $mol_button_minor)[];
+        nav_focused(component?: $mol_view): $mol_view | $mol_string | null;
+        suggest_label(key: string): string;
+        menu_items(): $mol_button_minor[];
+        suggest_select(id: string, event?: MouseEvent): void;
+        clear(event?: Event): void;
     }
 }
 
@@ -3317,6 +3313,14 @@ declare namespace $ {
 }
 
 declare namespace $ {
+    class $mol_bar extends $mol_view {
+    }
+}
+
+declare namespace $ {
+}
+
+declare namespace $ {
     class $hyoo_shelter_animal_edit extends $mol_page {
         animal(): $hyoo_shelter_animal;
         title(): string;
@@ -3600,6 +3604,12 @@ declare namespace $.$$ {
 
 declare namespace $ {
     class $mol_icon_logout extends $mol_icon {
+        path(): string;
+    }
+}
+
+declare namespace $ {
+    class $mol_icon_cross extends $mol_icon {
         path(): string;
     }
 }
