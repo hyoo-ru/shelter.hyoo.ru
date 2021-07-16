@@ -3,9 +3,9 @@ namespace $ {
 	const { rem } = $mol_style_unit
 
 	$mol_style_define( $hyoo_shelter_animal_edit , {
-
-		Sections: {
-			padding: $mol_gap.block,
+		
+		Body: {
+			padding: 0,
 		},
 
 		Weight: {
@@ -69,6 +69,7 @@ namespace $ {
 				shrink: 0,
 				basis: rem(14),
 			},
+			margin: $mol_gap.block,
 		},
 
 	} )

@@ -1,1 +1,5 @@
 include \/mol/offline/install
+
+deploy \/hyoo/shelter/data/animals.json
+deploy \/hyoo/shelter/data/dictionaries.json
+deploy \/hyoo/shelter/data/shelters.json

@@ -3,7 +3,8 @@ namespace $ {
 	export class $hyoo_shelter_transport extends $mol_object2 {
 
 		static api_base() {
-			return 'https://gravity-animal-shelter.herokuapp.com/api/'
+			// return 'https://gravity-animal-shelter.herokuapp.com/api/'
+			return 'hyoo/shelter/data/'
 		}
 
 		@ $mol_mem
@@ -30,7 +31,7 @@ namespace $ {
 
 		@ $mol_fiber.method
 		static load( path : string ) : any {
-			return this.$.$mol_fetch.json( this.api_base() + path , {
+			return this.$.$mol_fetch.json( this.api_base() + path + '.json' , {
 				headers : this.headers()
 			} )
 		}

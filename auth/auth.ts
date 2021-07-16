@@ -9,13 +9,15 @@ namespace $ {
 		@ $mol_fiber.method
 		static auth( creds : { username : string , password : string } ) {
 
-			const res = this.$.$hyoo_shelter_transport.save(
-				`login_check`,
-				'post',
-				creds,
-			)
+			// const res = this.$.$hyoo_shelter_transport.save(
+			// 	`login_check`,
+			// 	'post',
+			// 	creds,
+			// )
 
-			this.$.$hyoo_shelter_transport.token( Response( res ).token )
+			// this.$.$hyoo_shelter_transport.token( Response( res ).token )
+			
+			this.$.$hyoo_shelter_transport.token( $mol_guid() )
 
 			return true
 		}
