@@ -70,15 +70,15 @@ namespace $.$$ {
 		}
 
 		arrived_date( next?: $mol_time_moment ) {
-			return this.animal().arrived_date( next )
+			return this.animal().arrived_date( next )!
 		}
 
 		departed_date( next?: $mol_time_moment ) {
-			return this.animal().departed_date( next )
+			return this.animal().departed_date( next )!
 		}
 
 		born_date( next?: $mol_time_moment ) {
-			return this.animal().born_date( next )
+			return this.animal().born_date( next )!
 		}
 
 		ear_suggest() {
