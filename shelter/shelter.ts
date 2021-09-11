@@ -48,7 +48,7 @@ namespace $ {
 			if( next ) {
 				try {
 					this.$.$hyoo_shelter_transport.save( `animals/${key}`, 'put', next )
-				} catch( error ) {
+				} catch( error: any ) {
 					if( 'then' in error ) $mol_fail_hidden( error )
 					console.error( error )
 				}
