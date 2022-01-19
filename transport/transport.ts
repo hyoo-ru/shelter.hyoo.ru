@@ -29,7 +29,7 @@ namespace $ {
 
 		}
 
-		@ $mol_fiber.method
+		@ $mol_action
 		static load( path : string ) : any {
 			return this.$.$mol_fetch.json( this.api_base() + path + '.json' , {
 				headers : this.headers()
@@ -40,7 +40,7 @@ namespace $ {
 			return this.api_base() + path
 		}
 
-		@ $mol_fiber.method
+		@ $mol_action
 		static save(
 			path : string ,
 			method : 'post' | 'put' ,
@@ -58,7 +58,7 @@ namespace $ {
 			return res
 		}
 
-		@ $mol_fiber.method
+		@ $mol_action
 		static send(
 			path : string ,
 			file : File

@@ -6,7 +6,7 @@ namespace $ {
 
 	export class $hyoo_shelter_auth extends $mol_object2 {
 
-		@ $mol_fiber.method
+		@ $mol_action
 		static auth( creds : { username : string , password : string } ) {
 
 			// const res = this.$.$hyoo_shelter_transport.save(

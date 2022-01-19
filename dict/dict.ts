@@ -14,7 +14,7 @@ namespace $ {
 
 		@ $mol_mem
 		static data() {
-			$mol_mem_persist()
+			$mol_wire_solid()
 			return Response( this.$.$hyoo_shelter_transport.load( `dictionaries` ) )
 		}
 
