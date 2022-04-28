@@ -15,7 +15,7 @@ $hyoo_shelter_animal_edit $mol_page
 				<= Photos_field $mol_form_field
 					name \Фотографии
 					Content <= Photos $mol_attach
-						items?val <=> photos?val /$mol_attach_item
+						items?val <=> photos?val /string
 						minimal_height 160
 						attach_new?val <=> photo_new?val null
 				<= Name_field $mol_form_field
@@ -207,9 +207,6 @@ $hyoo_shelter_animal_edit $mol_page
 								<= Contract_field $mol_form_field
 									name \Договора
 									Content <= Contract $hyoo_shelter_animal_edit_links
-	Photo!index $mol_attach_item
-		url_load <= photo!index \
-		url_thumb <= photo!index \
 
 $hyoo_shelter_animal_edit_section $mol_row
 $hyoo_shelter_animal_edit_group $mol_row

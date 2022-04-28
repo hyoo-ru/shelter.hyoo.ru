@@ -3,8 +3,8 @@ namespace $.$$ {
 	export class $hyoo_shelter_animal_edit extends $.$hyoo_shelter_animal_edit {
 
 		@ $mol_mem
-		photos( next?: $mol_attach_item[] ) {
-			return next ?? this.animal().photos().map( ( link, index )=> this.Photo( index ) )
+		photos( next?: string[] ) {
+			return next ?? this.animal().photos()
 		}
 
 		photo( index: number ) {
