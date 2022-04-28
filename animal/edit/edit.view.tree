@@ -17,7 +17,7 @@ $hyoo_shelter_animal_edit $mol_page
 					Content <= Photos $mol_attach
 						items?val <=> photos?val /string
 						minimal_height 160
-						attach_new?val <=> photo_new?val null
+						- attach_new?val <=> photo_new?val null
 				<= Name_field $mol_form_field
 					name \Кличка
 					Content <= Name $mol_string
@@ -118,19 +118,22 @@ $hyoo_shelter_animal_edit $mol_page
 						enabled <= enabled
 				<= Arrived_date_field $mol_form_field
 					name \Дата приёма в приют
-					Content <= Arrived_date $mol_date
-						value_moment?val <=> arrived_date?val $mol_time_moment
-						enabled <= enabled
+					content /
+						<= Arrived_date $mol_date
+							value_moment?val <=> arrived_date?val $mol_time_moment
+							enabled <= enabled
 				<= Born_date_field $mol_form_field
 					name \День рождения
-					Content <= Born_date $mol_date
-						value_moment?val <=> born_date?val $mol_time_moment
-						enabled <= enabled
+					content /
+						<= Born_date $mol_date
+							value_moment?val <=> born_date?val $mol_time_moment
+							enabled <= enabled
 				<= Departed_date_field $mol_form_field
 					name \Дата ухода
-					Content <= Departed_date $mol_date
-						value_moment?val <=> departed_date?val $mol_time_moment
-						enabled <= enabled
+					content /
+						<= Departed_date $mol_date
+							value_moment?val <=> departed_date?val $mol_time_moment
+							enabled <= enabled
 				<= Depart_ready_field $mol_form_field
 					Content <= Depart_ready $mol_check_box
 						title \Ищет хозяина
@@ -141,77 +144,72 @@ $hyoo_shelter_animal_edit $mol_page
 						hint \История жизни, характер, повадки и тп.
 						enabled <= enabled
 						value?val <=> description?val \
-			sub /
-				<= Sections $mol_list
-					rows <= groups /
-						<= Attaches $hyoo_shelter_animal_edit_group
+			body <= groups /
+				<= Attaches $mol_form_group
+					sub /
+						<= Photos_field
+				<= General $mol_form_group
+					sub /
+						<= Main $mol_form_group
 							sub /
-								<= Photos_field
-						<= General $hyoo_shelter_animal_edit_section
+								<= Name_field
+								<= Cage_field
+						<= Codes $mol_form_group
 							sub /
-								<= Main $hyoo_shelter_animal_edit_group
-									sub /
-										<= Name_field
-										<= Cage_field
-								<= Codes $hyoo_shelter_animal_edit_group
-									sub /
-										<= Card_field
-										<= Chip_field
-						<= Dates $hyoo_shelter_animal_edit_section
+								<= Card_field
+								<= Chip_field
+				<= Dates $mol_form_group
+					sub /
+						<= Transitions $mol_form_group
 							sub /
-								<= Transitions $hyoo_shelter_animal_edit_group
-									sub /
-										<= Arrived_date_field
-										<= Born_date_field
-								<= Lifetime $hyoo_shelter_animal_edit_group
-									sub /
-										<= Departed_date_field
-										<= Departed_reason_field
-						<= Classification $hyoo_shelter_animal_edit_section
+								<= Arrived_date_field
+								<= Born_date_field
+						<= Lifetime $mol_form_group
 							sub /
-								<= Types $hyoo_shelter_animal_edit_group
-									sub /
-										<= Kind_field
-										<= Gender_field
-								<= Gabarites $hyoo_shelter_animal_edit_group
-									sub /
-										<= Size_field
-										<= Weight_field
-						<= Appearance $hyoo_shelter_animal_edit_section
+								<= Departed_date_field
+								<= Departed_reason_field
+				<= Classification $mol_form_group
+					sub /
+						<= Types $mol_form_group
 							sub /
-								<= Ends $hyoo_shelter_animal_edit_group
-									sub /
-										<= Tail_field
-										<= Ear_field
-								<= Visual $hyoo_shelter_animal_edit_group
-									sub /
-										<= Color_field
-										<= Trait_field
-						<= Appearance2 $hyoo_shelter_animal_edit_section
+								<= Kind_field
+								<= Gender_field
+						<= Gabarites $mol_form_group
 							sub /
-								<= Visual2 $hyoo_shelter_animal_edit_group
-									sub /
-										<= Fur_field
-						<= Exports $hyoo_shelter_animal_edit_group
+								<= Size_field
+								<= Weight_field
+				<= Appearance $mol_form_group
+					sub /
+						<= Ends $mol_form_group
 							sub /
-								<= Description_field
-								<= Depart_ready_field
-						<= Documents $hyoo_shelter_animal_edit_group
+								<= Tail_field
+								<= Ear_field
+						<= Visual $mol_form_group
 							sub /
-								<= Catch_field $mol_form_field
-									name \Акты отлова
-									Content <= Catch $hyoo_shelter_animal_edit_links
-								<= Procedure_field $mol_form_field
-									name \Процедуры
-									Content <= Procedure $hyoo_shelter_animal_edit_links
-								<= Contract_field $mol_form_field
-									name \Договора
-									Content <= Contract $hyoo_shelter_animal_edit_links
+								<= Color_field
+								<= Trait_field
+				<= Appearance2 $mol_form_group
+					sub /
+						<= Visual2 $mol_form_group
+							sub /
+								<= Fur_field
+				<= Exports $mol_form_group
+					sub /
+						<= Description_field
+						<= Depart_ready_field
+				<= Documents $mol_form_group
+					sub /
+						<= Catch_field $mol_form_field
+							name \Акты отлова
+							Content <= Catch $hyoo_shelter_animal_edit_links
+						<= Procedure_field $mol_form_field
+							name \Процедуры
+							Content <= Procedure $hyoo_shelter_animal_edit_links
+						<= Contract_field $mol_form_field
+							name \Договора
+							Content <= Contract $hyoo_shelter_animal_edit_links
 
-$hyoo_shelter_animal_edit_section $mol_row
-$hyoo_shelter_animal_edit_group $mol_row
-
-$hyoo_shelter_animal_edit_links $mol_bar
+$hyoo_shelter_animal_edit_links $mol_view
 	sub /
 		- <= List $mol_textarea
 		<= Add $mol_button_minor

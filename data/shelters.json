@@ -1,1 +1,249 @@
-[{"id":1,"name":"Приют \u0022Щербинка\u0022","schedule":"","address":"г.Москва, ул.Брусилова, вл.32, стр.1-5","contact":{"phone":"","email":""},"chief":{"id":168,"name":"Мисочкин И.А.","isChief":true,"contact":{"phone":"Телефон не заполнен","email":"not-set@example.org"}}},{"id":2,"name":"Приют \u0022Некрасовка\u0022","schedule":"","address":"г.Москва, ул.2-я Вольская, вл.17 стр.3","contact":{"phone":"+7 (495) 514-49-02","email":""},"chief":{"id":170,"name":"Мячиков И.А.","isChief":true,"contact":{"phone":"Телефон не заполнен","email":"not-set@example.org"}}},{"id":3,"name":"Приют \u0022Печатники\u0022","schedule":"","address":"г.Москва, Проектируемый проезд №5112, вл.2\\1","contact":{"phone":"","email":""},"chief":{"id":173,"name":"Погуляйкин И.А.","isChief":true,"contact":{"phone":"Телефон не заполнен","email":"not-set@example.org"}}},{"id":4,"name":"Приют \u0022Солнцево\u0022","schedule":"","address":"г.Москва, ул. Родниковая, вл.26","contact":{"phone":"","email":""},"chief":{"id":145,"name":"Чудакова И.А.","isChief":true,"contact":{"phone":"Телефон не заполнен","email":"not-set@example.org"}}},{"id":5,"name":"Приют \u0022GETDOG\u0022","schedule":"","address":"г.Москва, Машкинское шоссе, вл. 4","contact":{"phone":"","email":""},"chief":{"id":176,"name":"Котиков М.Я.","isChief":true,"contact":{"phone":"Телефон не заполнен","email":"not-set@example.org"}}},{"id":6,"name":"Приют \u0022Молжаниново\u0022","schedule":"","address":"г.Москва, Проектируемый проезд, 727","contact":{"phone":"","email":""},"chief":{"id":178,"name":"Погуляйка И.А.","isChief":true,"contact":{"phone":"Телефон не заполнен","email":"not-set@example.org"}}},{"id":7,"name":"Приют \u0022Искра\u0022","schedule":"","address":"г.Москва, ул.Искры, вл. 23А","contact":{"phone":"","email":""},"chief":{"id":162,"name":"Моськин И.А.","isChief":true,"contact":{"phone":"Телефон не заполнен","email":"not-set@example.org"}}},{"id":8,"name":"Приют \u0022Красная сосна\u0022","schedule":"","address":"г.Москва, ул.Красной Сосны, вл. 30, стр.4","contact":{"phone":"","email":""},"chief":{"id":152,"name":"Моськин И.А.","isChief":true,"contact":{"phone":"Телефон не заполнен","email":"not-set@example.org"}}},{"id":9,"name":"Приют \u0022Дубовая роща\u0022","schedule":"","address":"г.Москва, проезд Дубовой Рощи, вл.23-25","contact":{"phone":"","email":""},"chief":{"id":156,"name":"Моськин И.А.","isChief":true,"contact":{"phone":"Телефон не заполнен","email":"not-set@example.org"}}},{"id":10,"name":"Кожуховский приют","schedule":"","address":"г.Москва, ул. Пехорская 1Б, с.6","contact":{"phone":"","email":""},"chief":{"id":141,"name":"Хвостичкина Н.М","isChief":true,"contact":{"phone":"Телефон не заполнен","email":"not-set@example.org"}}},{"id":11,"name":"Приют \u0022Бирюлево\u0022","schedule":"","address":"г.Москва, Востряковский пр-д, вл.10 А","contact":{"phone":"","email":""},"chief":{"id":149,"name":"Черкашин И.А.","isChief":true,"contact":{"phone":"Телефон не заполнен","email":"not-set@example.org"}}},{"id":12,"name":"Приют \u0022Зеленоград\u0022","schedule":"","address":"г.Москва, Зеленоград, Фирсановское ш., вл.5А","contact":{"phone":"","email":""},"chief":{"id":134,"name":"Игнатов А.В.","isChief":true,"contact":{"phone":"Телефон не заполнен","email":"not-set@example.org"}}},{"id":13,"name":"Приют \u0022Зоорассвет\u0022","schedule":"","address":"г.Москва, ул.Рассветная аллея, влд.10","contact":{"phone":"","email":""},"chief":{"id":138,"name":"Дружинин А.М.","isChief":true,"contact":{"phone":"Телефон не заполнен","email":"not-set@example.org"}}}]
+[
+	{
+		"id": 1,
+		"name": "Щербинка",
+		"schedule": "",
+		"address": "г.Москва, ул.Брусилова, вл.32, стр.1-5",
+		"contact": {
+			"phone": "",
+			"email": ""
+		},
+		"chief": {
+			"id": 168,
+			"name": "Мисочкин И.А.",
+			"isChief": true,
+			"contact": {
+				"phone": "Телефон не заполнен",
+				"email": "not-set@example.org"
+			}
+		}
+	},
+	{
+		"id": 2,
+		"name": "Некрасовка",
+		"schedule": "",
+		"address": "г.Москва, ул.2-я Вольская, вл.17 стр.3",
+		"contact": {
+			"phone": "+7 (495) 514-49-02",
+			"email": ""
+		},
+		"chief": {
+			"id": 170,
+			"name": "Мячиков И.А.",
+			"isChief": true,
+			"contact": {
+				"phone": "Телефон не заполнен",
+				"email": "not-set@example.org"
+			}
+		}
+	},
+	{
+		"id": 3,
+		"name": "Печатники",
+		"schedule": "",
+		"address": "г.Москва, Проектируемый проезд №5112, вл.2\\1",
+		"contact": {
+			"phone": "",
+			"email": ""
+		},
+		"chief": {
+			"id": 173,
+			"name": "Погуляйкин И.А.",
+			"isChief": true,
+			"contact": {
+				"phone": "Телефон не заполнен",
+				"email": "not-set@example.org"
+			}
+		}
+	},
+	{
+		"id": 4,
+		"name": "Солнцево",
+		"schedule": "",
+		"address": "г.Москва, ул. Родниковая, вл.26",
+		"contact": {
+			"phone": "",
+			"email": ""
+		},
+		"chief": {
+			"id": 145,
+			"name": "Чудакова И.А.",
+			"isChief": true,
+			"contact": {
+				"phone": "Телефон не заполнен",
+				"email": "not-set@example.org"
+			}
+		}
+	},
+	{
+		"id": 5,
+		"name": "GETDOG",
+		"schedule": "",
+		"address": "г.Москва, Машкинское шоссе, вл. 4",
+		"contact": {
+			"phone": "",
+			"email": ""
+		},
+		"chief": {
+			"id": 176,
+			"name": "Котиков М.Я.",
+			"isChief": true,
+			"contact": {
+				"phone": "Телефон не заполнен",
+				"email": "not-set@example.org"
+			}
+		}
+	},
+	{
+		"id": 6,
+		"name": "Молжаниново",
+		"schedule": "",
+		"address": "г.Москва, Проектируемый проезд, 727",
+		"contact": {
+			"phone": "",
+			"email": ""
+		},
+		"chief": {
+			"id": 178,
+			"name": "Погуляйка И.А.",
+			"isChief": true,
+			"contact": {
+				"phone": "Телефон не заполнен",
+				"email": "not-set@example.org"
+			}
+		}
+	},
+	{
+		"id": 7,
+		"name": "Искра",
+		"schedule": "",
+		"address": "г.Москва, ул.Искры, вл. 23А",
+		"contact": {
+			"phone": "",
+			"email": ""
+		},
+		"chief": {
+			"id": 162,
+			"name": "Моськин И.А.",
+			"isChief": true,
+			"contact": {
+				"phone": "Телефон не заполнен",
+				"email": "not-set@example.org"
+			}
+		}
+	},
+	{
+		"id": 8,
+		"name": "Красная сосна",
+		"schedule": "",
+		"address": "г.Москва, ул.Красной Сосны, вл. 30, стр.4",
+		"contact": {
+			"phone": "",
+			"email": ""
+		},
+		"chief": {
+			"id": 152,
+			"name": "Моськин И.А.",
+			"isChief": true,
+			"contact": {
+				"phone": "Телефон не заполнен",
+				"email": "not-set@example.org"
+			}
+		}
+	},
+	{
+		"id": 9,
+		"name": "Дубовая роща",
+		"schedule": "",
+		"address": "г.Москва, проезд Дубовой Рощи, вл.23-25",
+		"contact": {
+			"phone": "",
+			"email": ""
+		},
+		"chief": {
+			"id": 156,
+			"name": "Моськин И.А.",
+			"isChief": true,
+			"contact": {
+				"phone": "Телефон не заполнен",
+				"email": "not-set@example.org"
+			}
+		}
+	},
+	{
+		"id": 10,
+		"name": "Кожуховский",
+		"schedule": "",
+		"address": "г.Москва, ул. Пехорская 1Б, с.6",
+		"contact": {
+			"phone": "",
+			"email": ""
+		},
+		"chief": {
+			"id": 141,
+			"name": "Хвостичкина Н.М",
+			"isChief": true,
+			"contact": {
+				"phone": "Телефон не заполнен",
+				"email": "not-set@example.org"
+			}
+		}
+	},
+	{
+		"id": 11,
+		"name": "Бирюлево",
+		"schedule": "",
+		"address": "г.Москва, Востряковский пр-д, вл.10 А",
+		"contact": {
+			"phone": "",
+			"email": ""
+		},
+		"chief": {
+			"id": 149,
+			"name": "Черкашин И.А.",
+			"isChief": true,
+			"contact": {
+				"phone": "Телефон не заполнен",
+				"email": "not-set@example.org"
+			}
+		}
+	},
+	{
+		"id": 12,
+		"name": "Зеленоград",
+		"schedule": "",
+		"address": "г.Москва, Зеленоград, Фирсановское ш., вл.5А",
+		"contact": {
+			"phone": "",
+			"email": ""
+		},
+		"chief": {
+			"id": 134,
+			"name": "Игнатов А.В.",
+			"isChief": true,
+			"contact": {
+				"phone": "Телефон не заполнен",
+				"email": "not-set@example.org"
+			}
+		}
+	},
+	{
+		"id": 13,
+		"name": "Зоорассвет",
+		"schedule": "",
+		"address": "г.Москва, ул.Рассветная аллея, влд.10",
+		"contact": {
+			"phone": "",
+			"email": ""
+		},
+		"chief": {
+			"id": 138,
+			"name": "Дружинин А.М.",
+			"isChief": true,
+			"contact": {
+				"phone": "Телефон не заполнен",
+				"email": "not-set@example.org"
+			}
+		}
+	}
+]

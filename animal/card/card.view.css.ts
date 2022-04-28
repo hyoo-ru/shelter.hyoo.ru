@@ -37,7 +37,7 @@ namespace $ {
 
 		Size: {
 			flex: {
-				basis: rem(5),
+				basis: rem(8),
 				grow: 0,
 				shrink: 0,
 			},

@@ -4,7 +4,7 @@ namespace $.$$ {
 
 		@ $mol_mem
 		photos( next?: string[] ) {
-			return next ?? this.animal().photos()
+			return next ?? this.animal().photos( next )
 		}
 
 		photo( index: number ) {

@@ -1,6 +1,6 @@
 namespace $ {
 
-	const { rem } = $mol_style_unit
+	const { rem, per } = $mol_style_unit
 
 	$mol_style_define( $hyoo_shelter_shelter_manage_filter_group , {
 		Title: {
@@ -10,12 +10,17 @@ namespace $ {
 	} )
 
 	$mol_style_define( $hyoo_shelter_shelter_manage , {
+		
+		Filter_list: {
+			padding: $mol_gap.block,
+		},
 
 		Summaries: {
 			padding: $mol_gap.block,
 			flex: {
 				wrap: 'wrap',
 			},
+			maxWidth: per(100),
 		},
 
 		Summary_options: {
@@ -38,14 +43,18 @@ namespace $ {
 		
 		Animals_page: {
 			flex: {
-				basis: rem(30),
+				basis: rem(40),
 				shrink: 0,
 			},
 		},
 		
+		Animal_list: {
+			padding: $mol_gap.block,
+		},
+		
 		Animal_edit: {
 			flex: {
-				basis: rem(33),
+				basis: rem(80),
 				grow: 1000,
 				shrink: 0,
 			},

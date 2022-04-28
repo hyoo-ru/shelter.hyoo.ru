@@ -26,15 +26,14 @@ namespace $ {
 			alignSelf: 'stretch',
 		},
 
-		$mol_attach_item: {
-			flex: {
-				basis: rem(10),
-			},
-			width: rem(10),
-			height: rem(10),
-		},
-
 		Photos: {
+			Item: {
+				flex: {
+					basis: rem(10),
+				},
+				width: rem(10),
+				height: rem(10),
+			},
 			Add: {
 				width: rem(10),
 				height: rem(10),
@@ -42,43 +41,6 @@ namespace $ {
 					basis: rem(10),
 					grow: 0,
 				},
-			},
-		},
-
-	} )
-
-	$mol_style_define( $hyoo_shelter_animal_edit_section , {
-		margin: 0,
-		padding: 0,
-	})
-	
-	$mol_style_define( $hyoo_shelter_animal_edit_group , {
-		
-		margin: 0,
-		padding: 0,
-
-		flex: {
-			grow: 1,
-			shrink: 1,
-			basis: rem(30),
-		},
-
-		$mol_form_field: {
-			flex: {
-				grow: 1,
-				shrink: 0,
-				basis: rem(14),
-			},
-			margin: $mol_gap.block,
-		},
-
-	} )
-
-	$mol_style_define( $hyoo_shelter_animal_edit_links , {
-		
-		Add: {
-			flex: {
-				grow: 1,
 			},
 		},
 
