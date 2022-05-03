@@ -2168,6 +2168,7 @@ declare namespace $ {
 
 declare namespace $ {
     class $mol_form_field extends $mol_labeler {
+        bids(): readonly string[];
         label(): readonly any[];
         content(): readonly any[];
         name(): string;
@@ -2178,6 +2179,12 @@ declare namespace $ {
 }
 
 declare namespace $ {
+}
+
+declare namespace $.$$ {
+    class $mol_form_field extends $.$mol_form_field {
+        bid(): string;
+    }
 }
 
 declare namespace $ {
@@ -2226,6 +2233,8 @@ declare namespace $ {
 
 declare namespace $.$$ {
     class $mol_form extends $.$mol_form {
+        form_fields(): readonly $mol_form_field[];
+        submit_allowed(): boolean;
         submit_blocked(): boolean;
         keydown(next: KeyboardEvent): void;
     }
@@ -2241,11 +2250,11 @@ declare namespace $ {
         Login_name(): string;
         login(val?: any): string;
         Login(): $$.$mol_select;
-        Login_field(): $mol_form_field;
+        Login_field(): $$.$mol_form_field;
         Pass_name(): string;
         pass(val?: any): string;
         Pass(): $$.$mol_string;
-        Pass_field(): $mol_form_field;
+        Pass_field(): $$.$mol_form_field;
         Auth_label(): string;
         auth(val?: any): any;
         Submit(): $mol_button_major;
@@ -2796,7 +2805,7 @@ declare namespace $ {
     class $mol_grid extends $mol_view {
         row_height(): number;
         row_ids(): readonly string[][];
-        row_id(index: any): any;
+        row_id(id: any): any;
         col_ids(): readonly any[];
         records(): {};
         record(id: any): any;
@@ -3059,7 +3068,7 @@ declare namespace $ {
         length_max(): number;
         selection(val?: any): readonly number[];
         Edit(): $mol_textarea_edit;
-        row_numb(index: any): number;
+        row_numb(id: any): number;
         highlight(): string;
         View(): $$.$mol_text_code;
     }
@@ -3127,9 +3136,9 @@ declare namespace $ {
     class $mol_calendar extends $mol_list {
         sub(): readonly any[];
         weeks(): readonly $mol_view[];
-        Weekday(index: any): $mol_calendar_day;
-        Week(row: any): $$.$mol_hor;
-        Day(day: any): $mol_calendar_day;
+        Weekday(id: any): $mol_calendar_day;
+        Week(id: any): $$.$mol_hor;
+        Day(id: any): $mol_calendar_day;
         month_string(): string;
         month_moment(): $mol_time_moment;
         title(): string;
@@ -3138,15 +3147,15 @@ declare namespace $ {
         Head(): $mol_view;
         weekdays(): readonly $mol_view[];
         Weekdays(): $$.$mol_hor;
-        weekend(index: any): boolean;
-        weekday(index: any): string;
-        week_days(row: any): readonly $mol_view[];
-        day_ghost(day: any): boolean;
-        day_holiday(day: any): boolean;
-        day_selected(day: any): boolean;
-        day_theme(day: any): string;
-        day_text(day: any): string;
-        day_content(day: any): readonly any[];
+        weekend(id: any): boolean;
+        weekday(id: any): string;
+        week_days(id: any): readonly $mol_view[];
+        day_ghost(id: any): boolean;
+        day_holiday(id: any): boolean;
+        day_selected(id: any): boolean;
+        day_theme(id: any): string;
+        day_text(id: any): string;
+        day_content(id: any): readonly any[];
     }
     class $mol_calendar_day extends $mol_view {
         minimal_height(): number;
@@ -3220,8 +3229,8 @@ declare namespace $ {
         enabled(): boolean;
         Input(): $$.$mol_string;
         month_moment(): $mol_time_moment;
-        day_selected(day: any): boolean;
-        day_click(day: any, event?: any): any;
+        day_selected(id: any): boolean;
+        day_click(id: any, event?: any): any;
         prev_hint(): string;
         prev(event?: any): any;
         Prev_icon(): $mol_icon_chevron_left;
@@ -3235,9 +3244,9 @@ declare namespace $ {
         Calendar(): $mol_date_calendar;
     }
     class $mol_date_calendar extends $mol_calendar {
-        day_content(day: any): readonly any[];
-        day_click(day: any, event?: any): any;
-        Day_button(day: any): $mol_button_minor;
+        day_content(id: any): readonly any[];
+        day_click(id: any, event?: any): any;
+        Day_button(id: any): $mol_button_minor;
     }
 }
 
@@ -3297,65 +3306,65 @@ declare namespace $ {
         Download(): $$.$mol_link;
         photos(val?: any): readonly string[];
         Photos(): $$.$mol_attach;
-        Photos_field(): $mol_form_field;
+        Photos_field(): $$.$mol_form_field;
         name(val?: any): string;
         Name(): $$.$mol_string;
-        Name_field(): $mol_form_field;
+        Name_field(): $$.$mol_form_field;
         card(val?: any): string;
         Сard(): $$.$mol_string;
-        Card_field(): $mol_form_field;
+        Card_field(): $$.$mol_form_field;
         chip(val?: any): string;
         Сhip(): $$.$mol_string;
-        Chip_field(): $mol_form_field;
+        Chip_field(): $$.$mol_form_field;
         cage(val?: any): string;
         Cage(): $$.$mol_string;
-        Cage_field(): $mol_form_field;
+        Cage_field(): $$.$mol_form_field;
         kind(val?: any): string;
         Kind(): $$.$mol_switch;
-        Kind_field(): $mol_form_field;
+        Kind_field(): $$.$mol_form_field;
         gender(val?: any): string;
         Gender(): $$.$mol_switch;
-        Gender_field(): $mol_form_field;
+        Gender_field(): $$.$mol_form_field;
         departed_reason(val?: any): string;
         Departed_reason(): $$.$mol_switch;
-        Departed_reason_field(): $mol_form_field;
+        Departed_reason_field(): $$.$mol_form_field;
         weight(val?: any): number;
         Weight(): $$.$mol_number;
-        Weight_field(): $mol_form_field;
+        Weight_field(): $$.$mol_form_field;
         size(val?: any): string;
         Size(): $$.$mol_switch;
-        Size_field(): $mol_form_field;
+        Size_field(): $$.$mol_form_field;
         tail_suggest(): readonly string[];
         Tail(): $$.$mol_search;
-        Tail_field(): $mol_form_field;
+        Tail_field(): $$.$mol_form_field;
         ear(val?: any): string;
         ear_suggest(): readonly string[];
         Ear(): $$.$mol_search;
-        Ear_field(): $mol_form_field;
+        Ear_field(): $$.$mol_form_field;
         color(val?: any): string;
         color_suggest(): readonly string[];
         Color(): $$.$mol_search;
-        Color_field(): $mol_form_field;
+        Color_field(): $$.$mol_form_field;
         fur(val?: any): string;
         fur_suggest(): readonly string[];
         Fur(): $$.$mol_search;
-        Fur_field(): $mol_form_field;
+        Fur_field(): $$.$mol_form_field;
         Trait(): $$.$mol_textarea;
-        Trait_field(): $mol_form_field;
+        Trait_field(): $$.$mol_form_field;
         arrived_date(val?: any): $mol_time_moment;
         Arrived_date(): $$.$mol_date;
-        Arrived_date_field(): $mol_form_field;
+        Arrived_date_field(): $$.$mol_form_field;
         born_date(val?: any): $mol_time_moment;
         Born_date(): $$.$mol_date;
-        Born_date_field(): $mol_form_field;
+        Born_date_field(): $$.$mol_form_field;
         departed_date(val?: any): $mol_time_moment;
         Departed_date(): $$.$mol_date;
-        Departed_date_field(): $mol_form_field;
+        Departed_date_field(): $$.$mol_form_field;
         Depart_ready(): $mol_check_box;
-        Depart_ready_field(): $mol_form_field;
+        Depart_ready_field(): $$.$mol_form_field;
         description(val?: any): string;
         Description(): $$.$mol_textarea;
-        Description_field(): $mol_form_field;
+        Description_field(): $$.$mol_form_field;
         Attaches(): $mol_form_group;
         Main(): $mol_form_group;
         Codes(): $mol_form_group;
@@ -3373,11 +3382,11 @@ declare namespace $ {
         Appearance2(): $mol_form_group;
         Exports(): $mol_form_group;
         Catch(): $hyoo_shelter_animal_edit_links;
-        Catch_field(): $mol_form_field;
+        Catch_field(): $$.$mol_form_field;
         Procedure(): $hyoo_shelter_animal_edit_links;
-        Procedure_field(): $mol_form_field;
+        Procedure_field(): $$.$mol_form_field;
         Contract(): $hyoo_shelter_animal_edit_links;
-        Contract_field(): $mol_form_field;
+        Contract_field(): $$.$mol_form_field;
         Documents(): $mol_form_group;
         groups(): readonly any[];
         Form(): $$.$mol_form;
