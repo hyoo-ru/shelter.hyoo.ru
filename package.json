@@ -190,6 +190,7 @@
     "$mol_icon_cross",
     "$mol_fiber",
     "$mol_textarea",
+    "$mol_stack",
     "$mol_text_code",
     "$mol_text",
     "$mol_grid",
