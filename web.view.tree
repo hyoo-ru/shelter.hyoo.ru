@@ -364,10 +364,11 @@ $hyoo_shelter_auth_form $mol_page
 					click?val <=> auth?val null
 
 $mol_link $mol_view
+	uri \
 	dom_name \a
 	attr *
 		^
-		href <= uri \
+		href <= uri_toggle \
 		title <= hint \
 		target <= target \_self
 		download <= file_name \
