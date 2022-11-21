@@ -9664,8 +9664,13 @@ var $;
                 };
                 if (next !== undefined) {
                     next = normalize(next);
-                    if (next.includes('_'))
-                        return next;
+                    if (next === this.mask(next)) {
+                        next = '';
+                    }
+                    else {
+                        if (next.includes('_'))
+                            return next;
+                    }
                 }
                 return normalize(this.value(next));
             }
@@ -10464,7 +10469,7 @@ var $;
 "use strict";
 var $;
 (function ($) {
-    $mol_style_attach("mol/form/group/group.view.css", "[mol_form_group] {\n\tflex-wrap: wrap;\n}\n\n[mol_form_group] > * {\n\tflex: 1 1 20rem;\n}\n");
+    $mol_style_attach("mol/form/group/group.view.css", "[mol_form_group] {\n\tflex-wrap: wrap;\n}\n\n[mol_form_group] > * {\n\tflex: 1 1 18rem;\n}\n");
 })($ || ($ = {}));
 //mol/form/group/-css/group.view.css.ts
 ;
