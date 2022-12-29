@@ -103,35 +103,6 @@ $mol_button_typed $mol_button
 	minimal_height 40
 	minimal_width 40
 
-$mol_svg $mol_view
-	dom_name \svg
-	dom_name_space \http://www.w3.org/2000/svg
-	font_size 16
-	font_family \
-	style_size *
-
-$mol_svg_root $mol_svg
-	dom_name \svg
-	attr *
-		^
-		viewBox <= view_box \0 0 100 100
-		preserveAspectRatio <= aspect \xMidYMid
-
-$mol_svg_path $mol_svg
-	dom_name \path
-	attr *
-		^
-		d <= geometry \
-
-
-$mol_icon $mol_svg_root
-	view_box \0 0 24 24
-	minimal_width 16
-	minimal_height 16
-	sub /
-		<= Path $mol_svg_path
-			geometry <= path \
-
 $mol_button_minor $mol_button_typed
 
 $mol_check $mol_button_minor
@@ -189,6 +160,35 @@ $mol_string $mol_view
 	plugins /
 		<= Submit $mol_hotkey
 			key * enter?event <=> submit?event null
+
+$mol_svg $mol_view
+	dom_name \svg
+	dom_name_space \http://www.w3.org/2000/svg
+	font_size 16
+	font_family \
+	style_size *
+
+$mol_svg_root $mol_svg
+	dom_name \svg
+	attr *
+		^
+		viewBox <= view_box \0 0 100 100
+		preserveAspectRatio <= aspect \xMidYMid
+
+$mol_svg_path $mol_svg
+	dom_name \path
+	attr *
+		^
+		d <= geometry \
+
+
+$mol_icon $mol_svg_root
+	view_box \0 0 24 24
+	minimal_width 16
+	minimal_height 16
+	sub /
+		<= Path $mol_svg_path
+			geometry <= path \
 
 $mol_icon_dots_vertical $mol_icon path \M12,16C13.1,16 14,16.9 14,18C14,19.1 13.1,20 12,20C10.9,20 10,19.1 10,18C10,16.9 10.9,16 12,16M12,10C13.1,10 14,10.9 14,12C14,13.1 13.1,14 12,14C10.9,14 10,13.1 10,12C10,10.9 10.9,10 12,10M12,4C13.1,4 14,4.9 14,6C14,7.1 13.1,8 12,8C10.9,8 10,7.1 10,6C10,4.9 10.9,4 12,4Z
 
@@ -524,13 +524,15 @@ $mol_text_code_token_link $mol_text_code_token
 	type \code-link
 	attr *
 		^
-		href <= haystack \
+		href <= uri \
 		target \_blank
 
 $mol_text_code_row $mol_paragraph
 	text \
 	minimal_height 24
 	numb_showed true
+	syntax null
+	uri_resolve* \
 	Numb $mol_view
 		sub /
 			<= numb 0
@@ -541,6 +543,7 @@ $mol_text_code_row $mol_paragraph
 	Token_link* $mol_text_code_token_link
 		haystack <= token_text* \
 		needle <= highlight \
+		uri <= token_uri* \
 	find_pos* null
 
 $mol_icon_content_copy $mol_icon path \M19,21H8V7H19M19,5H8C6.9,5 6,5.9 6,7V21C6,22.1 6.9,23 8,23H19C20.1,23 21,22.1 21,21V7C21,5.9 20.1,5 19,5M16,1H4C2.9,1 2,1.9 2,3V17H4V3H16V1Z
@@ -557,6 +560,7 @@ $mol_text_code $mol_stack
 	text \
 	text_lines /string
 	find_pos* null
+	uri_base \
 	sub /
 		<= Rows $mol_list
 			render_visible_only <= render_visible_only false
@@ -565,6 +569,8 @@ $mol_text_code $mol_stack
 					numb_showed <= sidebar_showed
 					numb <= row_numb* 0
 					text <= row_text* \
+					syntax <= syntax null
+					uri_resolve* <= uri_resolve* \
 					highlight <= highlight \
 		<= Copy $mol_button_copy
 			hint @ \Copy whole code
@@ -626,6 +632,7 @@ $mol_calendar $mol_list
 		<= Weekdays $mol_hor
 			sub <= weekdays /$mol_view
 	weeks /$mol_view
+	weeks_count 6
 	-
 	Weekday* $mol_calendar_day
 		holiday <= weekend* false
