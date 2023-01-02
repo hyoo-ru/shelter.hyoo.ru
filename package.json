@@ -138,6 +138,7 @@
     "$hyoo_shelter_auth",
     "$mol_page",
     "$mol_hotkey",
+    "$mol_keyboard_code",
     "$mol_keyboard",
     "$mol_select",
     "$mol_pick",
