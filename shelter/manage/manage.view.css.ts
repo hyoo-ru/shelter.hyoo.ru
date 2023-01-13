@@ -11,12 +11,7 @@ namespace $ {
 
 	$mol_style_define( $hyoo_shelter_shelter_manage , {
 		
-		Filter_list: {
-			padding: $mol_gap.block,
-		},
-
 		Summaries: {
-			padding: $mol_gap.block,
 			flex: {
 				wrap: 'wrap',
 			},
@@ -46,10 +41,6 @@ namespace $ {
 				basis: rem(40),
 				shrink: 0,
 			},
-		},
-		
-		Animal_list: {
-			padding: $mol_gap.block,
 		},
 		
 		Animal_edit: {

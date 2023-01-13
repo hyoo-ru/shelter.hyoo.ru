@@ -4,10 +4,6 @@ namespace $ {
 
 	$mol_style_define( $hyoo_shelter_animal_edit , {
 		
-		Body: {
-			padding: 0,
-		},
-
 		Weight: {
 			String: {
 				textAlign: 'left',
