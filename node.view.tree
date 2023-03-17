@@ -9,6 +9,7 @@ $mol_scroll $mol_view
 		scroll?event <=> event_scroll?event null
 
 $mol_book2 $mol_scroll
+	menu_title \
 	sub <= pages /$mol_view
 	minimal_width 0
 	Placeholder $mol_view
@@ -51,6 +52,7 @@ $mol_pop $mol_view
 	showed?val false
 	align_vert \
 	align_hor \
+	prefer \vert
 	sub /
 		<= Anchor null
 	sub_visible /
@@ -60,7 +62,7 @@ $mol_pop $mol_view
 			content <= bubble_content /$mol_view_content
 			height_max <= height_max 9999
 
-$mol_pop_bubble $mol_scroll
+$mol_pop_bubble $mol_view
 	sub <= content /$mol_view_content
 	style *
 		^
@@ -129,6 +131,7 @@ $mol_pick $mol_pop
 		enabled <= trigger_enabled true
 		checked?val <=> showed?val
 		sub <= trigger_content /$mol_view_content
+			<= title
 		hint <= hint \
 
 $mol_string $mol_view
@@ -151,6 +154,7 @@ $mol_string $mol_view
 		selectionEnd <= selection_end 0
 		selectionStart <= selection_start 0
 		inputMode <= keyboard \text
+		enterkeyhint <= enter \go
 	attr *
 		^
 		maxlength <= length_max +Infinity
@@ -160,6 +164,7 @@ $mol_string $mol_view
 		input?event <=> event_change?event null
 	plugins /
 		<= Submit $mol_hotkey
+			mod_ctrl <= submit_with_ctrl false
 			key * enter?event <=> submit?event null
 
 $mol_svg $mol_view
@@ -266,8 +271,9 @@ $mol_select $mol_pick
 	hint @ \Pick..
 	bubble_content /
 		<= Filter
-		<= Menu $mol_list
-			rows <= menu_content /$mol_view
+		<= Bubble_pane $mol_scroll sub /
+			<= Menu $mol_list
+				rows <= menu_content /$mol_view
 	Filter $mol_string
 		value?val <=> filter_pattern?val \
 		hint @ \Filter..
@@ -460,7 +466,10 @@ $mol_icon_plus $mol_icon path \M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z
 $mol_number $mol_view
 	precision_view <= precision 1
 	precision_change <= precision 1
-	value?val +NaN
+	value_min -Infinity
+	value_max +Infinity
+	value? +NaN
+	enabled true
 	sub /
 		<= String $mol_string
 			- \ we don't want native number controls in mobile devices
@@ -468,14 +477,14 @@ $mol_number $mol_view
 			type <= type \tel
 			value?val <=> value_string?val \
 			hint <= hint \ 
-			enabled <= string_enabled <= enabled true
+			enabled <= string_enabled <= enabled
 		<= Dec $mol_button_minor
-			event_click?val <=> event_dec?val null
-			enabled <= dec_enabled <= enabled true
+			event_click? <=> event_dec? null
+			enabled <= dec_enabled <= enabled
 			sub / <= dec_icon $mol_icon_minus
 		<= Inc $mol_button_minor
-			event_click?val <=> event_inc?val null
-			enabled <= inc_enabled <= enabled true
+			event_click? <=> event_inc? null
+			enabled <= inc_enabled <= enabled
 			sub / <= inc_icon $mol_icon_plus
 
 $mol_icon_cross $mol_icon path \M19 6.41L17.59 5L12 10.59L6.41 5L5 6.41L10.59 12L5 17.59L6.41 19L12 13.41L17.59 19L19 17.59L13.41 12L19 6.41Z
@@ -499,6 +508,8 @@ $mol_search $mol_pop
 				hint <= hint @ \Search...
 				submit?event <=> submit?event null
 				enabled <= enabled true
+				keyboard <= keyboard \search
+				enter <= enter \search
 				bring => bring
 			<= Clear $mol_button_minor
 				hint @ \Clear
@@ -554,7 +565,7 @@ $mol_icon_clipboard $mol_icon path \M19,3H14.82C14.4,1.84 13.3,1 12,1C10.7,1 9.6
 $mol_icon_clipboard_outline $mol_icon path \M19,3H14.82C14.4,1.84 13.3,1 12,1C10.7,1 9.6,1.84 9.18,3H5C3.9,3 3,3.9 3,5V19C3,20.1 3.9,21 5,21H19C20.1,21 21,20.1 21,19V5C21,3.9 20.1,3 19,3M12,3C12.55,3 13,3.45 13,4C13,4.55 12.55,5 12,5C11.45,5 11,4.55 11,4C11,3.45 11.45,3 12,3M7,7H17V5H19V19H5V5H7V7Z
 
 $mol_button_copy $mol_button_minor
-	text \
+	text <= title \
 	sub /
 		<= Icon $mol_icon_clipboard_outline
 		<= title \
@@ -600,6 +611,8 @@ $mol_textarea $mol_stack
 			length_max <= length_max +Infinity
 			selection?val <=> selection?val /number
 			bring => bring
+			submit? <=> submit? null
+			submit_with_ctrl true
 		<= View $mol_text_code
 			text <= value
 			render_visible_only false
@@ -647,11 +660,14 @@ $mol_textarea $mol_stack
 
 $mol_textarea_edit $mol_string
 	dom_name \textarea
+	enter \enter
 	field *
 		^
 		scrollTop 0
 
 $mol_icon_calendar $mol_icon path \M19,19H5V8H19M16,1V3H8V1H6V3H5C3.89,3 3,3.89 3,5V19C3,20.1 3.9,21 5,21H19C20.1,21 21,20.1 21,19V5C21,3.89 20.1,3 19,3H18V1M17,12H12V17H17V12Z
+
+$mol_icon_calendar_today $mol_icon path \M7,10H12V15H7M19,19H5V8H19M19,3H18V1H16V3H8V1H6V3H5C3.89,3 3,3.9 3,5V19C3,20.1 3.9,21 5,21H19C20.1,21 21,20.1 21,19V5C21,3.9 20.1,3 19,3Z
 
 $mol_format $mol_string
 	allow \0123456789
@@ -691,7 +707,7 @@ $mol_calendar $mol_list
 		ghost <= day_ghost* false
 		holiday <= day_holiday* false
 		selected <= day_selected* false
-		theme <= day_theme* \
+		theme <= day_theme* null
 		sub <= day_content* /
 			<= day_text* \
 	-
@@ -705,16 +721,28 @@ $mol_calendar_day $mol_view
 		mol_calendar_holiday <= holiday false
 		mol_calendar_ghost <= ghost false
 		mol_calendar_selected <= selected false
-		mol_theme <= theme \
+		mol_theme <= theme null
 
 $mol_date $mol_pick
 	Icon $mol_icon_calendar
 	-
 	bubble_content /
-		<= Input $mol_format
-			value?val <=> value?val \
-			mask* <= input_mask* \
-			enabled <= enabled true
+		<= Input_row $mol_view sub <= input_content /
+			<= Today $mol_button_minor
+				hint @ \Today
+				enabled <= today_enabled true
+				click?event <=> today_click?event null
+				sub /
+					<= Today_icon $mol_icon_calendar_today
+			<= Input $mol_format
+				value?val <=> value?val \
+				mask* <= input_mask* \
+				enabled <= enabled true
+			<= Clear $mol_button_minor
+				hint @ \Clear
+				click?event <=> clear?event null
+				sub /
+					<= Clear_icon $mol_icon_cross
 		<= Calendar $mol_date_calendar
 			month_moment <= month_moment <= value_moment
 			day_selected* <= day_selected* false
