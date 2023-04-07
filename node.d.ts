@@ -1820,14 +1820,16 @@ declare namespace $ {
     class $mol_check extends $mol_button_minor {
         attr(): {
             mol_check_checked: boolean;
-            "aria-checked": boolean;
+            "aria-checked": string;
             role: string;
             disabled: boolean;
             tabindex: number;
             title: string;
         };
         sub(): readonly $mol_view_content[];
-        checked(val?: any): boolean;
+        checked(next?: any): boolean;
+        aria_checked(): string;
+        aria_role(): string;
         Icon(): any;
         title(): string;
         Title(): $mol_view;
@@ -1847,6 +1849,7 @@ declare namespace $.$$ {
         click(next?: Event): void;
         sub(): readonly $mol_view_content[];
         label(): readonly any[];
+        aria_checked(): string;
     }
 }
 
@@ -2622,12 +2625,30 @@ declare namespace $ {
             decoding: string;
             crossOrigin: any;
         };
+        attr(): {
+            width: number;
+            height: number;
+        };
+        event(): {
+            load: (next?: any) => any;
+        };
         minimal_width(): number;
         minimal_height(): number;
         uri(): string;
         loading(): string;
         decoding(): string;
         cors(): any;
+        natural_width(next?: any): number;
+        natural_height(next?: any): number;
+        load(next?: any): any;
+    }
+}
+
+declare namespace $.$$ {
+    class $mol_image extends $.$mol_image {
+        natural_width(next?: null): number;
+        natural_height(next?: null): number;
+        load(): void;
     }
 }
 
@@ -2646,7 +2667,7 @@ declare namespace $ {
         attach_new(val?: any): any;
         item_drop(id: any, event?: any): any;
         item_uri(id: any): string;
-        Image(id: any): $mol_image;
+        Image(id: any): $$.$mol_image;
     }
 }
 
