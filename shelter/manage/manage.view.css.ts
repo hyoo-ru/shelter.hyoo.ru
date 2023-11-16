@@ -22,6 +22,7 @@ namespace $ {
 			flex: {
 				wrap: 'wrap',
 			},
+			width: 'fit-content',
 		},
 
 		Summary_title: {
