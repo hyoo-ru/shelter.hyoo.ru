@@ -25,12 +25,12 @@ $hyoo_shelter_animal_edit $mol_page
 						enabled <= enabled
 				<= Card_field $mol_form_field
 					name \Номер карточки
-					Content <= Сard $mol_string
+					Content <= Card $mol_string
 						value?val <=> card?val \
 						enabled <= enabled
 				<= Chip_field $mol_form_field
 					name \Номер чипа
-					Content <= Сhip $mol_string
+					Content <= Chip $mol_string
 						value?val <=> chip?val \
 						enabled <= enabled
 				<= Cage_field $mol_form_field
