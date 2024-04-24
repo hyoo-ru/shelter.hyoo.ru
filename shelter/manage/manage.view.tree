@@ -77,7 +77,7 @@ $hyoo_shelter_shelter_manage $mol_book2
 			<= Close!id $mol_link
 				arg * animal null
 				sub /
-					<= Close_icon!id $mol_icon_cross
+					<= Close_icon!id $mol_icon_close
 		animal <= animal!id
 	-
 	Animal_card!id $hyoo_shelter_animal_card
