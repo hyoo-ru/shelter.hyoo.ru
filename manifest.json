@@ -1,0 +1,10 @@
+{
+	"name": "hyoo_shelter",
+	"short_name": "hyoo_shelter",
+	"description": "",
+	"id": "hyoo_shelter",
+	"start_url": ".",
+	"display": "standalone",
+	"background_color": "#000000",
+	"theme_color": "#000000"
+}
