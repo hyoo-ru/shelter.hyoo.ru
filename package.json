@@ -136,6 +136,8 @@
     "$mol_fetch",
     "$mol_rest_code",
     "$mol_rest",
+    "$mol_error_enriched",
+    "$mol_error_fence",
     "$mol_dom_parse",
     "$mol_book2",
     "$mol_scroll",
