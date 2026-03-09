@@ -489,9 +489,13 @@ declare namespace $ {
 }
 
 declare namespace $ {
+    function $mol_wire_solid(): void;
+}
+
+declare namespace $ {
     class $mol_store<Data> extends $mol_object2 {
-        data_default?: Data | undefined;
-        constructor(data_default?: Data | undefined);
+        data_default: Data;
+        constructor(data_default?: Data);
         data(next?: Data): NonNullable<Data> | (Data & null);
         snapshot(next?: string): string;
         value<Key extends keyof Data>(key: Key, next?: Data[Key]): Data[Key] & {};
@@ -693,10 +697,6 @@ declare namespace $ {
 }
 
 declare namespace $ {
-}
-
-declare namespace $ {
-    function $mol_wire_solid(): void;
 }
 
 declare namespace $ {
