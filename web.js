@@ -1008,6 +1008,12 @@ var $;
         // [ Symbol.toPrimitive ]() {
         // 	return this.toString()
         // }
+        match(...args) {
+            return this.toString().match(...args);
+        }
+        split(...args) {
+            return this.toString().split(...args);
+        }
         toString() {
             return this.join('\n');
         }
