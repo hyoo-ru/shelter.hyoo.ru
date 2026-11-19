@@ -3848,6 +3848,13 @@ var $;
 "use strict";
 var $;
 (function ($) {
+    $.$mol_mem_persist = $mol_wire_solid;
+})($ || ($ = {}));
+
+;
+"use strict";
+var $;
+(function ($) {
     /** State of time moment */
     class $mol_state_time extends $mol_object {
         static task(precision, reset) {
@@ -3881,6 +3888,7 @@ var $;
             return true;
         }
         static stats() {
+            $mol_mem_persist();
             $mol_state_time.now(1000);
             return $node.fs.statfsSync('.');
         }

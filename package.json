@@ -115,6 +115,7 @@
     "$mol_env",
     "$mol_wire_sync",
     "$mol_storage",
+    "$mol_mem_persist",
     "$mol_state_time",
     "$mol_file",
     "$mol_file_base",

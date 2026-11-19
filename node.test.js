@@ -3839,6 +3839,13 @@ var $;
 "use strict";
 var $;
 (function ($) {
+    $.$mol_mem_persist = $mol_wire_solid;
+})($ || ($ = {}));
+
+;
+"use strict";
+var $;
+(function ($) {
     /** State of time moment */
     class $mol_state_time extends $mol_object {
         static task(precision, reset) {
@@ -3872,6 +3879,7 @@ var $;
             return true;
         }
         static stats() {
+            $mol_mem_persist();
             $mol_state_time.now(1000);
             return $node.fs.statfsSync('.');
         }
@@ -19385,6 +19393,18 @@ var $;
             const restored = new $mol_time_moment(moment.toArray());
             $mol_assert_equal(restored.offset?.count('PT1m'), 0);
         },
+    });
+})($ || ($ = {}));
+
+;
+"use strict";
+var $;
+(function ($) {
+    $mol_test({
+        async 'storage level'() {
+            // prevent async in tests
+            await $mol_wire_async($mol_storage).level();
+        }
     });
 })($ || ($ = {}));
 
